@@ -5,15 +5,67 @@
   
 
   
-  <title>Hexo</title>
+  <title>dubbo | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="分布式系统是若干个独立计算机的集合  dubbo可以管理分布式系统使其有条不紊的运行 RPC概念  原理 ​     ​     环境搭建注册中心zookeeper下载zookeeper 解压 bin目录下zkCli.cmd是客户端 zkServer.cmd是服务端 点击启动  管理控制台dubbo-admin-0.0.1-SNAPSHOT.jar 在github上下载dubbo-admin压缩包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dubbo">
+<meta property="og:url" content="http://example.com/2020/10/03/dubbo/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="分布式系统是若干个独立计算机的集合  dubbo可以管理分布式系统使其有条不紊的运行 RPC概念  原理 ​     ​     环境搭建注册中心zookeeper下载zookeeper 解压 bin目录下zkCli.cmd是客户端 zkServer.cmd是服务端 点击启动  管理控制台dubbo-admin-0.0.1-SNAPSHOT.jar 在github上下载dubbo-admin压缩包">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/picture.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003085614338.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003085644500.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003101002534.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003102539890.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003113328742.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003113350737.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003113208831.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003125107091.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003132621672.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003134807033.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003134817116.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003144855619.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003144528060.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003145015126.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003160554779.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003160612955.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003161355501.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003161421552.png">
+<meta property="og:image" content="https://img-blog.csdn.net/20180505100759686?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1OTI2NDkyNjQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003162151252.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003162133422.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003214740431.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201003215858136.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005074539130.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005074704258.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005075137450.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005080404592.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005080448146.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005080500196.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005081447160.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005082351738.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005082615417.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005082847044.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005082906629.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005083232665.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005083339198.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005083836390.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005083845336.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005093234276.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005093326087.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005093336789.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005093731718.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005093817312.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005094012294.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005100352842.png">
+<meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005100816469.png">
+<meta property="article:published_time" content="2020-10-03T00:28:00.000Z">
+<meta property="article:modified_time" content="2020-10-05T02:35:04.192Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/10/03/dubbo/picture.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -62,9 +114,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-dubbo" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-dubbo" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/10/03/dubbo/" class="article-date">
   <time datetime="2020-10-03T00:28:00.000Z" itemprop="datePublished">2020-10-03</time>
@@ -77,8 +127,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/03/dubbo/">dubbo</a>
+    <h1 class="article-title" itemprop="name">
+      dubbo
     </h1>
   
 
@@ -195,212 +245,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Gradle" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/02/Gradle/" class="article-date">
-  <time datetime="2020-10-02T08:54:44.000Z" itemprop="datePublished">2020-10-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/02/Gradle/">Gradle</a>
-    </h1>
+    <a href="/2020/10/02/Gradle/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Gradle</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>安装：下载解压后 配置环境变量 GRADLE_HOME</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/10/02/Gradle/" data-id="ckfvx9e2n0001o8wc5kub0ypi" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-MyBatisPlus" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/09/29/MyBatisPlus/" class="article-date">
-  <time datetime="2020-09-29T01:58:27.000Z" itemprop="datePublished">2020-09-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/29/MyBatisPlus/">MyBatisPlus</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>官方文档：<a target="_blank" rel="noopener" href="https://baomidou.com/guide/">https://baomidou.com/guide/</a>!</p>
-<h1 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h1><p>根据 ‘快速开始’ 创建一个项目：mybatisplus导入jar包 编写配置文件配置数据库和日志 </p>
-<h1 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h1><h2 id="雪花算法"><a href="#雪花算法" class="headerlink" title="雪花算法"></a>雪花算法</h2><p>分布式系统唯一id生成:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/haoxinyue/p/5208136.html">https://www.cnblogs.com/haoxinyue/p/5208136.html</a></p>
-<p>snowflake是Twitter开源的分布式ID生成算法，结果是一个long型的ID。其核心思想是：使用41bit作为毫秒数，10bit作为机器的ID（5个bit是数据中心，5个bit的机器ID），12bit作为毫秒内的流水号（意味着每个节点在每毫秒可以产生 4096 个 ID），最后还有一个符号位，永远是0。</p>
-<h2 id="TableId"><a href="#TableId" class="headerlink" title="@TableId@"></a>@TableId@</h2><p>IdType的五种类型：默认使用ID_WORKER</p>
-<p><img src="/2020/09/29/MyBatisPlus/picture1.png"></p>
-<h1 id="自动填充处理"><a href="#自动填充处理" class="headerlink" title="自动填充处理"></a>自动填充处理</h1><p>为数据库增加两个字段：createTime , updateTime</p>
-<p>要想每次改动数据的时候在不改动数据库的情况下更新updateTime 要使用自动填充处理</p>
-<p><img src="/2020/09/29/MyBatisPlus/image-20200929140911315.png" alt="image-20200929140911315"></p>
-<p>编写处理器</p>
-<p><img src="/2020/09/29/MyBatisPlus/image-20200929140945423.png" alt="image-20200929140945423"></p>
-<h1 id="乐观锁处理"><a href="#乐观锁处理" class="headerlink" title="乐观锁处理"></a>乐观锁处理</h1><p>乐观锁和悲观锁</p>
-<p><img src="/2020/09/29/MyBatisPlus/image-20200929141826733.png" alt="image-20200929141826733"></p>
-<p>乐观锁实现方式</p>
-<p>​    <img src="/2020/09/29/MyBatisPlus/image-20200929141852871.png" alt="image-20200929141852871"></p>
-<p>为表增加一个verison字段  为实体类上的version字段增加一个注解@version 并创建一个配置类注册组件</p>
-<p><img src="/2020/09/29/MyBatisPlus/image-20200929142342863.png" alt="image-20200929142342863"></p>
-<p>单线程下乐观锁会成功 但是多线程就会失败：下图中kuangshen222先更新 version改变 kuangshen111就会更新失败</p>
-<p><img src="/2020/09/29/MyBatisPlus/image-20200929142617924.png" alt="image-20200929142617924"></p>
-<p>​    </p>
-<h1 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h1><p>批量查询</p>
-<p><img src="/2020/09/29/MyBatisPlus/image-20200929143320577.png" alt="image-20200929143320577"></p>
-<p>条件查询map</p>
-<p>​    <img src="/2020/09/29/MyBatisPlus/image-20200929143614581.png" alt="image-20200929143614581"></p>
-<p>分页查询</p>
-<p>​    在配置类中添加分页插件</p>
-<p>​    <img src="/2020/09/29/MyBatisPlus/image-20200929145011277.png" alt="image-20200929145011277"></p>
-<p>​    <img src="/2020/09/29/MyBatisPlus/image-20200929144205836.png" alt="image-20200929144205836"></p>
-<h1 id="逻辑删除"><a href="#逻辑删除" class="headerlink" title="逻辑删除"></a>逻辑删除</h1><p>表中增加一个字段 isDeleted 实体类中为该字段添加一个注解@TableLogic</p>
-<p>在配置类中添加逻辑删除组件</p>
-<p><img src="/2020/09/29/MyBatisPlus/image-20200929145034277.png" alt="image-20200929145034277"></p>
-<p>在application.properties中进行配置</p>
-<p>​    <img src="/2020/09/29/MyBatisPlus/image-20200929145103453.png" alt="image-20200929145103453"></p>
-<p>执行deleteById测试 发现本质是执行了更新操作 把isDeleted字段从0改为1</p>
-<p>查询的时候会自动过滤被逻辑删除的字段</p>
-<p><img src="/2020/09/29/MyBatisPlus/image-20200929145430051.png" alt="image-20200929145430051"></p>
-<h1 id="性能分析插件"><a href="#性能分析插件" class="headerlink" title="性能分析插件"></a>性能分析插件</h1><p>作用：性能分析拦截器 用于输出每条sql语句及其执行时间</p>
-<p>在配置类中添加插件</p>
-<p><img src="/2020/09/29/MyBatisPlus/image-20200929153756376.png" alt="image-20200929153756376"></p>
-<h1 id="条件查询器Wrapper"><a href="#条件查询器Wrapper" class="headerlink" title="条件查询器Wrapper"></a>条件查询器Wrapper</h1><p>参考文档：<a target="_blank" rel="noopener" href="https://baomidou.com/guide/wrapper.html#abstractwrapper">https://baomidou.com/guide/wrapper.html#abstractwrapper</a></p>
-<p><img src="/2020/09/29/MyBatisPlus/image-20200929154932994.png" alt="image-20200929154932994"></p>
-<p>查询名字中不含e并且邮箱以t开头</p>
-<p><img src="/2020/09/29/MyBatisPlus/image-20200929155548407.png" alt="image-20200929155548407"></p>
-<p>子查询</p>
-<p><img src="/2020/09/29/MyBatisPlus/image-20200929155722390.png" alt="image-20200929155722390"></p>
-<h1 id="代码自动生成器"><a href="#代码自动生成器" class="headerlink" title="代码自动生成器"></a>代码自动生成器</h1><p><a target="_blank" rel="noopener" href="https://baomidou.com/guide/generator.html#%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B">https://baomidou.com/guide/generator.html#%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B</a></p>
-<p>​    </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/29/MyBatisPlus/" data-id="ckfnok13h0000j0wc5ctff1pg" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hexo博客无法显示图片解决方法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/09/29/hexo%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="article-date">
-  <time datetime="2020-09-29T01:32:50.000Z" itemprop="datePublished">2020-09-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/29/hexo%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">hexo博客无法显示图片解决方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>安装hexo-asset-image <code>npm install https://github.com/CodeFalling/hexo-asset-image --save</code></p>
-<p>安装后 用hexo创建文章就会多出一个同名文件夹 把图片放在这个文件夹中 使用 <code>![](同名文件夹/logo.jpg) </code>就可以插入图片 </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/29/hexo%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" data-id="ckfnaiqoq0000towcbvk79rsb" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ngrok" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/09/29/ngrok/" class="article-date">
-  <time datetime="2020-09-29T00:11:14.000Z" itemprop="datePublished">2020-09-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/29/ngrok/">ngrok</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>ngrok内网穿透：可以让别人访问自己电脑上的本地项目</p>
-<p>访问：<a target="_blank" rel="noopener" href="http://www.ngrok.cc/user.html">http://www.ngrok.cc/user.html</a></p>
-<p>开通免费隧道</p>
-<p>​    <img src="/2020/09/29/ngrok/picture1.png"></p>
-<p>下载客户端 启动 并填入隧道id</p>
-<p><img src="/2020/09/29/ngrok/picture2.png"></p>
-<p>这样访问<a target="_blank" rel="noopener" href="http://baobingjiang.free.idcfengye.com就可以访问到本地8100端口/">http://baobingjiang.free.idcfengye.com就可以访问到本地8100端口</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/29/ngrok/" data-id="ckfnaa1v10000hgwcecljc4w3" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         

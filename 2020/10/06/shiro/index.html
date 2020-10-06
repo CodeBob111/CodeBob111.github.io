@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>shiro | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="项目springboot_shiro shiro结构我们从外部来看 Shiro ，即从应用程序角度的来观察如何使用 Shiro 完成工作。如下图  Subject：主体，代表了当前 “用户”，这个用户不一定是一个具体的人，与当前应用交互的任何东西都Subject，如网络爬虫，机器人等；即一个抽象概念；所有 Subject 都绑定到 SecurityManager，与 Subject 的所有交互都会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shiro">
+<meta property="og:url" content="http://example.com/2020/10/06/shiro/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="项目springboot_shiro shiro结构我们从外部来看 Shiro ，即从应用程序角度的来观察如何使用 Shiro 完成工作。如下图  Subject：主体，代表了当前 “用户”，这个用户不一定是一个具体的人，与当前应用交互的任何东西都Subject，如网络爬虫，机器人等；即一个抽象概念；所有 Subject 都绑定到 SecurityManager，与 Subject 的所有交互都会">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181213154817949.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzE3ODc0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181213154830844.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzE3ODc0,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006161853536.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006153321421.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006162155299.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006162504250.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006162530557.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006162753478.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006162808378.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006163818864.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006175948173.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006180209044.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006181522290.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006181737847.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006182210324.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006182244423.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006183216157.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006183234292.png">
+<meta property="og:image" content="http://example.com/2020/10/06/shiro/image-20201006183309081.png">
+<meta property="article:published_time" content="2020-10-06T03:13:23.000Z">
+<meta property="article:modified_time" content="2020-10-06T10:57:10.837Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181213154817949.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzE3ODc0,size_16,color_FFFFFF,t_70">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-shiro" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/06/shiro/" class="article-date">
+  <time datetime="2020-10-06T03:13:23.000Z" itemprop="datePublished">2020-10-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      shiro
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目springboot_shiro</p>
+<h1 id="shiro结构"><a href="#shiro结构" class="headerlink" title="shiro结构"></a>shiro结构</h1><p>我们从外部来看 Shiro ，即从应用程序角度的来观察如何使用 Shiro 完成工作。如下图</p>
+<p><img src="https://img-blog.csdnimg.cn/20181213154817949.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzE3ODc0,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p><strong>Subject</strong>：主体，代表了当前 “用户”，这个用户不一定是一个具体的人，与当前应用交互的任何东西都Subject，如网络爬虫，机器人等；即一个抽象概念；所有 Subject 都绑定到 SecurityManager，与 Subject 的所有交互都会委托给 SecurityManager；可以把 Subject 认为是一个门面；SecurityManager 才是实际的执行者；</p>
+<p><strong>SecurityManager</strong>：安全管理器；即所有与安全有关的操作都会与 SecurityManager 交互；且它管理着所有 Subject；可以看出它是 Shiro 的核心，它负责与后边介绍的其他组件进行交互，如果学习过 SpringMVC，你可以把它看成 DispatcherServlet 前端控制器；</p>
+<p><strong>Realm</strong>：域，Shiro 从 Realm 获取安全数据（如用户、角色、权限），就是说 SecurityManager 要验证用户身份，那么它需要从 Realm 获取相应的用户进行比较以确定用户身份是否合法；也需要从 Realm 得到用户相应的角色 / 权限进行验证用户是否能进行操作；可以把 Realm 看成 DataSource，即安全数据源。</p>
+<p>也就是说对于我们而言，最简单的一个 Shiro 应用：</p>
+<ol>
+<li>应用代码通过 Subject 来进行认证和授权，而 Subject 又委托给 SecurityManager；</li>
+<li>我们需要给 Shiro 的 SecurityManager 注入 Realm，从而让 SecurityManager 能得到合法的用户及其权限进行判断。</li>
+</ol>
+<p>接下来我们来从 Shiro 内部来看下 Shiro 的架构，如下图所示：</p>
+<p><img src="https://img-blog.csdnimg.cn/20181213154830844.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxNzE3ODc0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><strong>Subject</strong>：主体，可以看到主体可以是任何可以与应用交互的 “用户”；</p>
+<p><strong>SecurityManager</strong>：相当于 SpringMVC 中的 DispatcherServlet 或者 Struts2 中的 FilterDispatcher；是 Shiro 的心脏；所有具体的交互都通过 SecurityManager 进行控制；它管理着所有 Subject、且负责进行认证和授权、及会话、缓存的管理。</p>
+<p><strong>Authenticator</strong>：认证器，负责主体认证的，这是一个扩展点，如果用户觉得 Shiro 默认的不好，可以自定义实现；其需要认证策略（Authentication Strategy），即什么情况下算用户认证通过了；</p>
+<p><strong>Authrizer</strong>：授权器，或者访问控制器，用来决定主体是否有权限进行相应的操作；即控制着用户能访问应用中的哪些功能；</p>
+<p><strong>Realm</strong>：可以有 1 个或多个 Realm，可以认为是安全实体数据源，即用于获取安全实体的；可以是 JDBC 实现，也可以是 LDAP 实现，或者内存实现等等；由用户提供；注意：Shiro 不知道你的用户 / 权限存储在哪及以何种格式存储；所以我们一般在应用中都需要实现自己的 Realm；</p>
+<p><strong>SessionManager</strong>：如果写过 Servlet 就应该知道 Session 的概念，Session 呢需要有人去管理它的生命周期，这个组件就是 SessionManager；而 Shiro 并不仅仅可以用在 Web 环境，也可以用在如普通的 JavaSE 环境、EJB 等环境；所有呢，Shiro 就抽象了一个自己的 Session 来管理主体与应用之间交互的数据；这样的话，比如我们在 Web 环境用，刚开始是一台 Web 服务器；接着又上了台 EJB 服务器；这时想把两台服务器的会话数据放到一个地方，这个时候就可以实现自己的分布式会话（如把数据放到 Memcached 服务器）；</p>
+<p><strong>SessionDAO</strong>：DAO 大家都用过，数据访问对象，用于会话的 CRUD，比如我们想把 Session 保存到数据库，那么可以实现自己的 SessionDAO，通过如 JDBC 写到数据库；比如想把 Session 放到 Memcached 中，可以实现自己的 Memcached SessionDAO；另外 SessionDAO 中可以使用 Cache 进行缓存，以提高性能；</p>
+<p><strong>CacheManager</strong>：缓存控制器，来管理如用户、角色、权限等的缓存的；因为这些数据基本上很少去改变，放到缓存中后可以提高访问的性能</p>
+<p><strong>Cryptography</strong>：密码模块，Shiro 提高了一些常见的加密组件用于如密码加密 / 解密的。</p>
+<h1 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h1><p>项目结构</p>
+<p><img src="/2020/10/06/shiro/image-20201006161853536.png" alt="image-20201006161853536"></p>
+<p>导入jar包</p>
+<p><img src="/2020/10/06/shiro/image-20201006153321421.png" alt="image-20201006153321421"></p>
+<p>自定义一个Realm类 </p>
+<p>​    <img src="/2020/10/06/shiro/image-20201006162155299.png" alt="image-20201006162155299"></p>
+<p>Realm：域，Shiro 从从 Realm 获取安全数据（如用户、角色、权限），就是说 SecurityManager 要验证用户身份，那么它需要从 Realm 获取相应的用户进行比较以确定用户身份是否合法；也需要从 Realm 得到用户相应的角色 / 权限进行验证用户是否能进行操作；可以把 Realm 看成 DataSource，即安全数据源。如我们之前的 ini 配置方式将使用 org.apache.shiro.realm.text.IniRealm。</p>
+<p>创建shiro配置类 并关联realm</p>
+<p>​    <img src="/2020/10/06/shiro/image-20201006162504250.png" alt="image-20201006162504250"></p>
+<p>​    <img src="/2020/10/06/shiro/image-20201006162530557.png" alt="image-20201006162530557"></p>
+<p>在shiroConfig中创建ShiroFilterFactoryBean 进行拦截管理</p>
+<p>​    <img src="/2020/10/06/shiro/image-20201006162753478.png" alt="image-20201006162753478"></p>
+<p><img src="/2020/10/06/shiro/image-20201006162808378.png" alt="image-20201006162808378"></p>
+<p>编写用户登录功能</p>
+<p>​    <img src="/2020/10/06/shiro/image-20201006163818864.png" alt="image-20201006163818864"></p>
+<h1 id="整合Mybatis"><a href="#整合Mybatis" class="headerlink" title="整合Mybatis"></a>整合Mybatis</h1><p>创建一个数据库shiro  创建一个表USER</p>
+<p>在application.properties中配置</p>
+<p><img src="/2020/10/06/shiro/image-20201006175948173.png"></p>
+<p>创建实体类user  创建mapper和对应的xml 创建UserService</p>
+<p>在UserRealm中增加认证逻辑</p>
+<p><img src="/2020/10/06/shiro/image-20201006180209044.png" alt="image-20201006180209044"></p>
+<h1 id="实现用户授权"><a href="#实现用户授权" class="headerlink" title="实现用户授权"></a>实现用户授权</h1><p>ShiroConfig</p>
+<p><img src="/2020/10/06/shiro/image-20201006181522290.png" alt="image-20201006181522290"></p>
+<p>UesrRealm</p>
+<p><img src="/2020/10/06/shiro/image-20201006181737847.png" alt="image-20201006181737847"></p>
+<p>管理数据库进行动态授权：为user增加一个字段perm</p>
+<p><img src="/2020/10/06/shiro/image-20201006182210324.png" alt="image-20201006182210324"></p>
+<p>修改授权逻辑</p>
+<p><img src="/2020/10/06/shiro/image-20201006182244423.png" alt="image-20201006182244423"></p>
+<h1 id="Thymeleaf整合shiro权限标签"><a href="#Thymeleaf整合shiro权限标签" class="headerlink" title="Thymeleaf整合shiro权限标签"></a>Thymeleaf整合shiro权限标签</h1><p>使不同权限的用户 看到的内容不同</p>
+<p>导入jar包</p>
+<p><img src="/2020/10/06/shiro/image-20201006183216157.png" alt="image-20201006183216157"></p>
+<p>在shiroConfig中配置ShiroDialect，用于thymeleaf和shiro标签配合使用</p>
+<p><img src="/2020/10/06/shiro/image-20201006183234292.png" alt="image-20201006183234292"></p>
+<p>修改test.html</p>
+<p><img src="/2020/10/06/shiro/image-20201006183309081.png" alt="image-20201006183309081"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/10/06/shiro/" data-id="ckfxumtzv000090wcbfd2b6qr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/10/06/SpringSecurity/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SpringSecurity</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/06/shiro/">shiro</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/06/SpringSecurity/">SpringSecurity</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/05/test/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/03/dubbo/">dubbo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

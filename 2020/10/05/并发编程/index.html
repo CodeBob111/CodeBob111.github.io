@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>并发编程 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="改笔记中所有代码都源于项目concurrent 线程基础知识并发和并行：并发是同一时间应对多件事情的能力 并行是同一时间动手做多件事情的能力，单核并发 多核既有并发又有并行 同步和异步：需要等待结果返回才能继续运行的是同步，不需要结果返回 就能继续运行的是异步  代码：case_java8.cn.itcast.n2  [@SLF4j的作用]: https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发编程">
+<meta property="og:url" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="改笔记中所有代码都源于项目concurrent 线程基础知识并发和并行：并发是同一时间应对多件事情的能力 并行是同一时间动手做多件事情的能力，单核并发 多核既有并发又有并行 同步和异步：需要等待结果返回才能继续运行的是同步，不需要结果返回 就能继续运行的是异步  代码：case_java8.cn.itcast.n2  [@SLF4j的作用]: https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005191950899.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005192959678.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005194054103.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005193152039.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005193157727.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005193744583.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005194729446.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005200252020.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005203947502.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005200809564.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005200828808.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005200844953.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005204031566.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005204210400.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005204229906.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005203824050.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005203912352.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005203924624.png">
+<meta property="article:published_time" content="2020-10-05T10:38:01.000Z">
+<meta property="article:modified_time" content="2020-10-06T01:16:27.433Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005191950899.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-并发编程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="article-date">
+  <time datetime="2020-10-05T10:38:01.000Z" itemprop="datePublished">2020-10-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      并发编程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>改笔记中所有代码都源于项目concurrent</p>
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p><strong>并发和并行</strong>：并发是同一时间应对多件事情的能力 并行是同一时间动手做多件事情的能力，单核并发 多核既有并发又有并行</p>
+<p><strong>同步和异步</strong>：需要等待结果返回才能继续运行的是同步，不需要结果返回 就能继续运行的是异步</p>
+<ul>
+<li><p>代码：case_java8.cn.itcast.n2</p>
+</li>
+<li><p>[@SLF4j的作用]: <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41291538/article/details/100694346">https://blog.csdn.net/weixin_41291538/article/details/100694346</a></p>
+</li>
+</ul>
+<ul>
+<li>@Slf4j :注解有个topic 属性可以进行设置要采用的logger，topic 的值是log的name 对应的就是logback.xml中定的logger name。root logger是默认就存在的。</li>
+</ul>
+<p><strong>线程上下文</strong>：线程上下文切换频繁会影响性能 以下一些原因导致cpu不在执行当前线程 转而执行另一个线程的代码</p>
+<ul>
+<li>线程的时间片用完</li>
+<li>垃圾回收</li>
+<li>有更高优先级的线程需要运行</li>
+<li>线程自己调用了sleep,yield,wait,join,park,synchronized,lock等方法</li>
+</ul>
+<p><strong>常见方法</strong></p>
+<p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005191950899.png" alt="image-20201005191950899"></p>
+<pre><code>* run启动线程后 执行run方法的依然是主线程 所以要想让新线程执行run方法要用start启动线程
+* ![image-20201005192824004](D:\log\source\_posts\并发编程\image-20201005192824004.png)</code></pre>
+<p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005192959678.png" alt="image-20201005192959678"></p>
+<ul>
+<li>TimeUint也可以用于让线程休眠 他的可读性更强 并且可以指定时间单位<code>TimeUnit.MICROSECONDS.sleep(100);</code></li>
+<li>Sleep会让线程从running转换为TIMED_WAITING状态 时间片会分配给就绪的线程 不会分配给阻塞的线程</li>
+</ul>
+<p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005194054103.png" alt="image-20201005194054103"></p>
+<ul>
+<li>Yield会让线程从running转换为Runnable状态 然后调度其他线程</li>
+</ul>
+<p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005193152039.png" alt="image-20201005193152039"></p>
+<p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005193157727.png" alt="image-20201005193157727"></p>
+<ul>
+<li>打断标记是一个bool值 成功打断为true</li>
+<li>interrupt打断park：park会挂起当前线程 当打断标记为真的时候park会失效</li>
+<li>这段代码中第二个park因为打断标记被设置为true而失效 会打印出”unpark…”<img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005193744583.png" alt="image-20201005193744583"></li>
+</ul>
+<p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005194729446.png" alt="image-20201005194729446"></p>
+<ul>
+<li>如果没有join 主进程结束后r才开始赋值 这样主进程获取不到r的值 使用join方法使主进程等待t1结束 在执行后面的代码<img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005200252020.png" alt="image-20201005200252020"> <img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005203947502.png" alt="image-20201005203947502"></li>
+<li>join可以传入一个long类型的值 表示等待的最长时间 单位为毫秒 如果线程提前结束 join也将结束</li>
+</ul>
+<p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005200809564.png" alt="image-20201005200809564"></p>
+<p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005200828808.png" alt="image-20201005200828808"></p>
+<p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005200844953.png" alt="image-20201005200844953"></p>
+<p><strong>过时的方法</strong></p>
+<p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005204031566.png" alt="image-20201005204031566"></p>
+<p><strong>线程状态</strong></p>
+<p>​    操作系统层面</p>
+<p>​    <img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005204210400.png" alt="image-20201005204210400"></p>
+<p>​    javaAPI层面</p>
+<p>​        <img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005204229906.png" alt="image-20201005204229906"></p>
+<pre><code>        *     sleep是有时间的等待阻塞类型是TIMED_WAITING join是无时间的等待 阻塞类型是WAITING </code></pre>
+<p><strong>状态转换</strong></p>
+<p>t线程用synchronized(obj)获取对象锁后</p>
+<p>RUNNABLE&lt;–&gt;WAITING</p>
+<ul>
+<li><p>调用obj.wait()方法使 t线程从RUNNABLE–&gt;WAITING</p>
+</li>
+<li><p>调用obj.notify(),obj.notifyAll(),t.interrupt()时</p>
+<ul>
+<li>竞争锁成功 ,t线程从WAITING–&gt;RUNNABLE</li>
+<li>竞争锁失败 ,t线程从WAITING–&gt;BOLCKED</li>
+</ul>
+</li>
+<li><p>当前线程调用t.join() 从RUNNABLE–&gt;WAITING 在t线程对象的监视器上等待</p>
+</li>
+<li><p>当前线程调用LockSupport.park()方法会让当前线程从RUNNABLE–&gt;WAITING</p>
+</li>
+<li><p>调用LockSupport.unpark(目标线程)或调用线程的interrupt() 会让线程从WAITING–&gt;RUNNABLE</p>
+</li>
+</ul>
+<p>RUNNABLE&lt;–&gt;TIMED_WAITING</p>
+<ul>
+<li><p>调用obj.wait(long n)方法使 t线程从RUNNABLE–&gt;TIMED_WAITING</p>
+</li>
+<li><p>t线程等待时间超过了n毫秒或调用obj.notify(),obj.notifyAll(),t.interrupt()时</p>
+<ul>
+<li>竞争锁成功 ,t线程从TIMED_WAITING–&gt;RUNNABLE</li>
+<li>竞争锁失败 ,t线程从TIMED_WAITING–&gt;BOLCKED</li>
+</ul>
+</li>
+<li><p>当前线程调用t.join(long n) 从RUNNABLE–&gt;TIMED_WAITING 在t线程对象的监视器上等待</p>
+</li>
+<li></li>
+</ul>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p>两阶段终止模式：t1终止t2之前 给t2一个料理后事的机会</p>
+<p>实现</p>
+<p>​    <img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005203824050.png" alt="image-20201005203824050">R</p>
+<pre><code>* 如果不重新设置标记 当抛出异常后会清除打断标记 使循环继续执行下去</code></pre>
+<p>调用</p>
+<p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005203912352.png" alt="image-20201005203912352"></p>
+<p>结果</p>
+<p>​    <img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005203924624.png" alt="image-20201005203924624"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" data-id="ckfxumtzy000190wcfqfa4gdo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/10/06/SpringSecurity/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SpringSecurity
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/10/05/test/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/06/shiro/">shiro</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/06/SpringSecurity/">SpringSecurity</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/05/test/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/03/dubbo/">dubbo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -7,17 +7,27 @@
   
   <title>Gradle | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="安装：下载解压后 配置环境变量 GRADLE_HOME">
+  <meta name="description" content="gradle配置安装：下载解压后 配置环境变量 GRADLE_HOME  * Gradle user home 是gradle仓库路径可以指定maven仓库 * Use Gradle from 是gradle安装目录 仓库配置  配置环境变量 使默认使用自己的maven仓库  groovy语法参考博客：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;e8dec95c4326   创建web工程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gradle">
 <meta property="og:url" content="http://example.com/2020/10/02/Gradle/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="安装：下载解压后 配置环境变量 GRADLE_HOME">
+<meta property="og:description" content="gradle配置安装：下载解压后 配置环境变量 GRADLE_HOME  * Gradle user home 是gradle仓库路径可以指定maven仓库 * Use Gradle from 是gradle安装目录 仓库配置  配置环境变量 使默认使用自己的maven仓库  groovy语法参考博客：https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;e8dec95c4326   创建web工程">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2020/10/02/Gradle/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20201005104411138.png">
+<meta property="og:image" content="http://example.com/2020/10/02/Gradle/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20201005112650898.png">
+<meta property="og:image" content="http://example.com/2020/10/02/Gradle/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20201005112017438.png">
+<meta property="og:image" content="http://example.com/2020/10/02/Gradle/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20201005105301348.png">
+<meta property="og:image" content="http://example.com/2020/10/02/Gradle/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20201005110619584.png">
+<meta property="og:image" content="http://example.com/2020/10/02/Gradle/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20201005121958700.png">
+<meta property="og:image" content="http://example.com/2020/10/02/Gradle/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20201005122718130.png">
+<meta property="og:image" content="http://example.com/2020/10/02/Gradle/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20201005123707528.png">
+<meta property="og:image" content="http://example.com/2020/10/02/Gradle/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20201005123900977.png">
 <meta property="article:published_time" content="2020-10-02T08:54:44.000Z">
-<meta property="article:modified_time" content="2020-10-03T00:19:59.979Z">
+<meta property="article:modified_time" content="2020-10-05T04:41:11.283Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/10/02/Gradle/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20201005104411138.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -88,7 +98,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>安装：下载解压后 配置环境变量 GRADLE_HOME</p>
+        <h1 id="gradle配置"><a href="#gradle配置" class="headerlink" title="gradle配置"></a>gradle配置</h1><p>安装：下载解压后 配置环境变量 GRADLE_HOME</p>
+<p><img src="/2020/10/02/Gradle/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20201005104411138.png" alt="image-20201005104411138"></p>
+<pre><code>* Gradle user home 是gradle仓库路径可以指定maven仓库
+* Use Gradle from 是gradle安装目录</code></pre>
+<p>仓库配置</p>
+<p><img src="/2020/10/02/Gradle/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20201005112650898.png" alt="image-20201005112650898"></p>
+<p>配置环境变量 使默认使用自己的maven仓库</p>
+<p><img src="/2020/10/02/Gradle/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20201005112017438.png" alt="image-20201005112017438"></p>
+<h1 id="groovy语法"><a href="#groovy语法" class="headerlink" title="groovy语法"></a>groovy语法</h1><p>参考博客：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e8dec95c4326">https://www.jianshu.com/p/e8dec95c4326</a></p>
+<p><img src="/2020/10/02/Gradle/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20201005105301348.png" alt="image-20201005105301348"></p>
+<p><img src="/2020/10/02/Gradle/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20201005110619584.png" alt="image-20201005110619584"></p>
+<h1 id><a href="#" class="headerlink" title></a></h1><h1 id="创建web工程"><a href="#创建web工程" class="headerlink" title="创建web工程"></a>创建web工程</h1><p>创建一个webapp文件夹 然后在build.gradle中配置</p>
+<p><img src="/2020/10/02/Gradle/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20201005121958700.png" alt="image-20201005121958700"></p>
+<p>导入依赖</p>
+<p><img src="/2020/10/02/Gradle/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20201005122718130.png" alt="image-20201005122718130"></p>
+<h1 id="工程的拆分和聚合"><a href="#工程的拆分和聚合" class="headerlink" title="工程的拆分和聚合"></a>工程的拆分和聚合</h1><p>需要把设置放到allprojects中 子模块才能使用 </p>
+<p><img src="/2020/10/02/Gradle/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20201005123707528.png" alt="image-20201005123707528"></p>
+<p>子模块只配置自己额为需要的就可以了</p>
+<p><img src="/2020/10/02/Gradle/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20201005123900977.png" alt="image-20201005123900977"></p>
 
       
     </div>
@@ -151,23 +179,23 @@
       <ul>
         
           <li>
+            <a href="/2020/10/06/shiro/">shiro</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/06/SpringSecurity/">SpringSecurity</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/05/test/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2020/10/03/dubbo/">dubbo</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/02/Gradle/">Gradle</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/29/MyBatisPlus/">MyBatisPlus</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/29/hexo%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">hexo博客无法显示图片解决方法</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/29/ngrok/">ngrok</a>
           </li>
         
       </ul>

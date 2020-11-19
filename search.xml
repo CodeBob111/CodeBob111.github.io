@@ -156,21 +156,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/2020/11/08/debugDockerWeb/</url>
-    <content><![CDATA[<p>centos 7 docker 启动一个web服务的时候 启动报错</p>
-<p>WARNING: IPv4 forwarding is disabled. Networking will not work.</p>
-<p>在宿主机上修改配置文件 <code>/usr/lib/sysctl.d/00-system.conf</code> 追加  <code>net.ipv4.ip_forward=1</code></p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">echo <span class="string">&quot;net.ipv4.ip_forward=1&quot;</span> &gt;&gt;<span class="regexp">/usr/</span>lib<span class="regexp">/sysctl.d/</span><span class="number">00</span>-system.conf</span><br></pre></td></tr></table></figure>
-
-<p>重启network和docker服务</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">systemctl restart<span class="built_in"> network </span>&amp;&amp; systemctl restart docker</span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-  </entry>
-  <entry>
     <title>dubbo</title>
     <url>/2020/10/03/dubbo/</url>
     <content><![CDATA[<p>分布式系统是若干个独立计算机的集合  dubbo可以管理分布式系统使其有条不紊的运行</p>

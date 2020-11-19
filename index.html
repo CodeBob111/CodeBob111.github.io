@@ -136,7 +136,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">19</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">18</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -643,92 +643,6 @@
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="constructor">DecimalFormat(<span class="string">&quot;0&quot;</span>)</span>.format(<span class="keyword">val</span>);</span><br></pre></td></tr></table></figure>
 
 <h1 id="Generate"><a href="#Generate" class="headerlink" title="Generate"></a>Generate</h1>
-      
-    </div>
-
-    
-    
-    
-
-	<div>
-	  
-	</div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/08/debugDockerWeb/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="鲍炳江">
-      <meta itemprop="description" content="不接受任何评判">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="勺子柄の博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/08/debugDockerWeb/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-11-08 08:26:54 / 修改时间：08:30:39" itemprop="dateCreated datePublished" datetime="2020-11-08T08:26:54+08:00">2020-11-08</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>302</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>centos 7 docker 启动一个web服务的时候 启动报错</p>
-<p>WARNING: IPv4 forwarding is disabled. Networking will not work.</p>
-<p>在宿主机上修改配置文件 <code>/usr/lib/sysctl.d/00-system.conf</code> 追加  <code>net.ipv4.ip_forward=1</code></p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">&quot;net.ipv4.ip_forward=1&quot;</span> &gt;&gt;<span class="regexp">/usr/</span>lib<span class="regexp">/sysctl.d/</span><span class="number">00</span>-system.conf</span><br></pre></td></tr></table></figure>
-
-<p>重启network和docker服务</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart<span class="built_in"> network </span>&amp;&amp; systemctl restart docker</span><br></pre></td></tr></table></figure>
-
-
-
-
       
     </div>
 
@@ -2945,6 +2859,298 @@ console.log(box1);
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/06/idea-debug/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="鲍炳江">
+      <meta itemprop="description" content="不接受任何评判">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="勺子柄の博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/06/idea-debug/" class="post-title-link" itemprop="url">idea-debug</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-06 20:10:23 / 修改时间：20:42:32" itemprop="dateCreated datePublished" datetime="2020-10-06T20:10:23+08:00">2020-10-06</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>项目：debug_demo</p>
+<h4 id="01-Debug简介和意义"><a href="#01-Debug简介和意义" class="headerlink" title="01_Debug简介和意义"></a>01_Debug简介和意义</h4><ul>
+<li><p>什么是程序DeBug？</p>
+<ul>
+<li><p>Debug，是程序开发人员必会的一项调试程序的技能。</p>
+</li>
+<li><p>企业中程序开发和程序调试的比例为1:1.5，可以说如果你不会调试程序，你就没有办法从事编程工作。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Debug能帮助我们做什么？<ol>
+<li>追踪代码的运行流程。</li>
+<li>程序运行异常定位。</li>
+<li>线上问题追踪。</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>Debug对于程序学习者的意义</p>
+<ol>
+<li>通过调试能够更好的查看程序的执行流程。</li>
+<li>复杂的程序逻辑，通过老师的口述讲解，很难理解清楚，这个时候借助调试能够很好的帮助同学们理解程序。</li>
+<li>定位问题，提高自我解决问题的能力。</li>
+</ol>
+</li>
+</ul>
+<h4 id="02-IDEA中的Debug步骤"><a href="#02-IDEA中的Debug步骤" class="headerlink" title="02_IDEA中的Debug步骤"></a>02_IDEA中的Debug步骤</h4><ul>
+<li><p>设置断点（F9）</p>
+</li>
+<li><p>调试程序（8个按钮）</p>
+<p><img src="/2020/10/06/idea-debug/2019-09-28_162216.jpg"></p>
+<table>
+<thead>
+<tr>
+<th>按钮</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="/2020/10/06/idea-debug/2019-09-28_163744.jpg"></td>
+<td>(Alt + F10)：如果你的光标在其它行或其它页面，点击这个按钮可跳转到当前代码执行的行</td>
+</tr>
+<tr>
+<td><img src="/2020/10/06/idea-debug/2019-09-28_164022.jpg"></td>
+<td>(F8)：步过，一行一行地往下走，如果这一行上有方法不会进入方法。</td>
+</tr>
+<tr>
+<td><img src="/2020/10/06/idea-debug/2019-09-28_162345.jpg?lastModify=1569659273?lastModify=1569659273" alt="img"></td>
+<td>(F7)：步入。如果当前行有方法，可以进入方法内部，一般用于进入自定义方法内，不会进入官方类库的方法。</td>
+</tr>
+<tr>
+<td><img src="/2020/10/06/idea-debug/2019-09-28_164200.jpg"></td>
+<td>(Alt + Shift + F7)：强       制步入，能进入任何方法，查看底层源码的时候可以用这个进入官方类库的方法。</td>
+</tr>
+<tr>
+<td><img src="/2020/10/06/idea-debug/2019-09-28_164215.jpg"></td>
+<td>(Shift + F8)：步出，从步入的方法内退出到方法调用处，此时方法已执行完毕，只是还没有完成赋值。</td>
+</tr>
+<tr>
+<td><img src="/2020/10/06/idea-debug/2019-09-28_164428.jpg"></td>
+<td>回退断点。</td>
+</tr>
+<tr>
+<td><img src="/2020/10/06/idea-debug/2019-09-28_164418.jpg"></td>
+<td>(Alt + F9)：运行到光标处，你可以将光标定位到你需要查看的那一行，然后使用这个功能，代码会运行至光标行，而不需要打断点。</td>
+</tr>
+<tr>
+<td><img src="/2020/10/06/idea-debug/2019-09-28_164437.jpg"></td>
+<td>(Alt + F8)：计算表达式。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>观察变量</p>
+<ul>
+<li>查看变量有三种方式：<ul>
+<li>程序区查看变量</li>
+<li>Debugger的Variables中查看变量</li>
+<li>鼠标悬停到变量名上会弹出当前变量的值</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2020/10/06/idea-debug/2019-09-28_165050.jpg"></p>
+</li>
+<li><p>查看输出</p>
+</li>
+</ul>
+<h4 id="03-跳转到当前代码执行的行"><a href="#03-跳转到当前代码执行的行" class="headerlink" title="03_跳转到当前代码执行的行"></a>03_跳转到当前代码执行的行</h4><ul>
+<li><p>跳转到当前代码执行的行（Alt + F10）<img src="/2020/10/06/idea-debug/debug/images/2019-09-28_163744.jpg"></p>
+</li>
+<li><p>作用</p>
+<ul>
+<li>使程序窗口切换到当前正在运行的程序处。</li>
+</ul>
+</li>
+</ul>
+<h4 id="04-步过调试的使用"><a href="#04-步过调试的使用" class="headerlink" title="04_步过调试的使用"></a>04_步过调试的使用</h4><ul>
+<li>步过调试<ul>
+<li>步过调试按钮（F8）<img src="/2020/10/06/idea-debug/2019-09-28_164022.jpg"></li>
+</ul>
+</li>
+<li>作用<ul>
+<li>步过，一行一行地往下走，如果这一行上有方法不会进入方法。</li>
+<li>常用于调试过程中不想进入调用的方法体的情况。</li>
+</ul>
+</li>
+</ul>
+<h4 id="05-步入调试的使用"><a href="#05-步入调试的使用" class="headerlink" title="05_步入调试的使用"></a>05_步入调试的使用</h4><ul>
+<li><p>步入调试</p>
+<ul>
+<li>步过调试按钮（F7）<img src="/2020/10/06/idea-debug/2019-09-28_162345.jpg"></li>
+</ul>
+</li>
+<li><p>作用</p>
+<ul>
+<li><p>步入，一行一行地往下走，如果这一行上有方法，则进入方法内部。</p>
+</li>
+<li><p>一般用于进入自定义方法内，不会进入官方类库的方法。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="06-强制步入调试的使用"><a href="#06-强制步入调试的使用" class="headerlink" title="06_强制步入调试的使用"></a>06_强制步入调试的使用</h4><ul>
+<li><p>强制步入调试</p>
+<ul>
+<li>强制步入调试按钮（Alt + Shift + F7）<img src="/2020/10/06/idea-debug/debug/images/2019-09-28_164200.jpg"></li>
+</ul>
+</li>
+<li><p>作用</p>
+<ul>
+<li><p>进入官方类库方法</p>
+</li>
+<li><p>帮助我们学习和查看JDK源码</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="07-步出调试的使用"><a href="#07-步出调试的使用" class="headerlink" title="07_步出调试的使用"></a>07_步出调试的使用</h4><ul>
+<li><p>步出调试</p>
+<ul>
+<li>步出调试按钮（Shift + F8）<img src="/2020/10/06/idea-debug/2019-09-28_164215.jpg"></li>
+</ul>
+</li>
+<li><p>作用</p>
+<ul>
+<li>从方法内退出到方法调用处。</li>
+<li>调试的时候，有时候会跳入到自己不想查看的方法体，这个时候使用步出。</li>
+</ul>
+</li>
+</ul>
+<h4 id="08-回退断点调试的使用"><a href="#08-回退断点调试的使用" class="headerlink" title="08_回退断点调试的使用"></a>08_回退断点调试的使用</h4><ul>
+<li><p>回退断点</p>
+<ul>
+<li>回退断点按钮 <img src="/2020/10/06/idea-debug/2019-09-28_164428.jpg"></li>
+</ul>
+</li>
+<li><p>作用</p>
+<ul>
+<li><p>回退到当前方法的调用处。</p>
+</li>
+<li><p>当想重新查看该方法体的执行过程时，不用重新启动Debug，可以使用回退断点方式。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="09-运行到光标处"><a href="#09-运行到光标处" class="headerlink" title="09_运行到光标处"></a>09_运行到光标处</h4><ul>
+<li>运行到光标处<ul>
+<li>运行光标处按钮 （F9）<img src="/2020/10/06/idea-debug/2019-09-28_164418.jpg"></li>
+<li>作用<ul>
+<li>使程序运行到光标处，而无需设置断点。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="10-计算表达式"><a href="#10-计算表达式" class="headerlink" title="10_计算表达式"></a>10_计算表达式</h4><ul>
+<li><p>计算表达式</p>
+<ul>
+<li><p>计算表达式按钮（Alt + F8）<img src="/2020/10/06/idea-debug/2019-09-28_164437.jpg"></p>
+<p><img src="/2020/10/06/idea-debug/2019-10-03_182159.jpg"></p>
+</li>
+</ul>
+</li>
+<li><p>作用</p>
+<ul>
+<li>设置变量，在计算表达式的框里，可以改变变量的值，这样有时候就能很方便我们去调试各种值的情况了。 </li>
+</ul>
+</li>
+</ul>
+<h4 id="11-条件断点"><a href="#11-条件断点" class="headerlink" title="11_条件断点"></a>11_条件断点</h4><ul>
+<li><p>条件断点</p>
+<ul>
+<li><p>右键单击断点处，可以设置进入断点的条件</p>
+<p><img src="/2020/10/06/idea-debug/2019-10-03_182101.jpg"></p>
+</li>
+</ul>
+</li>
+<li><p>作用</p>
+<ul>
+<li>通过设置断点条件，在满足条件时，才停在断点处，否则直接运行。</li>
+</ul>
+</li>
+</ul>
+<h4 id="12-多线程调试"><a href="#12-多线程调试" class="headerlink" title="12_多线程调试"></a>12_多线程调试</h4><ul>
+<li><p>步骤</p>
+<ul>
+<li><p>多线程调试，需要调整断点挂起级别为Thread</p>
+<p><img src="/2020/10/06/idea-debug/2019-10-05_164127.jpg"></p>
+</li>
+<li><p>Frame中选择线程进行调试</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="13-其他调试功能"><a href="#13-其他调试功能" class="headerlink" title="13_其他调试功能"></a>13_其他调试功能</h4><p><img src="/2020/10/06/idea-debug/image-20201006203423905.png" alt="image-20201006203423905"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+	<div>
+	  
+	</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -3016,7 +3222,7 @@ console.log(box1);
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3069,12 +3275,12 @@ console.log(box1);
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:04</span>
+    <span title="站点阅读时长">4:03</span>
 </div>
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共80.5k字</span>
+  <span class="post-count">博客全站共80.4k字</span>
 </div>
 
         

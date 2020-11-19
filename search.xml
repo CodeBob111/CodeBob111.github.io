@@ -3843,4 +3843,19 @@ console.log(box1);
 <p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201016145748941.png" alt="image-20201016145748941"></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>Debug</title>
+    <url>/2020/11/08/DeBug/</url>
+    <content><![CDATA[<p>centos 7 docker 启动一个web服务的时候 启动报错</p>
+<p>WARNING: IPv4 forwarding is disabled. Networking will not work.</p>
+<p>在宿主机上修改配置文件 <code>/usr/lib/sysctl.d/00-system.conf</code> 追加  <code>net.ipv4.ip_forward=1</code></p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">echo <span class="string">&quot;net.ipv4.ip_forward=1&quot;</span> &gt;&gt;<span class="regexp">/usr/</span>lib<span class="regexp">/sysctl.d/</span><span class="number">00</span>-system.conf</span><br></pre></td></tr></table></figure>
+
+<p>重启network和docker服务</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">systemctl restart<span class="built_in"> network </span>&amp;&amp; systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+  </entry>
 </search>

@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  
-  <title>并发编程 | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="GAI笔记中所有代码都源于项目concurrent  该笔记中所有代码都源于项目concurrent 线程基础知识并发和并行：并发是同一时间应对多件事情的能力 并行是同一时间动手做多件事情的能力，单核并发 多核既有并发又有并行 同步和异步：需要等待结果返回才能继续运行的是同步，不需要结果返回 就能继续运行的是异步  代码：case_java8.cn.itcast.n2  [@SLF4j的作用]:">
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="该笔记中所有代码都源于项目concurrent 线程基础知识并发和并行：并发是同一时间应对多件事情的能力 并行是同一时间动手做多件事情的能力，单核并发 多核既有并发又有并行 同步和异步：需要等待结果返回才能继续运行的是同步，不需要结果返回 就能继续运行的是异步  代码：case_java8.cn.itcast.n2  [@SLF4j的作用]: https:&#x2F;&#x2F;blog.csdn.net&#x2F;weix">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发编程">
 <meta property="og:url" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="GAI笔记中所有代码都源于项目concurrent  该笔记中所有代码都源于项目concurrent 线程基础知识并发和并行：并发是同一时间应对多件事情的能力 并行是同一时间动手做多件事情的能力，单核并发 多核既有并发又有并行 同步和异步：需要等待结果返回才能继续运行的是同步，不需要结果返回 就能继续运行的是异步  代码：case_java8.cn.itcast.n2  [@SLF4j的作用]:">
-<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="勺子柄の博客">
+<meta property="og:description" content="该笔记中所有代码都源于项目concurrent 线程基础知识并发和并行：并发是同一时间应对多件事情的能力 并行是同一时间动手做多件事情的能力，单核并发 多核既有并发又有并行 同步和异步：需要等待结果返回才能继续运行的是同步，不需要结果返回 就能继续运行的是异步  代码：case_java8.cn.itcast.n2  [@SLF4j的作用]: https:&#x2F;&#x2F;blog.csdn.net&#x2F;weix">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005191950899.png">
 <meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005192824004.png">
 <meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005192959678.png">
@@ -30,9 +43,7 @@
 <meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005204031566.png">
 <meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005204210400.png">
 <meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005204229906.png">
-<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005203824050.png">
-<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005203912352.png">
-<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005203924624.png">
+<meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201119104501196.png">
 <meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201007102759353.png">
 <meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201008070032289.png">
 <meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201008070352538.png">
@@ -170,82 +181,234 @@
 <meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201016145715240.png">
 <meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201016145748941.png">
 <meta property="article:published_time" content="2020-10-05T10:38:01.000Z">
-<meta property="article:modified_time" content="2020-10-16T07:38:28.885Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2020-11-19T05:12:07.334Z">
+<meta property="article:author" content="鲍炳江">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201005191950899.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
 
-<meta name="generator" content="Hexo 5.2.0"></head>
+<link rel="canonical" href="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>并发编程 | 勺子柄の博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="勺子柄の博客" type="application/atom+xml">
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-并发编程" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="article-date">
-  <time datetime="2020-10-05T10:38:01.000Z" itemprop="datePublished">2020-10-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      并发编程
-    </h1>
-  
 
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">勺子柄の博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录生活中的点点滴滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">20</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="鲍炳江">
+      <meta itemprop="description" content="不接受任何评判">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="勺子柄の博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          并发编程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-05 18:38:01" itemprop="dateCreated datePublished" datetime="2020-10-05T18:38:01+08:00">2020-10-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-19 13:12:07" itemprop="dateModified" datetime="2020-11-19T13:12:07+08:00">2020-11-19</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span></span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>NaN:aN</span>
+            </span>
+
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>GAI笔记中所有代码都源于项目concurrent</p>
-<p> 该笔记中所有代码都源于项目concurrent</p>
+        <p> 该笔记中所有代码都源于项目concurrent</p>
 <h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p><strong>并发和并行</strong>：并发是同一时间应对多件事情的能力 并行是同一时间动手做多件事情的能力，单核并发 多核既有并发又有并行</p>
 <p><strong>同步和异步</strong>：需要等待结果返回才能继续运行的是同步，不需要结果返回 就能继续运行的是异步</p>
 <ul>
@@ -268,7 +431,10 @@
 <p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005191950899.png" alt="image-20201005191950899"></p>
 <ul>
 <li>run启动线程后 执行run方法的依然是主线程 所以要想让新线程执行run方法要用start启动线程</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/ssssaaaawe/article/details/100511422">start和run的区别</a><ul>
 <li><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005192824004.png" alt="image-20201005192824004"></li>
+</ul>
+</li>
 </ul>
 <p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005192959678.png" alt="image-20201005192959678"></p>
 <ul>
@@ -284,11 +450,11 @@
 <ul>
 <li>打断标记是一个bool值 成功打断为true</li>
 <li>interrupt打断park：park会挂起当前线程 当打断标记为真的时候park会失效</li>
-<li>这段代码中第二个park因为打断标记被设置为true而失效 会打印出”unpark…”<img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005193744583.png" alt="image-20201005193744583"></li>
+<li>这段代码中第二个park因为打断标记被设置为true而失效 所以会打印出”unpark…”<img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005193744583.png" alt="image-20201005193744583"></li>
 </ul>
 <p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005194729446.png" alt="image-20201005194729446"></p>
 <ul>
-<li>如果没有join 主进程结束后r才开始赋值 这样主进程获取不到r的值 使用join方法使主进程等待t1结束 在执行后面的代码<img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005200252020.png" alt="image-20201005200252020"> <img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005203947502.png" alt="image-20201005203947502"></li>
+<li>如果没有join 主进程结束后r才开始赋值 这样主进程获取不到r的值 使用join方法使主进程等待t1结束 再执行后面的代码<img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005200252020.png" alt="image-20201005200252020"> <img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005203947502.png" alt="image-20201005203947502"></li>
 <li>join可以传入一个long类型的值 表示等待的最长时间 单位为毫秒 如果线程提前结束 join也将结束</li>
 </ul>
 <p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005200809564.png" alt="image-20201005200809564"></p>
@@ -301,7 +467,6 @@
 <p>​    <img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005204210400.png" alt="image-20201005204210400"></p>
 <p>​    javaAPI层面</p>
 <p>​        <img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005204229906.png" alt="image-20201005204229906"></p>
-<pre><code>    * sleep是有时间的等待阻塞类型是TIMED_WAITING join是无时间的等待 阻塞类型是WAITING </code></pre>
 <p><strong>状态转换</strong></p>
 <p>t线程用synchronized(obj)获取对象锁后</p>
 <p>RUNNABLE&lt;–&gt;WAITING</p>
@@ -339,16 +504,14 @@
 <p>RUNNABLE&lt;–&gt;BLOCKED</p>
 <ul>
 <li>t线程用synchronized(obj)获取了对象锁时如果竞争失败，从RUNNABLE –&gt;BLOCKED</li>
-<li>持obj锁线程的同步代码块执行完毕，会唤醒该对象上所有BLOCKED的线程重新竞争，如果其中t线程竞争成功，从BLOCKED –&gt;RUNNABLE|，其它失败的线程仍然BLOCKED</li>
+<li>持obj锁线程的同步代码块执行完毕，会唤醒该对象上所有BLOCKED的线程重新竞争，如果其中t线程竞争成功，从BLOCKED –&gt;RUNNABLE，其它失败的线程仍然BLOCKED</li>
 </ul>
-<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><h3 id="两阶段终止模式"><a href="#两阶段终止模式" class="headerlink" title="两阶段终止模式"></a>两阶段终止模式</h3><p>t1终止t2之前 给t2一个料理后事的机会</p>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><h3 id="两阶段终止模式"><a href="#两阶段终止模式" class="headerlink" title="两阶段终止模式"></a>两阶段终止模式</h3><p>t1终止t2之前 给t2一个    料理后事的机会</p>
 <p>实现</p>
-<p>​    <img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005203824050.png" alt="image-20201005203824050">R</p>
-<pre><code>* 如果不重新设置标记 当抛出异常后会清除打断标记 使循环继续执行下去</code></pre>
-<p>调用</p>
-<p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005203912352.png" alt="image-20201005203912352"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j(topic = &quot;c.main&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, InvocationTargetException, IllegalAccessException, ClassNotFoundException, InterruptedException </span>&#123;</span><br><span class="line">        TwoPhaseTermination twoPhaseTermination = <span class="keyword">new</span> TwoPhaseTermination();</span><br><span class="line">        twoPhaseTermination.start();</span><br><span class="line">        Thread.sleep(<span class="number">3500</span>);</span><br><span class="line"></span><br><span class="line">        log.debug(<span class="string">&quot;stop**********&quot;</span>);</span><br><span class="line">        twoPhaseTermination.stop();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Slf4j(topic = &quot;c.TwoPhaseTermination&quot;)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TwoPhaseTermination</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Thread monitor;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span>&#123;</span><br><span class="line">        monitor = <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            Thread currentThread = Thread.currentThread();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(currentThread.isInterrupted())&#123;</span><br><span class="line">                    log.debug(<span class="string">&quot;料理后事&quot;</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                    log.debug(<span class="string">&quot;执行监控记录&quot;</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                    <span class="comment">//重新设计标记  如果不重新设置标记当抛出异常后会清除打断标记 会使循环继续执行下去</span></span><br><span class="line">                    currentThread.interrupt();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        monitor.start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span>&#123;</span><br><span class="line">        monitor.interrupt();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>结果</p>
-<p>​    <img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201005203924624.png" alt="image-20201005203924624"></p>
+<p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201119104501196.png" alt="image-20201119104501196"></p>
 <h1 id="并发之共享模型"><a href="#并发之共享模型" class="headerlink" title="并发之共享模型"></a>并发之共享模型</h1><h2 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h2><p>临界区：存在对共享资源的多线程读写操作的一段代码</p>
 <p>竞态条件：多个线程在临界区内执行，由于代码的执行序列不同而导致结果无法预测，称之为发生了竞态条件</p>
 <p>下面这段代码就发生了竞态条件</p>
@@ -356,7 +519,7 @@
 <p>synchronized采用互斥的方法 让同一时刻之多有一个线程可以持有对象锁 可以解决上下文切换</p>
 <p>java中互斥和同步都可以采用synchronized关键字完成 但是他们有区别</p>
 <ul>
-<li>互斥时保证临界区的竞态条件发生 同一时刻只能有一个线程执行临界区代码</li>
+<li>互斥时为了防止临界区的竞态条件发生 同一时刻只能有一个线程执行临界区代码</li>
 <li>同步是由于线程执行的先后顺序不同 需要一个线程等待其他线程运行到某个点</li>
 </ul>
 <p>这段代码中synchronized用对象锁保证了临界区内代码的原子性，临界区内的代码对外是不可分割的，不会被线程切换所打断。</p>
@@ -370,8 +533,7 @@
 <p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201008082011946.png" alt="image-20201008082011946"></p>
 <h2 id="变量的线程安全分析"><a href="#变量的线程安全分析" class="headerlink" title="变量的线程安全分析"></a>变量的线程安全分析</h2><p><strong>成员变量和静态变量是否线程安全</strong></p>
 <ul>
-<li>成员变量和静态变量是否线程安全</li>
-<li>如果它们被共享了，根据它们的状态是否能够改变，又分两种情况<ul>
+<li>如果它们被共享了，根据它们的状态是否能够改变，分两种情况<ul>
 <li>如果只有读操作，则线程安全</li>
 <li>如果有读写操作，则这段代码是临界区，需要考虑线程安全</li>
 </ul>
@@ -390,10 +552,10 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestThreadSafe</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> THREAD_NUMBER = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> LOOP_NUMBER = <span class="number">200</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ThreadSafeSubClass test = <span class="keyword">new</span> ThreadSafeSubClass();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; THREAD_NUMBER; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">                test.method1(LOOP_NUMBER);</span><br><span class="line">            &#125;, <span class="string">&quot;Thread&quot;</span> + (i+<span class="number">1</span>)).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadSafe</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">(<span class="keyword">int</span> loopNumber)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; loopNumber; i++) &#123;</span><br><span class="line">            method2(list);</span><br><span class="line">            method3(list);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">(ArrayList&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">        list.add(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method3</span><span class="params">(ArrayList&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="number">1</span>);</span><br><span class="line">        list.remove(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadSafeSubClass</span> <span class="keyword">extends</span> <span class="title">ThreadSafe</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method3</span><span class="params">(ArrayList&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            list.remove(<span class="number">0</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>主线程创建了两个新的线程执行method3 他们对list共享从而引发线程安全问题 </li>
+<li>method1中的list对象逃离了该方法的作用范围 主线程创建了两个新的线程执行method3 他们对list共享从而引发线程安全问题 </li>
 <li>最好把method1用final修饰 method2和method3用private修饰，防止子类重写导致不可预知的错误</li>
 </ul>
-<h2 id="常见线程安全类"><a href="#常见线程安全类" class="headerlink" title="常见线程安全类"></a>常见线程安全类</h2><p>String Integer StringBuffer Random Vector Hashtable java.util.concurrent 包下的类</p>
+<h2 id="常见线程安全类"><a href="#常见线程安全类" class="headerlink" title="常见线程安全类"></a>常见线程安全类</h2><p>String,Integer,StringBuffer,Random,Vector,Hashtable,java.util.concurrent 包下的类 是线程安全的</p>
 <p>这里说它们是线程安全的是指，多个线程调用它们同一个实例的某个方法时，是线程安全的。也可以理解为</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Hashtable table = <span class="keyword">new</span> Hashtable();</span><br><span class="line"><span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line"> table.put(<span class="string">&quot;key&quot;</span>, <span class="string">&quot;value1&quot;</span>);</span><br><span class="line">&#125;).start();</span><br><span class="line"><span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line"> table.put(<span class="string">&quot;key&quot;</span>, <span class="string">&quot;value2&quot;</span>);</span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
 
@@ -402,10 +564,10 @@
 </ul>
 <p>不可变类如 integer string内部状态是不可变的 所以他们的方法都是线程安全的</p>
 <h2 id="实例分析"><a href="#实例分析" class="headerlink" title="实例分析"></a>实例分析</h2><p>卖票：count是共享变量要给sell方法加上synchronized</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">@Slf4j(topic &#x3D; &quot;c.ExerciseSell&quot;)</span><br><span class="line">public class ExerciseSell &#123;</span><br><span class="line">    public static void main(String[] args) throws InterruptedException &#123;</span><br><span class="line">        &#x2F;&#x2F; 模拟多人买票</span><br><span class="line">        TicketWindow window &#x3D; new TicketWindow(1000);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 所有线程的集合</span><br><span class="line">        List&lt;Thread&gt; threadList &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">        &#x2F;&#x2F; 卖出的票数统计</span><br><span class="line">        List&lt;Integer&gt; amountList &#x3D; new Vector&lt;&gt;();</span><br><span class="line">        for (int i &#x3D; 0; i &lt; 2000; i++) &#123;</span><br><span class="line">            Thread thread &#x3D; new Thread(() -&gt; &#123;</span><br><span class="line">                &#x2F;&#x2F; 买票</span><br><span class="line">                int amount &#x3D; window.sell(random(5));</span><br><span class="line">                &#x2F;&#x2F; 统计买票数</span><br><span class="line">                amountList.add(amount);</span><br><span class="line">            &#125;);</span><br><span class="line">            threadList.add(thread);</span><br><span class="line">            thread.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        for (Thread thread : threadList) &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 统计卖出的票数和剩余票数</span><br><span class="line">        log.debug(&quot;余票：&#123;&#125;&quot;,window.getCount());</span><br><span class="line">        log.debug(&quot;卖出的票数：&#123;&#125;&quot;, amountList.stream().mapToInt(i-&gt; i).sum());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Random 为线程安全</span><br><span class="line">    static Random random &#x3D; new Random();</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 随机 1~5</span><br><span class="line">    public static int random(int amount) &#123;</span><br><span class="line">        return random.nextInt(amount) + 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 售票窗口</span><br><span class="line">class TicketWindow &#123;</span><br><span class="line">    private int count;</span><br><span class="line"></span><br><span class="line">    public TicketWindow(int count) &#123;</span><br><span class="line">        this.count &#x3D; count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 获取余票数量</span><br><span class="line">    public int getCount() &#123;</span><br><span class="line">        return count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 售票</span><br><span class="line">    public synchronized int sell(int amount) &#123;</span><br><span class="line">        if (this.count &gt;&#x3D; amount) &#123;</span><br><span class="line">            this.count -&#x3D; amount;</span><br><span class="line">            return amount;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j(topic = &quot;c.ExerciseSell&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExerciseSell</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">// 模拟多人买票</span></span><br><span class="line">        TicketWindow window = <span class="keyword">new</span> TicketWindow(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 所有线程的集合</span></span><br><span class="line">        List&lt;Thread&gt; threadList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">// 卖出的票数统计</span></span><br><span class="line">        List&lt;Integer&gt; amountList = <span class="keyword">new</span> Vector&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2000</span>; i++) &#123;</span><br><span class="line">            Thread thread = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">                <span class="comment">// 买票</span></span><br><span class="line">                <span class="keyword">int</span> amount = window.sell(random(<span class="number">5</span>));</span><br><span class="line">                <span class="comment">// 统计买票数</span></span><br><span class="line">                amountList.add(amount);</span><br><span class="line">            &#125;);</span><br><span class="line">            threadList.add(thread);</span><br><span class="line">            thread.start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Thread thread : threadList) &#123;</span><br><span class="line">            thread.join();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 统计卖出的票数和剩余票数</span></span><br><span class="line">        log.debug(<span class="string">&quot;余票：&#123;&#125;&quot;</span>,window.getCount());</span><br><span class="line">        log.debug(<span class="string">&quot;卖出的票数：&#123;&#125;&quot;</span>, amountList.stream().mapToInt(i-&gt; i).sum());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Random 为线程安全</span></span><br><span class="line">    <span class="keyword">static</span> Random random = <span class="keyword">new</span> Random();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 随机 1~5</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">random</span><span class="params">(<span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> random.nextInt(amount) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 售票窗口</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TicketWindow</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TicketWindow</span><span class="params">(<span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.count = count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取余票数量</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 售票</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">sell</span><span class="params">(<span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.count &gt;= amount) &#123;</span><br><span class="line">            <span class="keyword">this</span>.count -= amount;</span><br><span class="line">            <span class="keyword">return</span> amount;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>买票：转账设计两个Account 如果只锁this不能保证target安全 如果同时锁住target和this会造成死锁 所以要锁Account.class</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">@Slf4j(topic &#x3D; &quot;c.ExerciseTransfer&quot;)</span><br><span class="line">public class ExerciseTransfer &#123;</span><br><span class="line">    public static void main(String[] args) throws InterruptedException &#123;</span><br><span class="line">        Account a &#x3D; new Account(1000);</span><br><span class="line">        Account b &#x3D; new Account(1000);</span><br><span class="line">        Thread t1 &#x3D; new Thread(() -&gt; &#123;</span><br><span class="line">            for (int i &#x3D; 0; i &lt; 1000; i++) &#123;</span><br><span class="line">                a.transfer(b, randomAmount());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, &quot;t1&quot;);</span><br><span class="line">        Thread t2 &#x3D; new Thread(() -&gt; &#123;</span><br><span class="line">            for (int i &#x3D; 0; i &lt; 1000; i++) &#123;</span><br><span class="line">                b.transfer(a, randomAmount());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, &quot;t2&quot;);</span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">        t1.join();</span><br><span class="line">        t2.join();</span><br><span class="line">        &#x2F;&#x2F; 查看转账2000次后的总金额</span><br><span class="line">        log.debug(&quot;total:&#123;&#125;&quot;, (a.getMoney() + b.getMoney()));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; Random 为线程安全</span><br><span class="line">    static Random random &#x3D; new Random();</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 随机 1~100</span><br><span class="line">    public static int randomAmount() &#123;</span><br><span class="line">        return random.nextInt(100) + 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 账户</span><br><span class="line">class Account &#123;</span><br><span class="line">    private int money;</span><br><span class="line"></span><br><span class="line">    public Account(int money) &#123;</span><br><span class="line">        this.money &#x3D; money;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getMoney() &#123;</span><br><span class="line">        return money;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setMoney(int money) &#123;</span><br><span class="line">        this.money &#x3D; money;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 转账</span><br><span class="line">    public void transfer(Account target, int amount) &#123;</span><br><span class="line">        synchronized(Account.class) &#123;</span><br><span class="line">            if (this.money &gt;&#x3D; amount) &#123;</span><br><span class="line">                this.setMoney(this.getMoney() - amount);</span><br><span class="line">                target.setMoney(target.getMoney() + amount);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>买票：转账设计两个Account 如果只锁this不能保证target安全 如果同时锁住target和this可能会造成死锁 所以要锁Account.class</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j(topic = &quot;c.ExerciseTransfer&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExerciseTransfer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Account a = <span class="keyword">new</span> Account(<span class="number">1000</span>);</span><br><span class="line">        Account b = <span class="keyword">new</span> Account(<span class="number">1000</span>);</span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">                a.transfer(b, randomAmount());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;t1&quot;</span>);</span><br><span class="line">        Thread t2 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">                b.transfer(a, randomAmount());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;t2&quot;</span>);</span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">        t1.join();</span><br><span class="line">        t2.join();</span><br><span class="line">        <span class="comment">// 查看转账2000次后的总金额</span></span><br><span class="line">        log.debug(<span class="string">&quot;total:&#123;&#125;&quot;</span>, (a.getMoney() + b.getMoney()));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Random 为线程安全</span></span><br><span class="line">    <span class="keyword">static</span> Random random = <span class="keyword">new</span> Random();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 随机 1~100</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">randomAmount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> random.nextInt(<span class="number">100</span>) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 账户</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Account</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> money;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Account</span><span class="params">(<span class="keyword">int</span> money)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.money = money;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMoney</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> money;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMoney</span><span class="params">(<span class="keyword">int</span> money)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.money = money;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 转账</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transfer</span><span class="params">(Account target, <span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span>(Account.class) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.money &gt;= amount) &#123;</span><br><span class="line">                <span class="keyword">this</span>.setMoney(<span class="keyword">this</span>.getMoney() - amount);</span><br><span class="line">                target.setMoney(target.getMoney() + amount);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="Synchronized底层原理"><a href="#Synchronized底层原理" class="headerlink" title="Synchronized底层原理"></a>Synchronized底层原理</h2><h3 id="Monitor"><a href="#Monitor" class="headerlink" title="Monitor"></a><strong>Monitor</strong></h3><p>普通对象的java对象头</p>
 <p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201008092654698.png" alt="image-20201008092654698"></p>
@@ -418,7 +580,7 @@
 <li>刚开始 Monitor 中 Owner 为 null</li>
 <li>当 Thread-2 执行 synchronized(obj) 就会将 Monitor 的所有者 Owner 置为 Thread-2，Monitor中只能有一 个 Owner</li>
 <li>在 Thread-2 上锁的过程中，如果 Thread-3，Thread-4，Thread-5 也来执行 synchronized(obj)，就会进入 EntryList BLOCKED</li>
-<li>Thread-2 执行完同步代码块的内容，然后唤醒 EntryList 中等待的线程来竞争锁，竞争的时是非公平的</li>
+<li>Thread-2 执行完同步代码块的内容，然后唤醒 EntryList 中等待的线程来竞争锁，竞争是非公平的</li>
 <li>图中 WaitSet 中的 Thread-0，Thread-1 是之前获得过锁，但条件不满足进入 WAITING 状态的线程，后面讲 wait-notify 时会分析</li>
 </ul>
 <blockquote>
@@ -428,7 +590,8 @@
 <li>不加 synchronized 的对象不会关联监视器，不遵从以上规则</li>
 </ul>
 </blockquote>
-<h3 id="Synchronized原理进阶"><a href="#Synchronized原理进阶" class="headerlink" title="Synchronized原理进阶"></a><strong>Synchronized原理进阶</strong></h3><h4 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h4><p>轻量级锁的使用场景：如果一个对象虽然有多线程要加锁，但加锁的时间是错开的（也就是没有竞争），那么可以 使用轻量级锁来优化。 轻量级锁对使用者是透明的，即语法仍然是 synchronized 假设有两个方法同步块，利用同一个对象加锁</p>
+<h3 id="Synchronized原理进阶"><a href="#Synchronized原理进阶" class="headerlink" title="Synchronized原理进阶"></a><strong>Synchronized原理进阶</strong></h3><h4 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h4><p>轻量级锁的使用场景：如果一个对象虽然有多线程要加锁，但加锁的时间是错开的（也就是没有竞争），那么可以 使用轻量级锁来优化。 轻量级锁对使用者是透明的，即语法仍然是 synchronized。</p>
+<p>假设有两个方法同步块，利用同一个对象加锁</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> Object obj = <span class="keyword">new</span> Object();</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> <span class="keyword">synchronized</span>( obj ) &#123;</span><br><span class="line"> <span class="comment">// 同步块 A</span></span><br><span class="line"> method2();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> <span class="keyword">synchronized</span>( obj ) &#123;</span><br><span class="line"> <span class="comment">// 同步块 B</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -455,8 +618,6 @@
 </li>
 </ul>
 <h4 id="锁膨胀"><a href="#锁膨胀" class="headerlink" title="锁膨胀"></a>锁膨胀</h4><p>如果在尝试加轻量级锁的过程中，CAS 操作无法成功，这时一种情况就是有其它线程为此对象加上了轻量级锁（有 竞争），这时需要进行锁膨胀，将轻量级锁变为重量级锁。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> Object obj = <span class="keyword">new</span> Object();</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> <span class="keyword">synchronized</span>( obj ) &#123;</span><br><span class="line"> <span class="comment">// 同步块</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>当 Thread-1 进行轻量级加锁时，Thread-0 已经对该对象加了轻量级锁    <img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201008094353567.png" alt="image-20201008094353567"></li>
 <li>这时 Thread-1 加轻量级锁失败，进入锁膨胀流程<ul>
@@ -1307,130 +1468,235 @@
 <h2 id="线程安全集合类"><a href="#线程安全集合类" class="headerlink" title="线程安全集合类"></a>线程安全集合类</h2><p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201016145715240.png" alt="image-20201016145715240"></p>
 <p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201016145748941.png" alt="image-20201016145748941"></p>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" data-id="ckgkryc4q000dkwwcg7g44flr" class="article-share-link">Share</a>
-      
-      
+
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/03/dubbo/" rel="prev" title="dubbo">
+      <i class="fa fa-chevron-left"></i> dubbo
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/06/SpringSecurity/" rel="next" title="SpringSecurity">
+      SpringSecurity <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E7%BB%88%E6%AD%A2%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">两阶段终止模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E4%B9%8B%E5%85%B1%E4%BA%AB%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">并发之共享模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized"><span class="nav-number">2.1.</span> <span class="nav-text">synchronized</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%88%86%E6%9E%90"><span class="nav-number">2.2.</span> <span class="nav-text">变量的线程安全分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%B1%BB"><span class="nav-number">2.3.</span> <span class="nav-text">常见线程安全类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%88%86%E6%9E%90"><span class="nav-number">2.4.</span> <span class="nav-text">实例分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Synchronized%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">2.5.</span> <span class="nav-text">Synchronized底层原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Monitor"><span class="nav-number">2.5.1.</span> <span class="nav-text">Monitor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Synchronized%E5%8E%9F%E7%90%86%E8%BF%9B%E9%98%B6"><span class="nav-number">2.5.2.</span> <span class="nav-text">Synchronized原理进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">轻量级锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%81%E8%86%A8%E8%83%80"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">锁膨胀</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E4%BC%98%E5%8C%96"><span class="nav-number">2.5.2.3.</span> <span class="nav-text">自旋优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E9%94%81"><span class="nav-number">2.5.2.4.</span> <span class="nav-text">偏向锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E9%87%8D%E5%81%8F%E5%90%91"><span class="nav-number">2.5.2.5.</span> <span class="nav-text">批量重偏向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%92%A4%E9%94%80"><span class="nav-number">2.5.2.6.</span> <span class="nav-text">批量撤销</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%81%E6%B6%88%E9%99%A4"><span class="nav-number">2.5.2.7.</span> <span class="nav-text">锁消除</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wait-amp-notify%E5%8E%9F%E7%90%86"><span class="nav-number">2.6.</span> <span class="nav-text">wait&amp;notify原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#join%E5%8E%9F%E7%90%86"><span class="nav-number">2.7.</span> <span class="nav-text">join原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%BF%9D%E6%8A%A4%E6%80%A7%E6%9A%82%E5%81%9C"><span class="nav-number">2.8.</span> <span class="nav-text">同步模式之保护性暂停</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%94%9F%E4%BA%A7%E8%80%85%E5%92%8C%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-number">2.9.</span> <span class="nav-text">异步模式之生产者和消费者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#park-amp-unpark"><span class="nav-number">2.10.</span> <span class="nav-text">park&amp;unpark</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B4%BB%E8%B7%83%E6%80%A7"><span class="nav-number">2.11.</span> <span class="nav-text">活跃性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReentrantLock"><span class="nav-number">2.12.</span> <span class="nav-text">ReentrantLock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E5%85%A5"><span class="nav-number">2.12.1.</span> <span class="nav-text">可重入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E6%89%93%E6%96%AD%E9%94%81"><span class="nav-number">2.12.2.</span> <span class="nav-text">可打断锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%81%E8%B6%85%E6%97%B6"><span class="nav-number">2.12.3.</span> <span class="nav-text">锁超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%B9%B3%E9%94%81"><span class="nav-number">2.12.4.</span> <span class="nav-text">公平锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F"><span class="nav-number">2.12.5.</span> <span class="nav-text">条件变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E6%A8%A1%E5%BC%8F%E4%B9%8B%E9%A1%BA%E5%BA%8F%E6%8E%A7%E5%88%B6"><span class="nav-number">2.13.</span> <span class="nav-text">同步模式之顺序控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E8%BF%90%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.13.1.</span> <span class="nav-text">固定运行顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E6%9B%BF%E8%BE%93%E5%87%BA"><span class="nav-number">2.13.2.</span> <span class="nav-text">交替输出</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E6%A8%A1%E5%9E%8B%E4%B9%8B%E5%86%85%E5%AD%98"><span class="nav-number">3.</span> <span class="nav-text">共享模型之内存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">3.1.</span> <span class="nav-text">可见性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%BA%8F%E6%80%A7"><span class="nav-number">3.2.</span> <span class="nav-text">有序性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile%E5%8E%9F%E7%90%86"><span class="nav-number">3.2.1.</span> <span class="nav-text">volatile原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E8%AF%81%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">保证可见性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E8%AF%81%E6%9C%89%E5%BA%8F%E6%80%A7"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">保证有序性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#double-checked-locking-%E9%97%AE%E9%A2%98"><span class="nav-number">3.2.1.3.</span> <span class="nav-text">double-checked locking 问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.2.2.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%8D%95%E4%BE%8B%E4%B9%A0%E9%A2%98"><span class="nav-number">3.3.</span> <span class="nav-text">线程安全单例习题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1"><span class="nav-number">3.4.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E7%BB%88%E6%AD%A2%E6%A8%A1%E5%BC%8FVolatile"><span class="nav-number">3.4.1.</span> <span class="nav-text">两阶段终止模式Volatile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Balking"><span class="nav-number">3.4.2.</span> <span class="nav-text">Balking</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E6%A8%A1%E5%9E%8B%E4%B9%8B%E6%97%A0%E9%94%81"><span class="nav-number">4.</span> <span class="nav-text">共享模型之无锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAS%E4%B8%8Evolatie"><span class="nav-number">4.1.</span> <span class="nav-text">CAS与volatie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90"><span class="nav-number">4.1.1.</span> <span class="nav-text">保护共享资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAS"><span class="nav-number">4.1.2.</span> <span class="nav-text">CAS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8Evolatile%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">4.1.3.</span> <span class="nav-text">与volatile的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%88%E7%8E%87%E5%88%86%E6%9E%90"><span class="nav-number">4.1.4.</span> <span class="nav-text">效率分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAS%E7%89%B9%E7%82%B9"><span class="nav-number">4.1.5.</span> <span class="nav-text">CAS特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E6%95%B4%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">原子整数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E5%BC%95%E7%94%A8"><span class="nav-number">4.3.</span> <span class="nav-text">原子引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Atomic-Reference"><span class="nav-number">4.3.1.</span> <span class="nav-text">Atomic Reference</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AtomicStampedReference"><span class="nav-number">4.3.2.</span> <span class="nav-text">AtomicStampedReference</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AtomicMarkableReference"><span class="nav-number">4.3.3.</span> <span class="nav-text">AtomicMarkableReference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E6%AE%B5%E6%9B%B4%E6%96%B0%E5%99%A8"><span class="nav-number">4.4.</span> <span class="nav-text">字段更新器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E7%B4%AF%E5%8A%A0%E5%99%A8"><span class="nav-number">4.5.</span> <span class="nav-text">原子累加器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">4.5.1.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LongAdder%E5%8E%9F%E7%90%86"><span class="nav-number">4.5.2.</span> <span class="nav-text">LongAdder原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%AA%E5%85%B1%E4%BA%AB"><span class="nav-number">4.5.2.1.</span> <span class="nav-text">伪共享</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-number">4.5.2.2.</span> <span class="nav-text">源码分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unsafe%E6%96%B9%E6%B3%95"><span class="nav-number">4.6.</span> <span class="nav-text">unsafe方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E6%A8%A1%E5%9E%8B%E4%B9%8B%E4%B8%8D%E5%8F%AF%E5%8F%98"><span class="nav-number">5.</span> <span class="nav-text">共享模型之不可变</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.1.</span> <span class="nav-text">不可变对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.2.</span> <span class="nav-text">设计模式之享元模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%93%E7%8E%B0"><span class="nav-number">5.2.1.</span> <span class="nav-text">体现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="nav-number">5.2.2.</span> <span class="nav-text">自定义连接池</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fianl%E5%8E%9F%E7%90%86"><span class="nav-number">5.3.</span> <span class="nav-text">fianl原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E6%A8%A1%E5%9E%8B%E4%B9%8B%E5%B7%A5%E5%85%B7"><span class="nav-number">6.</span> <span class="nav-text">共享模型之工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">6.1.</span> <span class="nav-text">自定义线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadPoolExecutor"><span class="nav-number">6.2.</span> <span class="nav-text">ThreadPoolExecutor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%8A%B6%E6%80%81"><span class="nav-number">6.2.1.</span> <span class="nav-text">线程池状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">6.2.2.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95"><span class="nav-number">6.2.3.</span> <span class="nav-text">创建线程池的工厂方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#newFixedThreadPool"><span class="nav-number">6.2.3.1.</span> <span class="nav-text">newFixedThreadPool</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#newCachedThreadPool"><span class="nav-number">6.2.3.2.</span> <span class="nav-text">newCachedThreadPool</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#newSingleThreadExecutor"><span class="nav-number">6.2.3.3.</span> <span class="nav-text">newSingleThreadExecutor</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E4%BB%BB%E5%8A%A1"><span class="nav-number">6.2.4.</span> <span class="nav-text">提交任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">6.2.5.</span> <span class="nav-text">关闭线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">6.2.6.</span> <span class="nav-text">任务调度线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E7%A1%AE%E5%A4%84%E7%90%86%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%BC%82%E5%B8%B8"><span class="nav-number">6.2.7.</span> <span class="nav-text">正确处理线程池异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%BA%94%E7%94%A8-%E5%AE%9A%E6%97%B6%E6%89%A7%E8%A1%8C%E4%BB%BB%E5%8A%A1"><span class="nav-number">6.2.8.</span> <span class="nav-text">线程池应用-定时执行任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">6.2.9.</span> <span class="nav-text">Tomcat线程池</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ForkJoin%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">6.3.</span> <span class="nav-text">ForkJoin线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%B7%A5%E4%BD%9C%E7%BA%BF%E7%A8%8B"><span class="nav-number">6.4.</span> <span class="nav-text">异步模式之工作线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">6.4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A5%A5%E9%A5%BF"><span class="nav-number">6.4.2.</span> <span class="nav-text">饥饿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%A4%9A%E5%B0%91%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%90%88%E9%80%82"><span class="nav-number">6.4.3.</span> <span class="nav-text">创建多少线程池合适</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#J-U-C"><span class="nav-number">7.</span> <span class="nav-text">J.U.C</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AQS%E5%8E%9F%E7%90%86"><span class="nav-number">7.1.</span> <span class="nav-text">AQS原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">7.1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%94%81"><span class="nav-number">7.1.2.</span> <span class="nav-text">自定义锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reentrantlock"><span class="nav-number">7.2.</span> <span class="nav-text">Reentrantlock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">7.2.1.</span> <span class="nav-text">非公平锁实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E5%85%A5%E5%8E%9F%E7%90%86"><span class="nav-number">7.2.2.</span> <span class="nav-text">可重入原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E6%89%93%E6%96%AD%E5%8E%9F%E7%90%86"><span class="nav-number">7.2.3.</span> <span class="nav-text">可打断原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%B9%B3%E9%94%81%E5%8E%9F%E7%90%86"><span class="nav-number">7.2.4.</span> <span class="nav-text">公平锁原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">7.2.5.</span> <span class="nav-text">条件变量实现原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#await"><span class="nav-number">7.2.5.1.</span> <span class="nav-text">await</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#signal"><span class="nav-number">7.2.5.2.</span> <span class="nav-text">signal</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E9%94%81"><span class="nav-number">7.3.</span> <span class="nav-text">读写锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ReentrantLock-1"><span class="nav-number">7.3.1.</span> <span class="nav-text">ReentrantLock</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">7.3.1.1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">7.3.1.2.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StampedLock"><span class="nav-number">7.3.2.</span> <span class="nav-text">StampedLock</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-1"><span class="nav-number">7.3.2.1.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Semaphore"><span class="nav-number">7.4.</span> <span class="nav-text">Semaphore</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-2"><span class="nav-number">7.4.1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">7.4.2.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86-1"><span class="nav-number">7.4.3.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CountDownLatch"><span class="nav-number">7.5.</span> <span class="nav-text">CountDownLatch</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-3"><span class="nav-number">7.5.1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8-1"><span class="nav-number">7.5.2.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CyclicBarrier"><span class="nav-number">7.6.</span> <span class="nav-text">CyclicBarrier</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%9B%86%E5%90%88%E7%B1%BB"><span class="nav-number">7.7.</span> <span class="nav-text">线程安全集合类</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="鲍炳江"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">鲍炳江</p>
+  <div class="site-description" itemprop="description">不接受任何评判</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鲍炳江</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">NaNm</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">NaN:aN</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
     </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2020/10/06/SpringSecurity/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          SpringSecurity
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/10/03/dubbo/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">dubbo</div>
-    </a>
-  
-</nav>
 
   
-</article>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
+<script src="/js/utils.js"></script>
 
-  
-    
+<script src="/js/motion.js"></script>
 
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
-    </div>
-  </div>
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
 
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/10/19/javascript/">javascript</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/19/leyou/">leyou</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/15/python/">python</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/11/%E7%AE%97%E6%B3%95/">算法</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/07/Jenkins/">Jenkins</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
   
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
 
   
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
 
+  
 
+  
+ 
 
-
-<script src="/js/script.js"></script>
-
-
-
-
-  </div>
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 </html>
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

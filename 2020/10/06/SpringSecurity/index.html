@@ -176,7 +176,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">20</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">19</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -273,14 +273,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span></span>
+              <span>31k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>NaN:aN</span>
+              <span>28 分钟</span>
             </span>
 
         </div>
@@ -364,10 +364,10 @@
 
 <p>crsf防护措施：</p>
 <p>在login.jsp中添加tag </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@taglib prefix&#x3D;&quot;security&quot; uri&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;security&#x2F;tags&quot; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="ruby">@taglib prefix=<span class="string">&quot;security&quot;</span> uri=<span class="string">&quot;http://www.springframework.org/security/tags&quot;</span> </span><span class="xml"><span class="tag">%&gt;</span></span></span><br></pre></td></tr></table></figure>
 
 <p>在表单中添加下列代码，使form表单携带token</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;security:csrfInput&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;security:csrfInput/&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>查看csrfFilter源码</p>
 <p><img src="/2020/10/06/SpringSecurity/log\source_posts\SpringSecurity\image-20201023221021102.png" alt="image-20201023221021102"></p>
@@ -379,7 +379,7 @@
 
 <p>但是这种方式是Get方式  不会被csrf拦截 不能保证安全 要改成post方法  </p>
 <p>在head.jsp中添加tag</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@taglib prefix&#x3D;&quot;security&quot; uri&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;security&#x2F;tags&quot; %&gt;	&#96;</span><br></pre></td></tr></table></figure>
+<figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="ruby">@taglib prefix=<span class="string">&quot;security&quot;</span> uri=<span class="string">&quot;http://www.springframework.org/security/tags&quot;</span> </span><span class="xml"><span class="tag">%&gt;</span>	`</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;pull-right&quot;</span></span><br><span class="line">   &lt;form action=<span class="string">&quot;$&#123;pageContext.request.contextPath&#125;/logout&quot;</span> method=<span class="string">&quot;post&quot;</span>&gt;</span><br><span class="line">	  &lt;security:csrfInput/&gt;</span><br><span class="line">      &lt;input type=<span class="string">&quot;submit&quot;</span> value=<span class="string">&quot;注销&quot;</span>&gt;</span><br><span class="line">   &lt;/form&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 
@@ -424,7 +424,7 @@
 <p>查看onLoginSucess的实现类PersistentTokenBasedRememberMeServices</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onLoginSuccess</span><span class="params">(HttpServletRequest request,</span></span></span><br><span class="line"><span class="function"><span class="params">      HttpServletResponse response, Authentication successfulAuthentication)</span> </span>&#123;</span><br><span class="line">   String username = successfulAuthentication.getName();</span><br><span class="line"></span><br><span class="line">   logger.debug(<span class="string">&quot;Creating new persistent login for user &quot;</span> + username);</span><br><span class="line"></span><br><span class="line">   PersistentRememberMeToken persistentToken = <span class="keyword">new</span> PersistentRememberMeToken(</span><br><span class="line">         username, generateSeriesData(), generateTokenData(), <span class="keyword">new</span> Date());</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="comment">//把token持久化到数据库中</span></span><br><span class="line">      tokenRepository.createNewToken(persistentToken);</span><br><span class="line">       <span class="comment">//把token写入到浏览器的cookie中</span></span><br><span class="line">      addCookie(persistentToken, request, response);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">      logger.error(<span class="string">&quot;Failed to save persistent token &quot;</span>, e);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--开启remember-me过滤器 设置token存储时间为60s--&gt;</span><br><span class="line">&lt;security:remember-me token-validity-seconds&#x3D;&quot;60&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--开启remember-me过滤器 设置token存储时间为60s--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">security:remember-me</span> <span class="attr">token-validity-seconds</span>=<span class="string">&quot;60&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>安全分析</p>
 <p>remember-me功能方便是大家看得见的，但是安全性却令人担忧。因为Cookie毕竟是保存在客户端的，很容易盗取，而且 cookie的值还与用户名、密码这些敏感数据相关，虽然加密了，但是将敏感信息存在客户端，还是不太安全。那么 这就要提醒喜欢使用此功能的，用完网站要及时手动退出登录，清空认证信息。 此外，SpringSecurity还提供了remember me的另一种相对更安全的实现机制 :在客户端的cookie中，仅保存一个 无意义的加密串（与用户名、密码等敏感数据无关），然后在db中保存该加密串-用户信息的对应关系，自动登录 时，用cookie中的加密串，到db中验证，如果通过，自动登录才算通过。</p>
@@ -435,7 +435,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">	开启remember me过滤器，</span></span><br><span class="line"><span class="comment">	data-source-ref=&quot;dataSource&quot; 指定数据库连接池</span></span><br><span class="line"><span class="comment">	token-validity-seconds=&quot;60&quot; 设置token存储时间为60秒 可省略</span></span><br><span class="line"><span class="comment">	remember-me-parameter=&quot;remember-me&quot; 指定记住的参数名 可省略</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">security:remember-me</span> <span class="attr">data-source-ref</span>=<span class="string">&quot;dataSource&quot;</span></span></span><br><span class="line"><span class="tag">					  <span class="attr">token-validity-seconds</span>=<span class="string">&quot;60&quot;</span></span></span><br><span class="line"><span class="tag">					  <span class="attr">remember-me-parameter</span>=<span class="string">&quot;remember-me&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="认证通过后显示当前认证的用户名"><a href="#认证通过后显示当前认证的用户名" class="headerlink" title="认证通过后显示当前认证的用户名"></a>认证通过后显示当前认证的用户名</h2><p>使用动态标签：在header.jsp中导入springSecurity的标签</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;span class&#x3D;&quot;hidden-xs&quot;&gt;</span><br><span class="line">      &lt;%--&lt;security:authentication property&#x3D;&quot;principal.username&quot; &#x2F;&gt;--%&gt;</span><br><span class="line">      &lt;security:authentication property&#x3D;&quot;name&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;span&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;hidden-xs&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">%--</span>&lt;<span class="attr">security:authentication</span> <span class="attr">property</span>=<span class="string">&quot;principal.username&quot;</span> /&gt;</span>--%&gt;</span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">security:authentication</span> <span class="attr">property</span>=<span class="string">&quot;name&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 
 <p>这两种方式都能获取到用户名</p>
 <h2 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h2><h3 id="页面控制菜单的显示或隐藏"><a href="#页面控制菜单的显示或隐藏" class="headerlink" title="页面控制菜单的显示或隐藏"></a>页面控制菜单的显示或隐藏</h3><p>在aside.jsp中引入动态标签</p>
@@ -453,7 +453,7 @@
 <h3 id="动态权限注解使用说明"><a href="#动态权限注解使用说明" class="headerlink" title="动态权限注解使用说明"></a>动态权限注解使用说明</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@Secured(&#123;&quot;ROLE_PRODUCT&quot;,&quot;ROLE_USER&quot;&#125;) //springsecurity内部制定的注解</span><br><span class="line">@RolesAllowed(&#123;&quot;ROLE_PRODUCT&quot;,&quot;ROLE_USER&quot;&#125;) //jsr250注解</span><br><span class="line">@PreAuthorize(&quot;hasAnyAuthority(&#x27;ROLE_PRODUCT&#x27;,&#x27;ROLE_USER&#x27;)&quot;)//spring指定的注解 需要使用el表达式 hasAnyRole也可以</span><br></pre></td></tr></table></figure>
 
 <h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>方法一：在spring-security.xml中进行配置 这种方式比较单一 这能处理403异常</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;security:access-denied-handler error-page&#x3D;&quot;&#x2F;403.jsp&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">security</span>:<span class="keyword">access</span>-denied-<span class="keyword">handler</span> error-page=&quot;/403.jsp&quot;/&gt;</span><br></pre></td></tr></table></figure>
 
 <p>方法二：在web.xml中进行配置 处理各种异常 这种方式只适合web项目</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">error-code</span>&gt;</span>404<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">location</span>&gt;</span>/404.jsp<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">error-code</span>&gt;</span>404<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">location</span>&gt;</span>/404.jsp<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -599,7 +599,7 @@
 <h2 id="jwt结构"><a href="#jwt结构" class="headerlink" title="jwt结构"></a>jwt结构</h2><p><img src="/2020/10/06/SpringSecurity/log\source_posts\SpringSecurity\image-20201028071311827.png" alt="image-20201028071311827"></p>
 <p><img src="/2020/10/06/SpringSecurity/log\source_posts\SpringSecurity\image-20201028071719291.png" alt="image-20201028071719291"></p>
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>导入jar包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.auth0&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;java-jwt&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.4.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;dependency&gt;</span></span><br><span class="line">    <span class="section">&lt;groupId&gt;</span><span class="attribute">com</span>.auth<span class="number">0</span>&lt;/groupId&gt;</span><br><span class="line">    <span class="section">&lt;artifactId&gt;</span><span class="attribute">java</span>-jwt&lt;/artifactId&gt;</span><br><span class="line">    <span class="section">&lt;version&gt;</span><span class="attribute">3</span>.<span class="number">4</span>.<span class="number">0</span>&lt;/version&gt;</span><br><span class="line"><span class="section">&lt;/dependency&gt;</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JWT_Demo</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Generate</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Calendar calendar = Calendar.getInstance();</span><br><span class="line">        calendar.add(Calendar.SECOND,<span class="number">600</span>);</span><br><span class="line">        String token = JWT.create()</span><br><span class="line">                .withClaim(<span class="string">&quot;userId&quot;</span>,<span class="number">21</span>)</span><br><span class="line">                .withClaim(<span class="string">&quot;userName&quot;</span>,<span class="string">&quot;bob&quot;</span>)</span><br><span class="line">                .withExpiresAt(calendar.getTime())</span><br><span class="line">                .sign(Algorithm.HMAC256(<span class="string">&quot;dsf&quot;</span>));</span><br><span class="line">        System.out.println(token);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">verity</span><span class="params">()</span></span>&#123;</span><br><span class="line">        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(<span class="string">&quot;dsf&quot;</span>)).build();</span><br><span class="line">        DecodedJWT verify = jwtVerifier.verify(<span class="string">&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImJvYiIsImV4cCI6MTYwMzg0Mjk2MSwidXNlcklkIjoyMX0.e4L6lswZH6BiWh-0fQ11iSxrJWdAFEwOPRfdLWIo6s0&quot;</span>);</span><br><span class="line">        String userName = verify.getClaim(<span class="string">&quot;userName&quot;</span>).asString();</span><br><span class="line">        <span class="keyword">int</span> userID = verify.getClaim(<span class="string">&quot;userId&quot;</span>).asInt();</span><br><span class="line">        System.out.println(userName);</span><br><span class="line">        System.out.println(userID);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -709,7 +709,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -757,17 +757,17 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">NaNm</span>
+    <span title="站点总字数">268k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">NaN:aN</span>
+    <span title="站点阅读时长">4:04</span>
 </div>
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共80.9k字</span>
+  <span class="post-count">博客全站共80.5k字</span>
 </div>
 
         

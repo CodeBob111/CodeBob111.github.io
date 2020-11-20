@@ -20,7 +20,7 @@
 <p>​    <a href="https://blog.csdn.net/qq_40574571/article/details/97612100">https://blog.csdn.net/qq_40574571/article/details/97612100</a></p>
 ]]></content>
       <tags>
-        <tag>算法</tag>
+        <tag>JDK</tag>
       </tags>
   </entry>
   <entry>
@@ -46,6 +46,9 @@
 <p>子模块只配置自己额为需要的就可以了</p>
 <p><img src="/2020/10/02/Gradle/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20201005123900977.png" alt="image-20201005123900977"></p>
 ]]></content>
+      <tags>
+        <tag>gradle</tag>
+      </tags>
   </entry>
   <entry>
     <title>Jenkins</title>
@@ -82,6 +85,9 @@
 <h2 id="Gitlab代码托管服务器安装"><a href="#Gitlab代码托管服务器安装" class="headerlink" title="Gitlab代码托管服务器安装"></a>Gitlab代码托管服务器安装</h2><h3 id="gitlab介绍"><a href="#gitlab介绍" class="headerlink" title="gitlab介绍"></a>gitlab介绍</h3><p>GitLab 是一个用于仓库管理系统的开源项目，使用Git作为代码管理工具，并在此基础上搭建起来的 web服务。</p>
 <p>GitLab和GitHub一样属于第三方基于Git开发的作品，免费且开源（基于MIT协议），与Github类似， 可以注册用户，任意提交你的代码，添加SSHKey等等。不同的是，GitLab是可以部署到自己的服务器 上，数据库等一切信息都掌握在自己手上，适合团队内部协作开发，你总不可能把团队内部的智慧总放 在别人的服务器上吧？简单来说可把GitLab看作个人版的GitHub。</p>
 <h3 id="gitlab安装"><a href="#gitlab安装" class="headerlink" title="gitlab安装"></a>gitlab安装</h3>]]></content>
+      <tags>
+        <tag>jenkins</tag>
+      </tags>
   </entry>
   <entry>
     <title>RuoYi</title>
@@ -102,6 +108,9 @@
 <figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="constructor">DecimalFormat(<span class="string">&quot;0&quot;</span>)</span>.format(<span class="keyword">val</span>);</span><br></pre></td></tr></table></figure>
 
 <h1 id="Generate"><a href="#Generate" class="headerlink" title="Generate"></a>Generate</h1>]]></content>
+      <tags>
+        <tag>项目</tag>
+      </tags>
   </entry>
   <entry>
     <title>MyBatisPlus</title>
@@ -154,6 +163,9 @@
 <h1 id="代码自动生成器"><a href="#代码自动生成器" class="headerlink" title="代码自动生成器"></a>代码自动生成器</h1><p><a href="https://baomidou.com/guide/generator.html#%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B">https://baomidou.com/guide/generator.html#%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B</a></p>
 <p>​    </p>
 ]]></content>
+      <tags>
+        <tag>mybatis</tag>
+      </tags>
   </entry>
   <entry>
     <title>dubbo</title>
@@ -258,6 +270,9 @@
 <p><img src="/2020/10/03/dubbo/image-20201005100816469.png" alt="image-20201005100816469"></p>
 <p>出错后会调用hello方法</p>
 ]]></content>
+      <tags>
+        <tag>dubbo</tag>
+      </tags>
   </entry>
   <entry>
     <title>hexo博客无法显示图片解决方法</title>
@@ -486,18 +501,9 @@
 </ul>
 <h4 id="13-其他调试功能"><a href="#13-其他调试功能" class="headerlink" title="13_其他调试功能"></a>13_其他调试功能</h4><p><img src="/2020/10/06/idea-debug/image-20201006203423905.png" alt="image-20201006203423905"></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>ngrok</title>
-    <url>/2020/09/29/ngrok/</url>
-    <content><![CDATA[<p>ngrok内网穿透：可以让别人访问自己电脑上的本地项目</p>
-<p>访问：<a href="http://www.ngrok.cc/user.html">http://www.ngrok.cc/user.html</a></p>
-<p>开通免费隧道</p>
-<p>​    <img src="/2020/09/29/ngrok/picture1.png"></p>
-<p>下载客户端 启动 并填入隧道id</p>
-<p><img src="/2020/09/29/ngrok/picture2.png"></p>
-<p>这样访问<a href="http://baobingjiang.free.idcfengye.com就可以访问到本地8100端口/">http://baobingjiang.free.idcfengye.com就可以访问到本地8100端口</a></p>
-]]></content>
+      <tags>
+        <tag>debug</tag>
+      </tags>
   </entry>
   <entry>
     <title>shiro</title>
@@ -561,6 +567,9 @@
 <p>修改test.html</p>
 <p><img src="/2020/10/06/shiro/image-20201006183309081.png" alt="image-20201006183309081"></p>
 ]]></content>
+      <tags>
+        <tag>shiro</tag>
+      </tags>
   </entry>
   <entry>
     <title>elasticSearch笔记</title>
@@ -762,6 +771,9 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSubAgg</span><span class="params">()</span></span>&#123;</span><br><span class="line">    NativeSearchQueryBuilder queryBuilder = <span class="keyword">new</span> NativeSearchQueryBuilder();</span><br><span class="line">    <span class="comment">// 不查询任何结果</span></span><br><span class="line">    queryBuilder.withSourceFilter(<span class="keyword">new</span> FetchSourceFilter(<span class="keyword">new</span> String[]&#123;<span class="string">&quot;&quot;</span>&#125;, <span class="keyword">null</span>));</span><br><span class="line">    <span class="comment">// 1、添加一个新的聚合，聚合类型为terms，聚合名称为brands，聚合字段为brand</span></span><br><span class="line">    queryBuilder.addAggregation(</span><br><span class="line">        AggregationBuilders.terms(<span class="string">&quot;brands&quot;</span>).field(<span class="string">&quot;brand&quot;</span>)</span><br><span class="line">        .subAggregation(AggregationBuilders.avg(<span class="string">&quot;priceAvg&quot;</span>).field(<span class="string">&quot;price&quot;</span>)) <span class="comment">// 在品牌聚合桶内进行嵌套聚合，求平均值</span></span><br><span class="line">    );</span><br><span class="line">    <span class="comment">// 2、查询,需要把结果强转为AggregatedPage类型</span></span><br><span class="line">    AggregatedPage&lt;Item&gt; aggPage = (AggregatedPage&lt;Item&gt;) <span class="keyword">this</span>.itemRepository.search(queryBuilder.build());</span><br><span class="line">    <span class="comment">// 3、解析</span></span><br><span class="line">    <span class="comment">// 3.1、从结果中取出名为brands的那个聚合，</span></span><br><span class="line">    <span class="comment">// 因为是利用String类型字段来进行的term聚合，所以结果要强转为StringTerm类型</span></span><br><span class="line">    StringTerms agg = (StringTerms) aggPage.getAggregation(<span class="string">&quot;brands&quot;</span>);</span><br><span class="line">    <span class="comment">// 3.2、获取桶</span></span><br><span class="line">    List&lt;StringTerms.Bucket&gt; buckets = agg.getBuckets();</span><br><span class="line">    <span class="comment">// 3.3、遍历</span></span><br><span class="line">    <span class="keyword">for</span> (StringTerms.Bucket bucket : buckets) &#123;</span><br><span class="line">        <span class="comment">// 3.4、获取桶中的key，即品牌名称  3.5、获取桶中的文档数量</span></span><br><span class="line">        System.out.println(bucket.getKeyAsString() + <span class="string">&quot;，共&quot;</span> + bucket.getDocCount() + <span class="string">&quot;台&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3.6.获取子聚合结果：</span></span><br><span class="line">        InternalAvg avg = (InternalAvg) bucket.getAggregations().asMap().get(<span class="string">&quot;priceAvg&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;平均售价：&quot;</span> + avg.getValue());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <tags>
+        <tag>ES</tag>
+      </tags>
   </entry>
   <entry>
     <title>python</title>
@@ -1119,6 +1131,9 @@
 
 <h2 id="可变类型和不可变类型"><a href="#可变类型和不可变类型" class="headerlink" title="可变类型和不可变类型"></a>可变类型和不可变类型</h2><p><img src="/2020/10/15/python/image-20201019223000046.png" alt="image-20201019223000046"></p>
 <h1 id="函数加强"><a href="#函数加强" class="headerlink" title="函数加强"></a>函数加强</h1>]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
   </entry>
   <entry>
     <title>算法</title>
@@ -1224,6 +1239,9 @@
 <h2 id="228-汇总区间"><a href="#228-汇总区间" class="headerlink" title="228. 汇总区间"></a><a href="https://leetcode-cn.com/problems/summary-ranges/">228. 汇总区间</a></h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">summaryRanges</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; summary = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; j &lt; nums.length; ++j) &#123;</span><br><span class="line">            <span class="comment">// check if j + 1 extends the range [nums[i], nums[j]]</span></span><br><span class="line">            <span class="keyword">if</span> (j + <span class="number">1</span> &lt; nums.length &amp;&amp; nums[j + <span class="number">1</span>] == nums[j] + <span class="number">1</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="comment">// put the range [nums[i], nums[j]] into the list</span></span><br><span class="line">            <span class="keyword">if</span> (i == j)</span><br><span class="line">                summary.add(nums[i] + <span class="string">&quot;&quot;</span>);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                summary.add(nums[i] + <span class="string">&quot;-&gt;&quot;</span> + nums[j]);</span><br><span class="line">            i = j + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> summary;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <tags>
+        <tag>算法</tag>
+      </tags>
   </entry>
   <entry>
     <title>SpringSecurity</title>
@@ -1540,6 +1558,9 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JWT_Demo</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Generate</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Calendar calendar = Calendar.getInstance();</span><br><span class="line">        calendar.add(Calendar.SECOND,<span class="number">600</span>);</span><br><span class="line">        String token = JWT.create()</span><br><span class="line">                .withClaim(<span class="string">&quot;userId&quot;</span>,<span class="number">21</span>)</span><br><span class="line">                .withClaim(<span class="string">&quot;userName&quot;</span>,<span class="string">&quot;bob&quot;</span>)</span><br><span class="line">                .withExpiresAt(calendar.getTime())</span><br><span class="line">                .sign(Algorithm.HMAC256(<span class="string">&quot;dsf&quot;</span>));</span><br><span class="line">        System.out.println(token);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">verity</span><span class="params">()</span></span>&#123;</span><br><span class="line">        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(<span class="string">&quot;dsf&quot;</span>)).build();</span><br><span class="line">        DecodedJWT verify = jwtVerifier.verify(<span class="string">&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6ImJvYiIsImV4cCI6MTYwMzg0Mjk2MSwidXNlcklkIjoyMX0.e4L6lswZH6BiWh-0fQ11iSxrJWdAFEwOPRfdLWIo6s0&quot;</span>);</span><br><span class="line">        String userName = verify.getClaim(<span class="string">&quot;userName&quot;</span>).asString();</span><br><span class="line">        <span class="keyword">int</span> userID = verify.getClaim(<span class="string">&quot;userId&quot;</span>).asInt();</span><br><span class="line">        System.out.println(userName);</span><br><span class="line">        System.out.println(userID);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <tags>
+        <tag>spring</tag>
+      </tags>
   </entry>
   <entry>
     <title>leyou</title>
@@ -1987,6 +2008,9 @@
 <p><img src="/2020/10/19/leyou/log\source_posts\leyou\image-20201117091840572.png" alt="image-20201117091840572"></p>
 <p><img src="/2020/10/19/leyou/log\source_posts\leyou\image-20201117092012690.png" alt="image-20201117092012690"></p>
 ]]></content>
+      <tags>
+        <tag>leyou</tag>
+      </tags>
   </entry>
   <entry>
     <title>javascript</title>
@@ -2266,6 +2290,9 @@ console.log(box1);
 
 <p>闭包的生命周期</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span> 产生: 在嵌套内部函数定义执行完时就产生了(不是在调用)</span><br><span class="line"><span class="number">2.</span> 死亡: 在嵌套的内部函数成为垃圾对象时</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>前端</tag>
+      </tags>
   </entry>
   <entry>
     <title>Vue.js</title>
@@ -2531,7 +2558,7 @@ console.log(box1);
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">options: &#123;</span><br><span class="line">    name: <span class="string">&#x27;img/[name].[hash:8].[ext]&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="ES6转ES5"><a href="#ES6转ES5" class="headerlink" title="ES6转ES5"></a>ES6转ES5</h4><p>使用babel对应的loader</p>
-<p>安装：npm install <a href="mailto:&#98;&#x61;&#98;&#101;&#108;&#45;&#x6c;&#111;&#x61;&#x64;&#101;&#x72;&#64;&#x38;&#x2e;&#x30;&#x2e;&#48;&#x2d;&#98;&#x65;&#116;&#97;&#x2e;&#x30;">&#98;&#x61;&#98;&#101;&#108;&#45;&#x6c;&#111;&#x61;&#x64;&#101;&#x72;&#64;&#x38;&#x2e;&#x30;&#x2e;&#48;&#x2d;&#98;&#x65;&#116;&#97;&#x2e;&#x30;</a> @babel/core @babel/preset-env webpack</p>
+<p>安装：npm install <a href="mailto:&#x62;&#x61;&#x62;&#x65;&#x6c;&#45;&#x6c;&#x6f;&#97;&#100;&#101;&#114;&#64;&#x38;&#46;&#x30;&#46;&#x30;&#45;&#98;&#101;&#116;&#x61;&#46;&#48;">&#x62;&#x61;&#x62;&#x65;&#x6c;&#45;&#x6c;&#x6f;&#97;&#100;&#101;&#114;&#64;&#x38;&#46;&#x30;&#46;&#x30;&#45;&#98;&#101;&#116;&#x61;&#46;&#48;</a> @babel/core @babel/preset-env webpack</p>
 <p>配置</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">      test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">      exclude: <span class="regexp">/(node_modules|bower_components)/</span>,</span><br><span class="line">      use: &#123;</span><br><span class="line">        loader: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">        options: &#123;</span><br><span class="line">          presets: [<span class="string">&#x27;es2015&#x27;</span>]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
@@ -2778,6 +2805,9 @@ console.log(box1);
 
 <p>axios.create会返回一个promise 当需要用其他框架的时候 直接修改request.js文件使其也返回一个promise即可 模块中的代码不用修改</p>
 <h2 id="axios拦截器的使用"><a href="#axios拦截器的使用" class="headerlink" title="axios拦截器的使用"></a>axios拦截器的使用</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params">config</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> axiosInstance = axios.create(&#123;</span><br><span class="line">        baseURL: <span class="string">&#x27;http://123.207.32.32:8000&#x27;</span>,</span><br><span class="line">        timeout:<span class="number">5000</span></span><br><span class="line">    &#125;)</span><br><span class="line">    axiosInstance.interceptors.request.use(<span class="function"><span class="params">config</span> =&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(config)</span><br><span class="line">        <span class="keyword">return</span> config</span><br><span class="line">    &#125;,<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(error)</span><br><span class="line">    &#125;)</span><br><span class="line">    axiosInstance.interceptors.response.usr(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(result.data)</span><br><span class="line">        </span><br><span class="line">    &#125;,<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(error)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> axiosInstance(config);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>前端</tag>
+      </tags>
   </entry>
   <entry>
     <title>并发编程</title>
@@ -3842,6 +3872,9 @@ console.log(box1);
 <h2 id="线程安全集合类"><a href="#线程安全集合类" class="headerlink" title="线程安全集合类"></a>线程安全集合类</h2><p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201016145715240.png" alt="image-20201016145715240"></p>
 <p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201016145748941.png" alt="image-20201016145748941"></p>
 ]]></content>
+      <tags>
+        <tag>并发编程</tag>
+      </tags>
   </entry>
   <entry>
     <title>Debug</title>
@@ -3857,5 +3890,8 @@ console.log(box1);
 
 
 ]]></content>
+      <tags>
+        <tag>bug</tag>
+      </tags>
   </entry>
 </search>

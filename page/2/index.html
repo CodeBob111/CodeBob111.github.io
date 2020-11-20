@@ -236,7 +236,21 @@
                 </span>
             </span>
 
-          <br>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/06/idea-debug/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/06/idea-debug/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -335,7 +349,21 @@
                 </span>
             </span>
 
-          <br>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/06/shiro/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/06/shiro/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -484,7 +512,21 @@
                 </span>
             </span>
 
-          <br>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/06/SpringSecurity/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/06/SpringSecurity/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -571,7 +613,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-20 10:30:55" itemprop="dateModified" datetime="2020-11-20T10:30:55+08:00">2020-11-20</time>
+                <time title="修改时间：2020-11-20 13:43:44" itemprop="dateModified" datetime="2020-11-20T13:43:44+08:00">2020-11-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -583,7 +625,21 @@
                 </span>
             </span>
 
-          <br>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -855,13 +911,13 @@
 </li>
 <li><p>当有其它线程使用偏向锁对象时，会将偏向锁升级为轻量级锁</p>
 </li>
-<li><p>只有重量级锁有wait&amp;notify等待机制  如果使用轻量级锁会升级为重量级锁</p>
+<li><p>只有重量级锁有wait&amp;notify等待机制  如果轻量级锁使用会升级为重量级锁</p>
 <ul>
 <li><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201008123003005.png" alt="image-20201008123003005"></li>
 </ul>
 </li>
 </ul>
-<h4 id="批量重偏向"><a href="#批量重偏向" class="headerlink" title="批量重偏向"></a>批量重偏向</h4><p>如果对象虽然被多个线程访问，但没有竞争，这时偏向了线程 T1 的对象仍有机会重新偏向 T2，重偏向会重置对象 的 Thread ID 当撤销偏向锁阈值超过 20 次后，jvm 会这样觉得，我是不是偏向错了呢，于是会在给这些对象加锁时重新偏向至 加锁线程</p>
+<h4 id="批量重偏向"><a href="#批量重偏向" class="headerlink" title="批量重偏向"></a>批量重偏向</h4><p>如果对象虽然被多个线程访问，但没有竞争，这时偏向了线程 T1 的对象仍有机会重新偏向 T2，重偏向会重置对象的Thread ID，当撤销偏向锁阈值超过 20 次后，jvm 会这样觉得，我是不是偏向错了呢，于是会在给这些对象加锁时重新偏向至 加锁线程</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">	Vector&lt;Dog&gt; list = <span class="keyword">new</span> Vector&lt;&gt;();</span><br><span class="line"> 	Thread t1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">30</span>; i++) &#123;</span><br><span class="line"> 			Dog d = <span class="keyword">new</span> Dog();</span><br><span class="line"> 			list.add(d);</span><br><span class="line"> 			<span class="keyword">synchronized</span> (d) &#123;</span><br><span class="line"> 				log.debug(i + <span class="string">&quot;\t&quot;</span> + ClassLayout.parseInstance(d).toPrintableSimple(<span class="keyword">true</span>));</span><br><span class="line"> 			&#125;</span><br><span class="line"> 		&#125;</span><br><span class="line"> 		<span class="keyword">synchronized</span> (list) &#123;</span><br><span class="line"> 			list.notify();</span><br><span class="line"> 		&#125;</span><br><span class="line"> 	&#125;, <span class="string">&quot;t1&quot;</span>);</span><br><span class="line"> 	t1.start();</span><br><span class="line"></span><br><span class="line"> 	Thread t2 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line"> 		<span class="keyword">synchronized</span> (list) &#123;</span><br><span class="line"> 			<span class="keyword">try</span> &#123;</span><br><span class="line"> 				list.wait();</span><br><span class="line"> 			&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line"> 				e.printStackTrace();</span><br><span class="line"> 			&#125;</span><br><span class="line"> 		&#125;</span><br><span class="line"> 		log.debug(<span class="string">&quot;===============&gt; &quot;</span>);</span><br><span class="line"> 		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">30</span>; i++) &#123;</span><br><span class="line"> 			Dog d = list.get(i);</span><br><span class="line"> 			log.debug(i + <span class="string">&quot;\t&quot;</span> + ClassLayout.parseInstance(d).toPrintableSimple(<span class="keyword">true</span>));</span><br><span class="line"> 			<span class="keyword">synchronized</span> (d) &#123;</span><br><span class="line"> 				log.debug(i + <span class="string">&quot;\t&quot;</span> + ClassLayout.parseInstance(d).toPrintableSimple(<span class="keyword">true</span>));</span><br><span class="line"> 			&#125;</span><br><span class="line"> 			log.debug(i + <span class="string">&quot;\t&quot;</span> + ClassLayout.parseInstance(d).toPrintableSimple(<span class="keyword">true</span>));</span><br><span class="line"> 		&#125;</span><br><span class="line"> 	&#125;, <span class="string">&quot;t2&quot;</span>);</span><br><span class="line"> 	t2.start();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>这段代码先让t1把Dog对象添加到list中然后唤醒t2线程，d对象刚开始偏向t1 这时t2线程获取d的锁 重偏向锁被撤销 升级为轻量级锁</p>
@@ -870,7 +926,7 @@
 <p>t2线程前20轮循环输出格式为<img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201008140629193.png" alt="image-20201008140629193"></p>
 <p>20轮之后 批量重定向 全部偏向t2</p>
 <p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201008140747166.png" alt="image-20201008140747166"></p>
-<h4 id="批量撤销"><a href="#批量撤销" class="headerlink" title="批量撤销"></a>批量撤销</h4><p>当偏向锁撤销超过阈值 40 次的时候 jvm会认为这个类竞争比较激烈并把整个类的所有对象都变为不可偏向的 新建的对象也是不可偏向的 他们的锁变为nornaml(001)</p>
+<h4 id="批量撤销"><a href="#批量撤销" class="headerlink" title="批量撤销"></a>批量撤销</h4><p>当一个偏向锁如果撤销次数到达40的时候就认为这个对象设计的有问题；那么JVM会把这个对象所对应的类所有的对象都撤销偏向锁；并且新实例化的对象也是不可偏向的</p>
 <h4 id="锁消除"><a href="#锁消除" class="headerlink" title="锁消除"></a>锁消除</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Fork(1)</span></span><br><span class="line"><span class="meta">@BenchmarkMode(Mode.AverageTime)</span></span><br><span class="line"><span class="meta">@Warmup(iterations=3)</span></span><br><span class="line"><span class="meta">@Measurement(iterations=5)</span></span><br><span class="line"><span class="meta">@OutputTimeUnit(TimeUnit.NANOSECONDS)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBenchmark</span> </span>&#123;</span><br><span class="line"> 	<span class="keyword">static</span> <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"> 	<span class="meta">@Benchmark</span></span><br><span class="line"> 	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">a</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"> 		x++;</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="meta">@Benchmark</span></span><br><span class="line"> 	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">b</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"> 		Object o = <span class="keyword">new</span> Object();</span><br><span class="line"> 		<span class="keyword">synchronized</span> (o) &#123;</span><br><span class="line"> 			x++;</span><br><span class="line">    	&#125;</span><br><span class="line"> 	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -1733,7 +1789,21 @@
                 </span>
             </span>
 
-          <br>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/03/dubbo/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/03/dubbo/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -1832,7 +1902,21 @@
                 </span>
             </span>
 
-          <br>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/02/Gradle/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/02/Gradle/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -1931,7 +2015,21 @@
                 </span>
             </span>
 
-          <br>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/29/MyBatisPlus/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/29/MyBatisPlus/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -2030,7 +2128,21 @@
                 </span>
             </span>
 
-          <br>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/29/hexo%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/29/hexo%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -2282,6 +2394,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Q8d8san4rQK6RMUMN9Cn773b-gzGzoHsz',
+      appKey     : 'W6WIDWUfTyiNEDcQ490kGNaJ',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
   
  

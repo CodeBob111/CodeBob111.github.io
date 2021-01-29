@@ -3198,7 +3198,7 @@ console.log(box1);
 </li>
 <li>当 Thread-0 退出同步块解锁时，使用 cas 将 Mark Word 的值恢复给对象头，失败。这时会进入重量级解锁 流程，即按照 Monitor 地址找到 Monitor 对象，设置 Owner 为 null，唤醒 EntryList 中 BLOCKED 线程</li>
 </ul>
-<h4 id="自旋优化"><a href="#自旋优化" class="headerlink" title="自旋优化"></a>自旋优化</h4><p>重量级锁竞争的时候，还可以使用自旋来进行优化，如果当前线程自旋成功（即这时候持锁线程已经退出了同步 块，释放了锁），这时当前线程就可以避免阻塞。</p>
+<h4 id="自旋优化"><a href="#自旋优化" class="headerlink" title="自旋优化"></a>自旋优化</h4><p>重量级锁竞争的时候，还可以使用自旋来进行优化，如果当前线程自旋成功（即这时持锁线程已经退出了同步块，释放了锁），这时当前线程就可以避免阻塞。</p>
 <p>自选成功的情况</p>
 <p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201008094753865.png" alt="image-20201008094753865"></p>
 <p>自旋失败的情况</p>
@@ -3256,7 +3256,7 @@ console.log(box1);
 <li>WAITING 线程会在 Owner 线程调用 notify 或 notifyAll 时唤醒，但唤醒后并不意味者立刻获得锁，仍需进入 EntryList 重新竞争</li>
 </ul>
 <p>wait和notify都是线程间进行协作的手段 属于object对象的方法 必须获得此对象的锁 才能调用这些方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (lock)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                lock.wait();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (lock)&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        lock.wait();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>wait和sleep的区别</strong></p>
 <ul>
@@ -3266,7 +3266,7 @@ console.log(box1);
 </ul>
 <p><strong>虚假唤醒</strong>：当一个条件满足时，很多线程都被唤醒了，但是只有其中部分是有用的唤醒，其它的唤醒都是无用功 比如说买货，如果商品本来没有货物，突然进了一件商品，这是所有的线程都被唤醒了 但是只能一个人买，所以其他人都是假唤醒，获取不到对象的锁</p>
 <h2 id="join原理"><a href="#join原理" class="headerlink" title="join原理"></a>join原理</h2><p><code>t1.join()</code>等价于下面这段代码</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (t1) &#123;</span><br><span class="line"> <span class="comment">// 调用者线程进入 t1 的 waitSet 等待, 直到 t1 运行结束</span></span><br><span class="line">	 <span class="keyword">while</span> (t1.isAlive()) &#123;</span><br><span class="line"> 		t1.wait(<span class="number">0</span>);</span><br><span class="line"> 	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (t1) &#123;</span><br><span class="line"> 	<span class="comment">// 调用者线程进入 t1 的 waitSet 等待, 直到 t1 运行结束</span></span><br><span class="line">	<span class="keyword">while</span> (t1.isAlive()) &#123;</span><br><span class="line"> 		t1.wait(<span class="number">0</span>); <span class="comment">//如果 timeout 为零，则不考虑实际时间，在获得通知前该线程将一直等待。</span></span><br><span class="line"> 	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="同步模式之保护性暂停"><a href="#同步模式之保护性暂停" class="headerlink" title="同步模式之保护性暂停"></a>同步模式之保护性暂停</h2><p> Guarded Suspension，用在一个线程等待另一个线程的执行结果</p>
 <ul>
@@ -5455,7 +5455,7 @@ console.log(box1);
 <p>跨域，指的是浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，是*<strong>*浏览器施加的**</strong>安全限制。</p>
 <p>跨域解决方法</p>
 <p>例如<a href="http://www.123.com/index.html%E9%9C%80%E8%A6%81%E8%B0%83%E7%94%A8www.456.com/server.php%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%86%99%E4%B8%80%E4%B8%AA%E6%8E%A5%E5%8F%A3www.123.com/server.php%EF%BC%8C%E7%94%B1%E8%BF%99%E4%B8%AA%E6%8E%A5%E5%8F%A3%E5%9C%A8%E5%90%8E%E7%AB%AF%E5%8E%BB%E8%B0%83%E7%94%A8www.456.com/server.php%E5%B9%B6%E6%8B%BF%E5%88%B0%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%8C%E7%84%B6%E5%90%8E%E5%86%8D%E8%BF%94%E5%9B%9E%E7%BB%99index.html%EF%BC%8C%E8%BF%99%E5%B0%B1%E6%98%AF%E4%B8%80%E4%B8%AA%E4%BB%A3%E7%90%86%E7%9A%84%E6%A8%A1%E5%BC%8F%E3%80%82%E7%9B%B8%E5%BD%93%E4%BA%8E%E7%BB%95%E8%BF%87%E4%BA%86%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AB%AF%EF%BC%8C%E8%87%AA%E7%84%B6%E5%B0%B1%E4%B8%8D%E5%AD%98%E5%9C%A8%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E3%80%82">www.123.com/index.html需要调用www.456.com/server.php，可以写一个接口www.123.com/server.php，由这个接口在后端去调用www.456.com/server.php并拿到返回值，然后再返回给index.html，这就是一个代理的模式。相当于绕过了浏览器端，自然就不存在跨域问题。</a></p>
-<h2 id="长连接和短链接"><a href="#长连接和短链接" class="headerlink" title="长连接和短链接"></a>长连接和短链接</h2><p><a href="https://www.cnblogs.com/gotodsp/p/6366163.html">https://www.cnblogs.com/gotodsp/p/6366163.html</a></p>
+<h2 id="长连接和短链接"><a href="#长连接和短链接" class="headerlink" title="长连接和短链接"></a>长连接和短链接</h2><p>所谓，短连接说的就是 server 端 与 client 端建⽴连接之后，读写完成之后就关闭掉连接，如果下⼀次再要互相发送消息，就要重新连接。短连接的优点很明显，就是管理和实现都比较简单，缺点也很明显，每⼀次的读写都要建⽴连接必然会带来⼤量⽹络资源的消耗，并且连接的建⽴也需要耗费时间。<br>⻓连接说的就是 client 向 server 双⽅建⽴连接之后，即使 client 与 server 完成⼀次读写，它们之间的连接并不会主动关闭，后续的读写操作会继续使⽤这个连接。⻓连接的可以省去较多的 TCP 建⽴和关闭的操作，降低对⽹络资源的依赖，节约时间。对于频繁请求资源的客户来说，⾮常适⽤⻓连接。</p>
 <h2 id="Session和Cookie"><a href="#Session和Cookie" class="headerlink" title="Session和Cookie"></a>Session和Cookie</h2><p><a href="https://blog.csdn.net/qq_28296925/article/details/80921585">https://blog.csdn.net/qq_28296925/article/details/80921585</a></p>
 <h2 id="URI和URL的区别"><a href="#URI和URL的区别" class="headerlink" title="URI和URL的区别"></a>URI和URL的区别</h2><p>URI是：协议+主机（不含端口）+具体路径（不一定含文件）；URL是：协议+主机（默认是80，或是别的端口）+具体文件路径（还必须是对应到路径下面的具体文件名称）。所以URI是粗框架，URL是详细定位。。。比如URI：<a href="http://www.123.com/123/%EF%BC%8C%E8%AF%A5%E7%9B%AE%E5%BD%95%E4%B8%8B%E5%8F%AF%E8%83%BD%E6%9C%89index.html%E5%92%8Cindex.htm%EF%BC%88%E4%B8%A4%E4%B8%AA%E6%96%87%E4%BB%B6%EF%BC%89%E3%80%82%E3%80%82%E3%80%82%E6%AF%94%E5%A6%82URL:http://www.123.com/123/index.html%EF%BC%88%E5%94%AF%E4%B8%80%E7%9A%84%E6%96%87%E4%BB%B6%EF%BC%89">http://www.123.com/123/，该目录下可能有index.html和index.htm（两个文件）。。。比如URL:http://www.123.com/123/index.html（唯一的文件）</a></p>
 <h2 id="Http和Https的区别"><a href="#Http和Https的区别" class="headerlink" title="Http和Https的区别"></a>Http和Https的区别</h2><ol>
@@ -5491,26 +5491,41 @@ console.log(box1);
 <li><strong>将消息分为消息头和消息体：</strong>消息头中包含表示消息总长度（或者消息体长度）的字段。</li>
 <li>更复杂的应用层协议比如 Netty 中实现的一些协议都对粘包、拆包做了很好的处理。</li>
 </ul>
-<h1 id="Netty"><a href="#Netty" class="headerlink" title="Netty"></a>Netty</h1><h2 id="netty是什么-应用场景有哪些"><a href="#netty是什么-应用场景有哪些" class="headerlink" title="netty是什么?应用场景有哪些?"></a>netty是什么?应用场景有哪些?</h2><p>Netty 是一款基于 NIO开发的网络通信框架，对比于 BIO，他的并发性能得到了很大提高</p>
-<p>Netty 主要用来做网络通信 :作为 RPC 框架的网络通信工具,实现一个自己的 HTTP 服务器,实现一个即时通讯系统 ,实现消息推送系统</p>
-<h2 id="netty核心类"><a href="#netty核心类" class="headerlink" title="netty核心类"></a>netty核心类</h2><p>Bootstrap,</p>
-<p>ChannelFuture：Netty 框架中所有的 I/O 操作都为异步的，因此我们需要 ChannelFuture 的 addListener()注册一个 ChannelFutureListener 监听事件，当操作执行成功或者失败时，监听就会自动触发返回结果。</p>
-<p>Channel，</p>
-<p>ChannelHandler：充当了所有处理入站和出站数据的逻辑容器。ChannelHandler 主要用来处理各种事件</p>
-<p>ChannelPipeline：为 ChannelHandler 链提供了容器，当 channel 创建时，就会被自动分配到它专属的 ChannelPipeline</p>
-<p>EventLoop：主要是配合 Channel 处理 I/O 操作，用来处理连接的生命周期中所发生的事情</p>
+<h1 id="Netty"><a href="#Netty" class="headerlink" title="Netty"></a>Netty</h1><h2 id="netty是什么"><a href="#netty是什么" class="headerlink" title="netty是什么?"></a>netty是什么?</h2><ol>
+<li>Netty 是⼀个 基于 NIO 的 client-server(客户端服务器)框架，使⽤它可以快速简单地开发⽹<br>络应⽤程序。</li>
+<li>它极⼤地简化并优化了 TCP 和 UDP 套接字服务器等⽹络编程,并且性能以及安全性等很多⽅⾯<br>甚⾄都要更好。</li>
+<li>⽀持多种协议 如 FTP，SMTP，HTTP 以及各种⼆进制和基于⽂本的传统协议。</li>
+</ol>
+<h2 id="netty应用场景"><a href="#netty应用场景" class="headerlink" title="netty应用场景"></a>netty应用场景</h2><p>Netty 主要⽤来做⽹络通信 :</p>
+<ol>
+<li>作为 RPC 框架的⽹络通信⼯具 ： 我们在分布式系统中，不同服务节点之间经常需要相互调<br>⽤，这个时候就需要 RPC 框架了。不同服务节点之间的通信是如何做的呢？可以使⽤ Netty 来<br>做。⽐如我调⽤另外⼀个节点的⽅法的话，⾄少是要让对⽅知道我调⽤的是哪个类中的哪个⽅法<br>以及相关参数吧！</li>
+<li>实现⼀个⾃⼰的 HTTP 服务器 ：通过 Netty 我们可以⾃⼰实现⼀个简单的 HTTP 服务器，这个<br>⼤家应该不陌⽣。说到 HTTP 服务器的话，作为 Java 后端开发，我们⼀般使⽤ Tomcat 比较<br>多。⼀个最基本的 HTTP 服务器可要以处理常⻅的 HTTP Method 的请求，⽐如 POST 请求、GET<br>请求等等。</li>
+<li>实现⼀个即时通讯系统 ： 使⽤ Netty 我们可以实现⼀个可以聊天类似微信的即时通讯系统，这⽅⾯的开源项⽬还蛮多的，可以⾃⾏去 Github 找⼀找。</li>
+<li><strong>实现消息推送系统</strong> ：市⾯上有很多消息推送系统都是基于 Netty 来做的。</li>
+</ol>
+<h2 id="netty的核心组件"><a href="#netty的核心组件" class="headerlink" title="netty的核心组件"></a>netty的核心组件</h2><p><strong>Channel</strong></p>
+<p>Channel 接⼝是 Netty 对⽹络操作的抽象类，它除了包括基本的 I/O 操作，如bind() 、 connect() 、 read() 、 write() 等。</p>
+<p>比较常⽤的 Channel 接⼝实现类是 NioServerSocketChannel （服务端）和NioSocketChannel （客户端）</p>
+<p><strong>EventLoop</strong></p>
+<p>EventLoop 的主要作⽤是负责监听⽹络事件并调⽤事件处理器进⾏相关 I/O 操作的处理。</p>
+<p>那 Channel 和 EventLoop 直接有啥联系呢？<br>Channel 对 Netty ⽹络操作(读写等操作)抽象成类， EventLoop 负责处理注册到其上的 Channel的 I/O 操作，两者配合参与 I/O 操作。</p>
+<p><strong>ChannelFuture</strong></p>
+<p>Netty 是异步⾮阻塞的，所有的 I/O 操作都为异步的。<br>因此，我们不能⽴刻知道操作是否执⾏成功，但是，你可以通过 ChannelFuture 接⼝的addListener() ⽅法注册⼀个ChannelFutureListener ，当操作执⾏成功或者失败时，监听就会⾃动触发返回结果。</p>
+<p>并且，你还可以通过 ChannelFuture 的 channel() ⽅法获取关联的 Channel</p>
+<p>另外，我们还可以通过 ChannelFuture 接⼝的 sync() ⽅法让异步的操作变成同步的。</p>
+<p><strong>ChannelHandler 和 ChannelPipeline</strong></p>
+<p>ChannelHandler 是消息的具体处理器。他负责处理读写操作、客户端连接等事情。<br>ChannelPipeline 为 ChannelHandler 的链，提供了⼀个容器并定义了⽤于沿着链传播⼊站和出站事件流的 API 。当 Channel 被创建时，它会被⾃动地分配到它专属的 ChannelPipeline 。</p>
 <h2 id="Netty-的特点是什么"><a href="#Netty-的特点是什么" class="headerlink" title="Netty 的特点是什么"></a>Netty 的特点是什么</h2><p>高并发：Netty 是一款基于 NIO（Nonblocking IO，非阻塞IO）开发的网络通信框架，对比于 BIO（Blocking I/O，阻塞IO），他的并发性能得到了很大提高。</p>
 <p>传输快：Netty 的传输依赖于零拷贝特性，尽量减少不必要的内存拷贝，实现了更高效率的传输。</p>
 <p>封装好：Netty 封装了 NIO 操作的很多细节，提供了易于使用调用接口。</p>
-<h2 id="Netty-的零拷贝实现？"><a href="#Netty-的零拷贝实现？" class="headerlink" title="Netty 的零拷贝实现？"></a>Netty 的零拷贝实现？</h2><ul>
-<li>Netty的接收和发送ByteBuffer采用DIRECT BUFFERS，使用堆外直接内存进行Socket读写，不需要进行字节缓冲区的二次拷贝。堆内存多了一次内存拷贝，JVM会将堆内存Buffer拷贝一份到直接内存中，然后才写入Socket中。ByteBuffer由ChannelConfig分配，而ChannelConfig创建ByteBufAllocator默认使用Direct Buffer</li>
-<li>CompositeByteBuf 类可以将多个 ByteBuf 合并为一个逻辑上的 ByteBuf, 避免了传统通过内存拷贝的方式将几个小Buffer合并成一个大的Buffer。addComponents方法将 header 与 body 合并为一个逻辑上的 ByteBuf, 这两个 ByteBuf 在CompositeByteBuf 内部都是单独存在的, CompositeByteBuf 只是逻辑上是一个整体</li>
-<li>通过 FileRegion 包装的FileChannel.tranferTo方法 实现文件传输, 可以直接将文件缓冲区的数据发送到目标 Channel，避免了传统通过循环write方式导致的内存拷贝问题。</li>
-<li>通过 wrap方法, 我们可以将 byte[] 数组、ByteBuf、ByteBuffer等包装成一个 Netty ByteBuf 对象, 进而避免了拷贝操作。</li>
-<li>Selector BUG：若Selector的轮询结果为空，也没有wakeup或新消息处理，则发生空轮询，CPU使用率100%，</li>
-<li>Netty的解决办法：对Selector的select操作周期进行统计，每完成一次空的select操作进行一次计数，若在某个周期内连续发生N次空轮询，则触发了epoll死循环bug。重建Selector，判断是否是其他线程发起的重建请求，若不是则将原SocketChannel从旧的Selector上去除注册，重新注册到新的Selector上，并将原来的Selector关闭。</li>
-</ul>
-<h2 id="默认情况-Netty-起多少线程？何时启动？"><a href="#默认情况-Netty-起多少线程？何时启动？" class="headerlink" title="默认情况 Netty 起多少线程？何时启动？"></a><strong>默认情况 Netty 起多少线程？何时启动？</strong></h2><p>Netty 默认是 CPU 处理器数的两倍，bind 完之后启动。</p>
+<h2 id="Netty-的零拷贝实现？"><a href="#Netty-的零拷贝实现？" class="headerlink" title="Netty 的零拷贝实现？"></a>Netty 的零拷贝实现？</h2><p>在 OS 层⾯上的 Zero-copy 通常指避免在 ⽤户态(User-space) 与 内核态(Kernel-space)之间来回拷⻉数据。⽽在 Netty 层⾯ ，零拷⻉主要体现在对于数据操作的优化。<br>Netty 中的零拷⻉体现在以下⼏个⽅⾯</p>
+<ol>
+<li>使⽤ Netty 提供的 CompositeByteBuf 类, 可以将多个 ByteBuf 合并为⼀个逻辑上的<br>ByteBuf , 避免了各个 ByteBuf 之间的拷⻉。</li>
+<li>ByteBuf ⽀持 slice 操作, 因此可以将 ByteBuf 分解为多个共享同⼀个存储区域的<br>ByteBuf , 避免了内存的拷⻉。</li>
+<li>通过 FileRegion 包装的 FileChannel.tranferTo 实现⽂件传输, 可以直接将⽂件缓冲<br>区的数据发送到⽬标 Channel , 避免了传统通过循环 write ⽅式导致的内存拷⻉问题.</li>
+</ol>
+<h2 id="netty心跳机制"><a href="#netty心跳机制" class="headerlink" title="netty心跳机制"></a>netty心跳机制</h2><p>⼼跳机制的⼯作原理是: 在 client 与 server 之间在⼀定时间内没有数据交互时, 即处于 idle 状态时, 客户端或服务器就会发送⼀个特殊的数据包给对⽅, 当接收⽅收到这个数据报⽂后, 也⽴即发送⼀个特殊的数据报⽂, 回应发送⽅, 此即⼀个 PING-PONG 交互。所以, 当某⼀端收到⼼跳消息后, 就知道了对⽅仍然在线, 这就确保 TCP 连接的有效性.</p>
+<p>TCP 实际上⾃带的就有⻓连接选项，本身是也有⼼跳包机制，也就是 TCP 的选项： SO_KEEPALIVE 。但是，TCP 协议层⾯的⻓连接灵活性不够。所以，⼀般情况下我们都是在应⽤层协议上实现⾃定义⼼跳机制的，也就是在 Netty 层⾯通过编码实现。通过 Netty 实现⼼跳机制的话，核⼼类是IdleStateHandler 。</p>
 <h2 id="Netty-支持哪些心跳类型设置？"><a href="#Netty-支持哪些心跳类型设置？" class="headerlink" title="Netty 支持哪些心跳类型设置？"></a>Netty 支持哪些心跳类型设置？</h2><p>readerIdleTime：为读超时时间（即测试端一定时间内未接受到被测试端消息）。</p>
 <p>writerIdleTime：为写超时时间（即测试端一定时间内向被测试端发送消息）。</p>
 <p>allIdleTime：所有类型的超时时间。</p>
@@ -5558,6 +5573,27 @@ console.log(box1);
 <li>绑定并启动监听端口</li>
 <li>当轮训到准备就绪的channel后，由Reactor线程：NioEventLoop执行pipline中的方法，最终调度并执行channelHandler</li>
 </ol>
+<h2 id="为什么要⽤-Netty-呢"><a href="#为什么要⽤-Netty-呢" class="headerlink" title="为什么要⽤ Netty 呢"></a>为什么要⽤ Netty 呢</h2><p>因为 Netty 具有下⾯这些优点，并且相⽐于直接使⽤ JDK ⾃带的 NIO 相关的 API 来说更加易⽤。</p>
+<ul>
+<li>统⼀的 API，⽀持多种传输类型，阻塞和⾮阻塞的。</li>
+<li>简单⽽强⼤的线程模型。</li>
+<li>⾃带编解码器解决 TCP 粘包/拆包问题。</li>
+<li>⾃带各种协议栈。</li>
+<li>真正的⽆连接数据包套接字⽀持。</li>
+<li>⽐直接使⽤ Java 核⼼ API 有更⾼的吞吐量、更低的延迟、更低的资源消耗和更少的内存复制。</li>
+<li>安全性不错，有完整的 SSL/TLS 以及 StartTLS ⽀持。</li>
+<li>社区活跃</li>
+<li>成熟稳定，经历了⼤型项⽬的使⽤和考验，⽽且很多开源项⽬都使⽤到了 Netty， ⽐如我们经常接触的 Dubbo、RocketMQ 等等。</li>
+</ul>
+<h2 id="Bootstrap-和-ServerBootstrap-了解么？"><a href="#Bootstrap-和-ServerBootstrap-了解么？" class="headerlink" title="Bootstrap 和 ServerBootstrap 了解么？"></a>Bootstrap 和 ServerBootstrap 了解么？</h2><ol>
+<li>Bootstrap 通常使⽤ connet() ⽅法连接到远程的主机和端⼝，作为⼀个 Netty TCP 协议通信中的客户端。另外， Bootstrap 也可以通过 bind() ⽅法绑定本地的⼀个端⼝，作为UDP 协议通信中的⼀端。</li>
+<li>ServerBootstrap 通常使⽤ bind() ⽅法绑定本地的端⼝上，然后等待客户端的连接。</li>
+<li>Bootstrap 只需要配置⼀个线程组— EventLoopGroup ,⽽ ServerBootstrap 需要配置两个线程组— EventLoopGroup ，⼀个⽤于接收连接，⼀个⽤于具体的事件处理。</li>
+</ol>
+<h2 id="Netty-服务端和客户端的启动过程"><a href="#Netty-服务端和客户端的启动过程" class="headerlink" title="Netty 服务端和客户端的启动过程"></a><strong>Netty 服务端和客户端的启动过程</strong></h2><p><strong>服务端</strong></p>
+<p><img src="/2021/01/23/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/log\source_posts\面试题总结\image-20210129120727398.png" alt="image-20210129120727398"></p>
+<p><strong>客户端</strong></p>
+<p><img src="/2021/01/23/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/log\source_posts\面试题总结\image-20210129120754414.png" alt="image-20210129120754414"></p>
 ]]></content>
   </entry>
   <entry>
@@ -5980,5 +6016,17 @@ console.log(box1);
 <p>无连接（c o n n e c t i o n l e s s）这个术语的意思是 I P并不维护任何关于后续数据报的状态信息。每个数据报的处理是相互独立的。这也说明， I P数据报可以不按发送顺序接收。如果一信源向相同的信宿发送两个连续的数据报（先是 A，然后是B），每个数据报都是独立地进行路由选择，可能选择不同的路线，因此 B可能在A到达之前先到达。</p>
 <h2 id="ip首部"><a href="#ip首部" class="headerlink" title="ip首部"></a>ip首部</h2><p><img src="/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log\source_posts\tcp-ip详解卷一-协议\image-20210110191848168.png" alt="image-20210110191848168"></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>解决chrome访问https网站出现您的连接不是私密的问题</title>
+    <url>/2021/01/29/%E8%A7%A3%E5%86%B3chrome%E8%AE%BF%E9%97%AEhttps%E7%BD%91%E7%AB%99%E5%87%BA%E7%8E%B0%E6%82%A8%E7%9A%84%E8%BF%9E%E6%8E%A5%E4%B8%8D%E6%98%AF%E7%A7%81%E5%AF%86%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>今天访问博客codebob111.github.io的时候chrome显示连接不是私密连接</p>
+<p><img src="D:\log\source_posts\解决chrome访问https网站出现您的连接不是私密的问题\image-20210129145042596.png" alt="image-20210129145042596"></p>
+<p>在网上看了好多博客 最后终于找到了解决方法 开启使用安全dns并勾上第二个选项</p>
+<p><img src="D:\log\source_posts\解决chrome访问https网站出现您的连接不是私密的问题\image-20210129145207994.png" alt="image-20210129145207994"></p>
+]]></content>
+      <tags>
+        <tag>bug</tag>
+      </tags>
   </entry>
 </search>

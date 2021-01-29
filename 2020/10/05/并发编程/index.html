@@ -179,7 +179,7 @@
 <meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201016145715240.png">
 <meta property="og:image" content="http://example.com/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log/source_posts/并发编程/image-20201016145748941.png">
 <meta property="article:published_time" content="2020-10-05T10:38:01.000Z">
-<meta property="article:modified_time" content="2021-01-28T08:25:43.730Z">
+<meta property="article:modified_time" content="2021-01-29T05:53:39.916Z">
 <meta property="article:author" content="鲍炳江">
 <meta property="article:tag" content="并发编程">
 <meta name="twitter:card" content="summary">
@@ -291,7 +291,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">32</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">33</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -379,7 +379,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-28 16:25:43" itemprop="dateModified" datetime="2021-01-28T16:25:43+08:00">2021-01-28</time>
+                <time title="修改时间：2021-01-29 13:53:39" itemprop="dateModified" datetime="2021-01-29T13:53:39+08:00">2021-01-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -638,7 +638,7 @@
 </li>
 <li>当 Thread-0 退出同步块解锁时，使用 cas 将 Mark Word 的值恢复给对象头，失败。这时会进入重量级解锁 流程，即按照 Monitor 地址找到 Monitor 对象，设置 Owner 为 null，唤醒 EntryList 中 BLOCKED 线程</li>
 </ul>
-<h4 id="自旋优化"><a href="#自旋优化" class="headerlink" title="自旋优化"></a>自旋优化</h4><p>重量级锁竞争的时候，还可以使用自旋来进行优化，如果当前线程自旋成功（即这时候持锁线程已经退出了同步 块，释放了锁），这时当前线程就可以避免阻塞。</p>
+<h4 id="自旋优化"><a href="#自旋优化" class="headerlink" title="自旋优化"></a>自旋优化</h4><p>重量级锁竞争的时候，还可以使用自旋来进行优化，如果当前线程自旋成功（即这时持锁线程已经退出了同步块，释放了锁），这时当前线程就可以避免阻塞。</p>
 <p>自选成功的情况</p>
 <p><img src="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/log\source_posts\并发编程\image-20201008094753865.png" alt="image-20201008094753865"></p>
 <p>自旋失败的情况</p>
@@ -696,7 +696,7 @@
 <li>WAITING 线程会在 Owner 线程调用 notify 或 notifyAll 时唤醒，但唤醒后并不意味者立刻获得锁，仍需进入 EntryList 重新竞争</li>
 </ul>
 <p>wait和notify都是线程间进行协作的手段 属于object对象的方法 必须获得此对象的锁 才能调用这些方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (lock)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                lock.wait();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (lock)&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        lock.wait();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>wait和sleep的区别</strong></p>
 <ul>
@@ -706,7 +706,7 @@
 </ul>
 <p><strong>虚假唤醒</strong>：当一个条件满足时，很多线程都被唤醒了，但是只有其中部分是有用的唤醒，其它的唤醒都是无用功 比如说买货，如果商品本来没有货物，突然进了一件商品，这是所有的线程都被唤醒了 但是只能一个人买，所以其他人都是假唤醒，获取不到对象的锁</p>
 <h2 id="join原理"><a href="#join原理" class="headerlink" title="join原理"></a>join原理</h2><p><code>t1.join()</code>等价于下面这段代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (t1) &#123;</span><br><span class="line"> <span class="comment">// 调用者线程进入 t1 的 waitSet 等待, 直到 t1 运行结束</span></span><br><span class="line">	 <span class="keyword">while</span> (t1.isAlive()) &#123;</span><br><span class="line"> 		t1.wait(<span class="number">0</span>);</span><br><span class="line"> 	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (t1) &#123;</span><br><span class="line"> 	<span class="comment">// 调用者线程进入 t1 的 waitSet 等待, 直到 t1 运行结束</span></span><br><span class="line">	<span class="keyword">while</span> (t1.isAlive()) &#123;</span><br><span class="line"> 		t1.wait(<span class="number">0</span>); <span class="comment">//如果 timeout 为零，则不考虑实际时间，在获得通知前该线程将一直等待。</span></span><br><span class="line"> 	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="同步模式之保护性暂停"><a href="#同步模式之保护性暂停" class="headerlink" title="同步模式之保护性暂停"></a>同步模式之保护性暂停</h2><p> Guarded Suspension，用在一个线程等待另一个线程的执行结果</p>
 <ul>
@@ -1586,7 +1586,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1636,12 +1636,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">375k</span>
+    <span title="站点总字数">377k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:41</span>
+    <span title="站点阅读时长">5:43</span>
 </div>
 
 
@@ -1661,7 +1661,7 @@
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">117.2k</span> 字
+      博客全站共： <span class="post-count">118.3k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->

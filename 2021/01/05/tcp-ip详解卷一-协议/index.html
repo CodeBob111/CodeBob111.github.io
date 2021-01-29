@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="概述互联网的地址五类ip地址  各类ip地址的范围  客户-服务器模型大部分网络应用程序在编写时都假设一端是客户，另一端是服务器，其目的是为了让服务器为客户提供一些特定的服务。可以将这种服务分为两种类型：重复型或并发型。重复型服务器通过以下步骤进行交互： I1.等待一个客户请求的到来。I2.处理客户请求。I3.发送响应给发送请求的客户。I4.返回I1步。 重复型服务器主要的问题发生在I2状态。在这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tcp&#x2F;ip详解卷一:协议">
+<meta property="og:url" content="http://example.com/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="勺子柄の博客">
+<meta property="og:description" content="概述互联网的地址五类ip地址  各类ip地址的范围  客户-服务器模型大部分网络应用程序在编写时都假设一端是客户，另一端是服务器，其目的是为了让服务器为客户提供一些特定的服务。可以将这种服务分为两种类型：重复型或并发型。重复型服务器通过以下步骤进行交互： I1.等待一个客户请求的到来。I2.处理客户请求。I3.发送响应给发送请求的客户。I4.返回I1步。 重复型服务器主要的问题发生在I2状态。在这">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log/source_posts/tcp-ip详解卷一-协议/image-20210106201011718.png">
+<meta property="og:image" content="http://example.com/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log/source_posts/tcp-ip详解卷一-协议/image-20210106201115334.png">
+<meta property="og:image" content="http://example.com/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log/source_posts/tcp-ip详解卷一-协议/image-20210107220050740.png">
+<meta property="og:image" content="http://example.com/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log/source_posts/tcp-ip详解卷一-协议/image-20210107230510162.png">
+<meta property="og:image" content="http://example.com/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log/source_posts/tcp-ip详解卷一-协议/image-20210107235728957.png">
+<meta property="og:image" content="http://example.com/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log/source_posts/tcp-ip详解卷一-协议/image-20210109201930597.png">
+<meta property="og:image" content="http://example.com/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log/source_posts/tcp-ip详解卷一-协议/image-20210110191848168.png">
+<meta property="article:published_time" content="2021-01-05T07:36:48.569Z">
+<meta property="article:modified_time" content="2021-01-28T12:39:50.832Z">
+<meta property="article:author" content="鲍炳江">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log/source_posts/tcp-ip详解卷一-协议/image-20210106201011718.png">
+
+<link rel="canonical" href="http://example.com/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>tcp/ip详解卷一:协议 | 勺子柄の博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="勺子柄の博客" type="application/atom+xml">
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">勺子柄の博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录生活中的点点滴滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">20</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">12</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">32</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="鲍炳江">
+      <meta itemprop="description" content="不接受任何评判">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="勺子柄の博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          tcp/ip详解卷一:协议
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-05 15:36:48" itemprop="dateCreated datePublished" datetime="2021-01-05T15:36:48+08:00">2021-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-28 20:39:50" itemprop="dateModified" datetime="2021-01-28T20:39:50+08:00">2021-01-28</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="互联网的地址"><a href="#互联网的地址" class="headerlink" title="互联网的地址"></a>互联网的地址</h2><p>五类ip地址</p>
+<p><img src="/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log\source_posts\tcp-ip详解卷一-协议\image-20210106201011718.png" alt="image-20210106201011718"></p>
+<p>各类ip地址的范围</p>
+<p><img src="/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log\source_posts\tcp-ip详解卷一-协议\image-20210106201115334.png" alt="image-20210106201115334"></p>
+<h2 id="客户-服务器模型"><a href="#客户-服务器模型" class="headerlink" title="客户-服务器模型"></a>客户-服务器模型</h2><p>大部分网络应用程序在编写时都假设一端是客户，另一端是服务器，其目的是为了让服务器为客户提供一些特定的服务。<br>可以将这种服务分为两种类型：重复型或并发型。重复型服务器通过以下步骤进行交互：</p>
+<p>I1.等待一个客户请求的到来。<br>I2.处理客户请求。<br>I3.发送响应给发送请求的客户。<br>I4.返回I1步。</p>
+<p>重复型服务器主要的问题发生在I2状态。在这个时候，它不能为其他客户机提供服务。相应地，并发型服务器采用以下步骤：<br>C1.等待一个客户请求的到来。<br>C2.启动一个新的服务器来处理这个客户的请求。在这期间可能生成一个新的进程、任务或线程，并依赖底层操作系统的支持。这个步骤如何进行取决于操作系统。生成的新服务器对客户的全部请求进行处理。处理结束后，终止这个新服务器。<br>C3.返回C1步。<br>并发服务器的优点在于它是利用生成其他服务器的方法来处理客户的请求。也就是说，每个客户都有它自己对应的服务器。如果操作系统允许多任务，那么就可以同时为多个客户服务。</p>
+<p>一般来说，TCP服务器是并发的，而UDP服务器是重复的，但也存在一些例外</p>
+<h1 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h1><p><strong>以太网的帧格式</strong></p>
+<p><img src="/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log\source_posts\tcp-ip详解卷一-协议\image-20210107220050740.png" alt="image-20210107220050740"></p>
+<ul>
+<li>CRC字段用于帧内后续字节差错的循环冗余码检验</li>
+</ul>
+<h2 id="SLIP：串行线路IP"><a href="#SLIP：串行线路IP" class="headerlink" title="SLIP：串行线路IP"></a><strong>SLIP：串行线路IP</strong></h2><p>SLIP的全称是SerialLineIP。它是一种在串行线路上对IP数据报进行封装的简单形式</p>
+<p>SLIP协议定义的帧格式：<br>1)IP数据报以一个称作END（0xc0）的特殊字符结束。同时，为了防止数据报到来之前的线路噪声被当成数据报内容，大多数实现在数据报的开始处也传一个END字符（如果有线路噪声，那么END字符将结束这份错误的报文。这样当前的报文得以正确地传输，而前一个错误报文交给上层后，会发现其内容毫无意义而被丢弃）。<br>2)如果IP报文中某个字符为END，那么就要连续传输两个字节0xdb和0xdc来取代它。0xdb这个特殊字符被称作SLIP的ESC字符，但是它的值与ASCII码的ESC字符（0x1b）不同。<br>3)如果IP报文中某个字符为SLIP的ESC字符，那么就要连续传输两个字节0xdb和0xdd来取代它。下图的例子就是含有一个END字符和一个ESC字符的IP报文。在这个例子中，在串行线路上传输的总字节数是原IP报文长度再加4个字节。</p>
+<p><img src="/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log\source_posts\tcp-ip详解卷一-协议\image-20210107230510162.png" alt="image-20210107230510162"></p>
+<p>SLIP的缺陷：</p>
+<p>1)每一端必须知道对方的IP地址。没有办法把本端的IP地址通知给另一端。</p>
+<p>2)数据帧中没有类型字段（类似于以太网中的类型字段）。如果一条串行线路用于SLIP，那么它不能同时使用其他协议。</p>
+<p>3)SLIP没有在数据帧中加上检验和（类似于以太网中的CRC字段）。如果SLIP传输的报文被线路噪声影响而发生错误，只能通过上层协议来发现（另一种方法是，新型的调制解调器可以检测并纠正错误报文）。这样，上层协议提供某种形式的CRC就显得很重要。</p>
+<h2 id="压缩的SLIP：CompressSLIP"><a href="#压缩的SLIP：CompressSLIP" class="headerlink" title="压缩的SLIP：CompressSLIP"></a><strong>压缩的SLIP：CompressSLIP</strong></h2><p>由于串行线路的速率通常较低（19200b/s或更低），而且通信经常是交互式的（如Telnet和Rlogin，二者都使用TCP），因此在SLIP线路上有许多小的TCP分组进行交换。为了传送1个字节的数据需要20个字节的IP首部和20个字节的TCP首部，总数超过40个字节</p>
+<p>CSLIP一般能把上面的40个字节压缩到3或5个字节。它能在CSLIP的每一端维持多达16个TCP连接，并且知道其中每个连接的首部中的某些字段一般不会发生变化。对于那些发生变化的字段，大多数只是一些小的数字和的改变。这些被压缩的首部大大地缩短了交互响应时间。</p>
+<h2 id="PPP-点对点协议"><a href="#PPP-点对点协议" class="headerlink" title="PPP:点对点协议"></a><strong>PPP:点对点协议</strong></h2><p>PPP，点对点协议修改了SLIP协议中的所有缺陷。</p>
+<p>PPP包括以下三个部分：<br>1)在串行链路上封装IP数据报的方法。PPP既支持数据为8位和无奇偶检验的异步模式（如大多数计算机上都普遍存在的串行接口），还支持面向比特的同步链接。<br>2)建立、配置及测试数据链路的链路控制协议（LCP：LinkControlProtocol）。它允许通信双方进行协商，以确定不同的选项。<br>3)针对不同网络层协议的网络控制协议（NCP：NetworkControlProtocol）体系。当前RFC定义的网络层有IP、OSI网络层、DECnet以及AppleTalk。例如，IPNCP允许双方商定是否对报文首部进行压缩，类似于CSLIP（缩写词NCP也可用在TCP的前面）。</p>
+<h2 id="PPP数据帧的格式"><a href="#PPP数据帧的格式" class="headerlink" title="PPP数据帧的格式"></a><strong>PPP数据帧的格式</strong></h2><p>每一帧都以标志字符0x7e开始和结束。紧接着是一个地址字节，值始终是0xff，然后是一个值为0x03的控制字节。</p>
+<p><img src="/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log\source_posts\tcp-ip详解卷一-协议\image-20210107235728957.png" alt="image-20210107235728957"></p>
+<p>由于标志字符的值是0x7e，因此当该字符出现在信息字段中时，PPP需要对它进行转义。在同步链路中，该过程是通过一种称作比特填充的硬件技术来完成的。在异步链路中，特殊字符0x7d用作转义字符。当它出现在PPP数据帧中时，那么紧接着的字符的第6个比特要取其补码，具体实现过程如下：<br>1)当遇到字符0x7e时，需连续传送两个字符：0x7d和0x5e，以实现标志字符的转义。<br>2)当遇到转义字符0x7d时，需连续传送两个字符：0x7d和0x5d，以实现转义字符的转义。<br>3)默认情况下，如果字符的值小于0x20（比如，一个ASCII控制字符），一般都要进行转义。例如，遇到字符0x01时需连续传送0x7d和0x21两个字符（这时，第6个比特取补码后变为1，而前面两种情况均把它变为0）。<br>这样做的原因是防止它们出现在双方主机的串行接口驱动程序或调制解调器中，因为有时它们会把这些控制字符解释成特殊的含义。另一种可能是用链路控制协议来指定是否需要对这32个字符中的某一些值进行转义。默认情况下是对所有的32个字符都进行转义。</p>
+<p>与SLIP类似，由于PPP经常用于低速的串行链路，因此减少每一帧的字节数可以降低应用程序的交互时延。利用链路控制协议，大多数的产品通过协商可以省略标志符和地址字段，并且把协议字段由2个字节减少到1个字节。如果我们把PPP的帧格式与前面的SLIP的帧格式进行比较会发现，PPP只增加了3个额外的字节：1个字节留给协议字段，另2个给CRC字段使用。另外，使用IP网络控制协议，大多数的产品可以通过协商采用VanJacobson报文首部压缩方法（对应于CSLIP压缩），减小IP和TCP首部长度。总的来说，PPP比SLIP具有下面这些优点：(1)PPP支持在单根串行线路上运行多种协议，不只是IP协议；(2)每一帧都有循环冗余检验；(3)通信双方可以进行IP地址的动态协商(使用IP网络控制协议)；(4)与CSLIP类似，对TCP和IP报文首部进行压缩；(5)链路控制协议可以对多个数据链路选项进行设置。为这些优点付出的代价是在每一帧的首部增加3个字节，当建立链路时要发送几帧协商数据，以及更为复杂的实现。</p>
+<p>PPP取代SLIP是大势所趋</p>
+<h2 id="环回接口"><a href="#环回接口" class="headerlink" title="环回接口"></a>环回接口</h2><p>大多数的产品都支持环回接口（ Loopback Interface），以允许运行在同一台主机上的客户程序和服务器程序通过 T C P / I P进行通信。A类网络号1 2 7就是为环回接口预留的。根据惯例，大多数系统把I P地址1 2 7 . 0 . 0 . 1分配给这个接口，并命名为 l o c a l h o s t。一个传给环回接口的 I P数据报不能在任何网络上出现。我们想象，一旦传输层检测到目的端地址是环回地址时，应该可以省略部分传输层和所有网络层的逻辑操作。但是大多数的产品还是照样完成传输层和网络层的所有过程，只是当I P数据报离开网络层时把它返回给自己。</p>
+<p>环回接口处理ip数据报的简单过程</p>
+<p><img src="/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log\source_posts\tcp-ip详解卷一-协议\image-20210109201930597.png" alt="image-20210109201930597"></p>
+<p>图中需要指出的关键点是：</p>
+<ol>
+<li>传给环回地址（一般是1 2 7 . 0 . 0 . 1）的任何数据均作为I P输入。</li>
+<li>传给广播地址或多播地址的数据报复制一份传给环回接口，然后送到以太网上。这是因为广播传送和多播传送的定义包含主机本身。<br>3 ) 任何传给该主机I P地址的数据均送到环回接口。</li>
+</ol>
+<h2 id="最大传输单元MTU"><a href="#最大传输单元MTU" class="headerlink" title="最大传输单元MTU"></a>最大传输单元MTU</h2><p>MTU：数据帧的最大长度</p>
+<p>如果 I P层有一个数据报要传，而且数据的长度比链路层的 M T U还大，那么 I P层就需要进行分片</p>
+<h2 id="路径MTU"><a href="#路径MTU" class="headerlink" title="路径MTU"></a>路径MTU</h2><p>当在同一个网络上的两台主机互相进行通信时，该网络的 M T U是非常重要的。但是如果两台主机之间的通信要通过多个网络，那么每个网络的链路层就可能有不同的 M T U。重要的不是两台主机所在网络的 M T U的值，重要的是两台通信主机路径中的最小 M T U。它被称作路径M T U。<br>两台主机之间的路径 M T U不一定是个常数。它取决于当时所选择的路由。而选路不一定是对称的（从A到B的路由可能与从B到A的路由不同），因此路径M T U在两个方向上不一定是一致的。</p>
+<h1 id="IP-网际协议"><a href="#IP-网际协议" class="headerlink" title="IP:网际协议"></a>IP:网际协议</h1><p>IP提供不可靠、无连接的数据报传送服务</p>
+<p>不可靠（u n r e l i a b l e）的意思是它不能保证 I P数据报能成功地到达目的地。 I P仅提供最好的传输服务。如果发生某种错误时，如某个路由器暂时用完了缓冲区， I P有一个简单的错误处理算法：丢弃该数据报，然后发送 I C M P消息报给信源端。任何要求的可靠性必须由上层来提供（如T C P）</p>
+<p>无连接（c o n n e c t i o n l e s s）这个术语的意思是 I P并不维护任何关于后续数据报的状态信息。每个数据报的处理是相互独立的。这也说明， I P数据报可以不按发送顺序接收。如果一信源向相同的信宿发送两个连续的数据报（先是 A，然后是B），每个数据报都是独立地进行路由选择，可能选择不同的路线，因此 B可能在A到达之前先到达。</p>
+<h2 id="ip首部"><a href="#ip首部" class="headerlink" title="ip首部"></a>ip首部</h2><p><img src="/2021/01/05/tcp-ip%E8%AF%A6%E8%A7%A3%E5%8D%B7%E4%B8%80-%E5%8D%8F%E8%AE%AE/log\source_posts\tcp-ip详解卷一-协议\image-20210110191848168.png" alt="image-20210110191848168"></p>
+
+    </div>
+
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/04/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E4%B8%8E%E5%AE%B9%E5%99%A8%E7%AE%A1%E7%90%86/" rel="prev" title="持续集成与容器管理">
+      <i class="fa fa-chevron-left"></i> 持续集成与容器管理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/12/%E6%B8%85%E9%99%A4maven%E4%B8%BA%E4%B8%8B%E8%BD%BD%E6%88%90%E5%8A%9F%E7%9A%84jar%E5%8C%85/" rel="next" title="清除maven为下载成功的jar包">
+      清除maven为下载成功的jar包 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="nav-number">1.1.</span> <span class="nav-text">互联网的地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">客户-服务器模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">2.</span> <span class="nav-text">链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SLIP%EF%BC%9A%E4%B8%B2%E8%A1%8C%E7%BA%BF%E8%B7%AFIP"><span class="nav-number">2.1.</span> <span class="nav-text">SLIP：串行线路IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E7%9A%84SLIP%EF%BC%9ACompressSLIP"><span class="nav-number">2.2.</span> <span class="nav-text">压缩的SLIP：CompressSLIP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PPP-%E7%82%B9%E5%AF%B9%E7%82%B9%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.3.</span> <span class="nav-text">PPP:点对点协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PPP%E6%95%B0%E6%8D%AE%E5%B8%A7%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.4.</span> <span class="nav-text">PPP数据帧的格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%9B%9E%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.5.</span> <span class="nav-text">环回接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E4%BC%A0%E8%BE%93%E5%8D%95%E5%85%83MTU"><span class="nav-number">2.6.</span> <span class="nav-text">最大传输单元MTU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E5%BE%84MTU"><span class="nav-number">2.7.</span> <span class="nav-text">路径MTU</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP-%E7%BD%91%E9%99%85%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.</span> <span class="nav-text">IP:网际协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ip%E9%A6%96%E9%83%A8"><span class="nav-number">3.1.</span> <span class="nav-text">ip首部</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="鲍炳江"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">鲍炳江</p>
+  <div class="site-description" itemprop="description">不接受任何评判</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鲍炳江</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">375k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:41</span>
+</div>
+
+
+<!-- 新增访客统计代码 -->
+
+<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">117.2k</span> 字
+    </span>
+</div>
+<!-- 新增访客统计代码 END-->
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Q8d8san4rQK6RMUMN9Cn773b-gzGzoHsz',
+      appKey     : 'W6WIDWUfTyiNEDcQ490kGNaJ',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

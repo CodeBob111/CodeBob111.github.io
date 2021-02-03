@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="redis笔记">
+  <meta name="description" content="Redis，是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis">
 <meta property="og:url" content="http://example.com/2020/12/01/redis/index.html">
 <meta property="og:site_name" content="勺子柄の博客">
-<meta property="og:description" content="redis笔记">
+<meta property="og:description" content="Redis，是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2020/12/01/redis/log/source_posts/redis/image-20201202093438696.png">
 <meta property="og:image" content="http://example.com/2020/12/01/redis/log/source_posts/redis/image-20201202100249565.png">
@@ -42,9 +42,9 @@
 <meta property="og:image" content="http://example.com/2020/12/01/redis/log/source_posts/redis/image-20201203090416317.png">
 <meta property="og:image" content="http://example.com/2020/12/01/redis/log/source_posts/redis/image-20201203094734020.png">
 <meta property="article:published_time" content="2020-12-01T10:13:56.000Z">
-<meta property="article:modified_time" content="2020-12-03T02:33:08.627Z">
+<meta property="article:modified_time" content="2021-02-03T13:59:44.139Z">
 <meta property="article:author" content="鲍炳江">
-<meta property="article:tag" content="redis">
+<meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2020/12/01/redis/log/source_posts/redis/image-20201202093438696.png">
 
@@ -144,17 +144,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">20</span></a>
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">7</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">12</span></a>
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">33</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">28</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -242,7 +242,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-03 10:33:08" itemprop="dateModified" datetime="2020-12-03T10:33:08+08:00">2020-12-03</time>
+                <time title="修改时间：2021-02-03 21:59:44" itemprop="dateModified" datetime="2021-02-03T21:59:44+08:00">2021-02-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -283,7 +283,7 @@
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>8 分钟</span>
             </span>
-            <div class="post-description">redis笔记</div>
+            <div class="post-description">Redis，是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库</div>
 
         </div>
       </header>
@@ -415,7 +415,7 @@
 <p>msetnx：原子性的 要么批量成功要么批量失败</p>
 <p>设置对象：</p>
 <pre><code>1. set user:1 &#123;name:zhangdan,age:3&#125; 获取：get user:1
- 2. set user:1 &#123;name:zhangdan,age:3&#125;  获取：get user:1:name</code></pre>
+2. set user:1 &#123;name:zhangdan,age:3&#125;  获取：get user:1:name</code></pre>
 <p>getset：返回旧值 设置新值 getset name bob</p>
 <h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>lpush(头插法)：从左端放入对应的是rpush(尾插法)</p>
 <p>lrange：获取指定范围 如果最后一个参数是-1则获取全部</p>
@@ -596,7 +596,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/redis/" rel="tag"># redis</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
           </div>
 
         
@@ -605,8 +605,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/12/01/mysql%E5%88%86%E5%8C%BA%E8%A1%A8/" rel="prev" title="mysql分区表">
-      <i class="fa fa-chevron-left"></i> mysql分区表
+    <a href="/2020/11/23/%E7%89%9B%E5%AE%A2%E7%BD%91%E7%BB%83%E4%B9%A0%E9%A2%98%E7%AC%94%E8%AE%B0/" rel="prev" title="牛客网练习题笔记">
+      <i class="fa fa-chevron-left"></i> 牛客网练习题笔记
     </a></div>
       <div class="post-nav-item">
     <a href="/2020/12/10/netty/" rel="next" title="netty">
@@ -687,20 +687,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -737,7 +737,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">377k</span>
+    <span title="站点总字数">378k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -762,7 +762,7 @@
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">118.3k</span> 字
+      博客全站共： <span class="post-count">117.9k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->

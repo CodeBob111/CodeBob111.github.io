@@ -72,9 +72,9 @@
 <meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005100352842.png">
 <meta property="og:image" content="http://example.com/2020/10/03/dubbo/image-20201005100816469.png">
 <meta property="article:published_time" content="2020-10-03T00:28:00.000Z">
-<meta property="article:modified_time" content="2021-01-28T12:01:22.569Z">
+<meta property="article:modified_time" content="2021-02-03T13:37:13.816Z">
 <meta property="article:author" content="鲍炳江">
-<meta property="article:tag" content="dubbo">
+<meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://bkimg.cdn.bcebos.com/pic/d01373f082025aaf111c708cfbedab64034f1a4e?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2U4MA==,g_7,xp_5,yp_5">
 
@@ -174,17 +174,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">20</span></a>
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">7</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">12</span></a>
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">33</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">28</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -272,7 +272,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-28 20:01:22" itemprop="dateModified" datetime="2021-01-28T20:01:22+08:00">2021-01-28</time>
+                <time title="修改时间：2021-02-03 21:37:13" itemprop="dateModified" datetime="2021-02-03T21:37:13+08:00">2021-02-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -304,14 +304,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
             <div class="post-description">分布式系统是若干个独立计算机的集合  dubbo可以管理分布式系统使其有条不紊</div>
 
@@ -384,7 +384,7 @@
 <p>​        * 随机指定版本</p>
 <h2 id="本地存根"><a href="#本地存根" class="headerlink" title="本地存根"></a>本地存根</h2><p><img src="/2020/10/03/dubbo/image-20201005080404592.png" alt="image-20201005080404592"></p>
 <p><img src="/2020/10/03/dubbo/image-20201005080448146.png" alt="image-20201005080448146"></p>
-<p><img src="/2020/10/03/dubbo/image-20201005080500196.png" alt="image-20201005080500196"></p>
+<p><img src="/2020/10/03/dubbo/image-20201005080500196.png"></p>
 <h2 id="与springboot整合的其他方式"><a href="#与springboot整合的其他方式" class="headerlink" title="与springboot整合的其他方式"></a>与springboot整合的其他方式</h2><p>1.之前的方式不能精确到方法配置 可以保留配置文件 在启动类上增加注解<code>@ImportResource(location=&quot;classpath:provider.xml&quot;)</code> </p>
 <p>​    这种方式就不需要@Service和 @Reference</p>
 <p>2.将每一个组件手动创建到容器中</p>
@@ -406,7 +406,7 @@
 <p><img src="/2020/10/03/dubbo/image-20201005083845336.png" alt="image-20201005083845336"></p>
 <h2 id="服务降级"><a href="#服务降级" class="headerlink" title="服务降级"></a>服务降级</h2><p>什么是服务降级？</p>
 <p><img src="/2020/10/03/dubbo/image-20201005093234276.png" alt="image-20201005093234276"></p>
-<p>降级规则</p>
+<p>降级规则有一下两种规则：屏蔽和容错</p>
 <p><img src="/2020/10/03/dubbo/image-20201005093326087.png" alt="image-20201005093326087"></p>
 <p>zookeeper的消费者配置的屏蔽和容错设置分别对应上面的两个降级规则</p>
 <p><img src="/2020/10/03/dubbo/image-20201005093336789.png" alt="image-20201005093336789"></p>
@@ -440,7 +440,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/dubbo/" rel="tag"># dubbo</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
           </div>
 
         
@@ -449,8 +449,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/10/02/Gradle/" rel="prev" title="Gradle">
-      <i class="fa fa-chevron-left"></i> Gradle
+    <a href="/2020/09/29/hexo%E5%8D%9A%E5%AE%A2%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" rel="prev" title="hexo博客无法显示图片解决方法">
+      <i class="fa fa-chevron-left"></i> hexo博客无法显示图片解决方法
     </a></div>
       <div class="post-nav-item">
     <a href="/2020/10/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="next" title="并发编程">
@@ -531,20 +531,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -581,7 +581,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">377k</span>
+    <span title="站点总字数">378k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -606,7 +606,7 @@
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">118.3k</span> 字
+      博客全站共： <span class="post-count">117.9k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->

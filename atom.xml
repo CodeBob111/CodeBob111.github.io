@@ -63,9 +63,9 @@
     <link href="http://example.com/2021/01/29/%E8%A7%A3%E5%86%B3chrome%E8%AE%BF%E9%97%AEhttps%E7%BD%91%E7%AB%99%E5%87%BA%E7%8E%B0%E6%82%A8%E7%9A%84%E8%BF%9E%E6%8E%A5%E4%B8%8D%E6%98%AF%E7%A7%81%E5%AF%86%E7%9A%84%E9%97%AE%E9%A2%98/"/>
     <id>http://example.com/2021/01/29/%E8%A7%A3%E5%86%B3chrome%E8%AE%BF%E9%97%AEhttps%E7%BD%91%E7%AB%99%E5%87%BA%E7%8E%B0%E6%82%A8%E7%9A%84%E8%BF%9E%E6%8E%A5%E4%B8%8D%E6%98%AF%E7%A7%81%E5%AF%86%E7%9A%84%E9%97%AE%E9%A2%98/</id>
     <published>2021-01-29T06:49:22.000Z</published>
-    <updated>2021-02-03T14:34:19.572Z</updated>
+    <updated>2021-02-03T14:39:05.945Z</updated>
     
-    <content type="html"><![CDATA[<p>今天访问博客codebob111.github.io的时候chrome显示连接不是私密连接</p><p><img src="/image-20210129145042596.png" alt="image-20210129145042596"></p><p>在网上看了好多博客 最后终于找到了解决方法 开启使用安全dns并勾上第二个选项</p><p><img src="/2021/01/29/%E8%A7%A3%E5%86%B3chrome%E8%AE%BF%E9%97%AEhttps%E7%BD%91%E7%AB%99%E5%87%BA%E7%8E%B0%E6%82%A8%E7%9A%84%E8%BF%9E%E6%8E%A5%E4%B8%8D%E6%98%AF%E7%A7%81%E5%AF%86%E7%9A%84%E9%97%AE%E9%A2%98/image-20210129145207994.png" alt="image-20210129145207994"></p>]]></content>
+    <content type="html"><![CDATA[<p>今天访问博客codebob111.github.io的时候chrome显示连接不是私密连接</p><p><img src="%E8%A7%A3%E5%86%B3chrome%E8%AE%BF%E9%97%AEhttps%E7%BD%91%E7%AB%99%E5%87%BA%E7%8E%B0%E6%82%A8%E7%9A%84%E8%BF%9E%E6%8E%A5%E4%B8%8D%E6%98%AF%E7%A7%81%E5%AF%86%E7%9A%84%E9%97%AE%E9%A2%98/image-20210129145042596.png" alt="image-20210129145042596"></p><p>在网上看了好多博客 最后终于找到了解决方法 开启使用安全dns并勾上第二个选项</p><p><img src="%E8%A7%A3%E5%86%B3chrome%E8%AE%BF%E9%97%AEhttps%E7%BD%91%E7%AB%99%E5%87%BA%E7%8E%B0%E6%82%A8%E7%9A%84%E8%BF%9E%E6%8E%A5%E4%B8%8D%E6%98%AF%E7%A7%81%E5%AF%86%E7%9A%84%E9%97%AE%E9%A2%98/image-20210129145207994.png" alt="image-20210129145207994"></p>]]></content>
     
     
     <summary type="html">解决chrome访问https网站出现您的连接不是私密连接的问题</summary>

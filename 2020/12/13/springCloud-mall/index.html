@@ -27,17 +27,17 @@
 <meta property="og:site_name" content="勺子柄の博客">
 <meta property="og:description" content="学习mall-swarm项目过程中的记录和总结">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2020/12/13/springCloud-mall/log/source_posts/springCloud-mall/image-20201214094003249.png">
-<meta property="og:image" content="http://example.com/2020/12/13/springCloud-mall/log/source_posts/springCloud-mall/image-20201214094027256.png">
+<meta property="og:image" content="http://example.com/2020/12/13/springCloud-mall/image-20201214094003249.png">
+<meta property="og:image" content="http://example.com/2020/12/13/springCloud-mall/image-20201214094027256.png">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-93c28c22643361ecd5f265e33de6be03_1440w.png">
-<meta property="og:image" content="http://example.com/2020/12/13/springCloud-mall/log/source_posts/springCloud-mall/image-20210129210526873.png">
-<meta property="og:image" content="http://example.com/2020/12/13/springCloud-mall/log/source_posts/springCloud-mall/image-20210129210553051.png">
+<meta property="og:image" content="http://example.com/2020/12/13/springCloud-mall/image-20210129210526873.png">
+<meta property="og:image" content="http://example.com/2020/12/13/springCloud-mall/image-20210129210553051.png">
 <meta property="article:published_time" content="2020-12-13T14:53:24.000Z">
-<meta property="article:modified_time" content="2021-02-03T13:42:33.814Z">
+<meta property="article:modified_time" content="2021-02-03T14:49:45.332Z">
 <meta property="article:author" content="鲍炳江">
 <meta property="article:tag" content="心得">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/12/13/springCloud-mall/log/source_posts/springCloud-mall/image-20201214094003249.png">
+<meta name="twitter:image" content="http://example.com/2020/12/13/springCloud-mall/image-20201214094003249.png">
 
 <link rel="canonical" href="http://example.com/2020/12/13/springCloud-mall/">
 
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-03 21:42:33" itemprop="dateModified" datetime="2021-02-03T21:42:33+08:00">2021-02-03</time>
+                <time title="修改时间：2021-02-03 22:49:45" itemprop="dateModified" datetime="2021-02-03T22:49:45+08:00">2021-02-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -306,16 +306,16 @@
 
 <p>这个页面需要参数config.info 但是配置文件里没有</p>
 <p>在nacos中创建一个配置</p>
-<p><img src="/2020/12/13/springCloud-mall/log\source_posts\springCloud-mall\image-20201214094003249.png" alt="image-20201214094003249"></p>
+<p><img src="/2020/12/13/springCloud-mall/image-20201214094003249.png" alt="image-20201214094003249"></p>
 <p>并在bootstarp中配置获取路径</p>
-<p><img src="/2020/12/13/springCloud-mall/log\source_posts\springCloud-mall\image-20201214094027256.png" alt="image-20201214094027256"></p>
+<p><img src="/2020/12/13/springCloud-mall/image-20201214094027256.png" alt="image-20201214094027256"></p>
 <h1 id="Gateway集成Oauth2-0"><a href="#Gateway集成Oauth2-0" class="headerlink" title="Gateway集成Oauth2.0"></a>Gateway集成Oauth2.0</h1><p><img src="https://pic4.zhimg.com/80/v2-93c28c22643361ecd5f265e33de6be03_1440w.png" alt="img"></p>
 <p><strong>密码验证获取token</strong></p>
 <p>使用postman根据密码授权模式获取token</p>
-<p><img src="/2020/12/13/springCloud-mall/log\source_posts\springCloud-mall\image-20210129210526873.png" alt="image-20210129210526873"></p>
+<p><img src="/2020/12/13/springCloud-mall/image-20210129210526873.png" alt="image-20210129210526873"></p>
 <p>/mall-auth/oauth/token被设置在网关的白名单中 可以不用认证直接访问</p>
 <p>访问服务的时候 在headers上加上token</p>
-<p><img src="/2020/12/13/springCloud-mall/log\source_posts\springCloud-mall\image-20210129210553051.png" alt="image-20210129210553051"></p>
+<p><img src="/2020/12/13/springCloud-mall/image-20210129210553051.png" alt="image-20210129210553051"></p>
 <p>token在auth被密钥加密 在gateway中被公钥解密</p>
 
     </div>

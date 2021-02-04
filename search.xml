@@ -656,6 +656,7 @@
 </ul>
 <p>起别名用<strong>AS</strong> 且AS可以省略</p>
 <p>truncate 清空数据 :truncate table user</p>
+<p>auto_increment要搭配key（主键 唯一 外键等）使用 且一个表中只能有一个标识列且类型是数字</p>
 <p><strong>DISTINCT</strong>去重</p>
 <p><strong>+号</strong>的作用</p>
 <ul>
@@ -725,7 +726,7 @@ from employees
 <p>查询每个部门每个工种的员工的平均工资</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select avg(salary),departmeng_id,job_id from employees group by department_id,job_id;</span><br></pre></td></tr></table></figure>
 
-<h1 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h1><p>inner可以省略</p>
+<h1 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h1><h2 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h2><p>inner可以省略</p>
 <p><strong>等值查询</strong></p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查询名字中包含e的员工名和工种名 </span></span><br><span class="line"><span class="keyword">select</span> last_name,job_title <span class="keyword">from</span> employees e <span class="keyword">inner</span> <span class="keyword">join</span> jobs <span class="keyword">on</span> e.job_id = j.job_id <span class="keyword">where</span> e.last_name <span class="keyword">like</span> <span class="string">&#x27;%e%&#x27;</span></span><br></pre></td></tr></table></figure>
 
@@ -733,7 +734,7 @@ from employees
 <p><strong>自连接</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select e.last_name,m.last_name from employees e inner join employees m on e.manager_id &#x3D; m.manager_id</span><br></pre></td></tr></table></figure>
 
-<h1 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a><strong>外连接</strong></h1><p>查询结果为主表的全部记录 左外连接中left左边的是主表</p>
+<h2 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a><strong>外连接</strong></h2><p>查询结果为主表的全部记录 左外连接中left左边的是主表</p>
 <p><strong>左外连接</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select b.name,bo.* from beauty b left outer join boys bo on b.boyfrientd_id &#x3D; bo.id</span><br></pre></td></tr></table></figure>
 
@@ -808,6 +809,293 @@ from employees
 <p>表的复制</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#仅复制表的结构</span><br><span class="line">create table myCopy like user;</span><br><span class="line">#复制表的结构和数据</span><br><span class="line">create  table myCopy select * from user;</span><br><span class="line">#只复制一部分数据 全部结构</span><br><span class="line">create  table myCopy select id,name from user where name &#x3D; ‘bob’;</span><br><span class="line">#仅复制某些字段</span><br><span class="line">create  table myCopy select id,name from user where 0;</span><br></pre></td></tr></table></figure>
 
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>整型：Tinyint(1字节) Smallint（2字节） Mediumint（3字节） Int ，integer（四字节） Bigint（8字节）后面加unsigned表示无符号</p>
+<p>小数</p>
+<ul>
+<li><p>浮点数 ：float(4byte) double（9byte）</p>
+</li>
+<li><p>定点数 ：DEC(M,D) 共M位 小数占D位 默认M=10 D=0</p>
+</li>
+</ul>
+<p>较短的文本：varchar(M)和char(M)， M表示最多字符数 char可以省略M 默认为1 varchar长度可变</p>
+<p>​       较长的文本: blob(较大的二进制)，text </p>
+<p>​       保存较短的二进制 binary varbinary</p>
+<p>​       set  </p>
+<p>​           <img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612420433798.png" alt="img"></p>
+<p>​       enum      </p>
+<p>​           <img src="file:///C:/Users/BAOBIN~1/AppData/Local/Temp/msohtmlclip1/01/clip_image004.png" alt="img">m插入不进去 只能插入 1，2，3，a,b,c,A,B,C</p>
+<p>字符型</p>
+<ul>
+<li><p>较短的文本：varchar(M)和char(M)， M表示最多字符数 char可以省略M 默认为1 varchar长度可变</p>
+</li>
+<li><p>较长的文本: blob(较大的二进制)，text </p>
+</li>
+<li><p>保存较短的二进制 binary varbinary</p>
+</li>
+<li><p>set  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create table tab_set(s1 set(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;));</span><br><span class="line">insert into tab_set values(&#39;a&#39;)</span><br><span class="line">insert into tab_set values(&#39;a,b&#39;)</span><br><span class="line">insert into tab_set values(&#39;a,c,d&#39;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>enum      </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create tab_char(c1 enum(&#39;a&#39;,&#39;b&#39;,&#39;v&#39;));</span><br><span class="line">insert into tab_char values(&#39;a&#39;); #值只能为1，2，3，a,b,c,A,B,C中的一个</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>日期型</p>
+<p><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/image-20210204143734978.png" alt="image-20210204143734978"></p>
+<ul>
+<li>timestamp回会根据时区变化</li>
+</ul>
+<h1 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h1><p><strong>六大约束</strong></p>
+<pre><code>    1. NOT NULL ：非空约束，用于保证该字段的值不能为空 
+    2. DEFAULT ：默认约束，用于保证该字段有默认值 
+    3. PRIMARY KEY ：主键约束，用于保证该字段的值具有唯一性，并且非空 
+    4.  UNIQUE : 唯一约束，用于保证该字段的值具有唯一性，可以为空     
+    5. CHECK：检查约束【mysql中不支持，sql语法支持，语法不报错，但是没效果】     比如年龄、性别，可以设置一个范围     
+    6. FOREIGN KEY ：外键约束，用于限制两个表的关系，用于保证该字段的值必须来自于主表的关联列的值</code></pre>
+<ul>
+<li>PRIMARY KEY 和UNIQUE的区别：都可以保证唯一 主键不允许为空，unique允许 但是只能有一个null 主键只能有一个 unique可以多个 都支持组合列</li>
+<li>FOREIGN KEY ：从表的外键列类型和主表的关联列的类型要求一致或兼容，主表的关联列必须是一个key，插入数据时先插入主表，删除数据时先删除从表</li>
+</ul>
+<p>列级约束都支持foreign key无效</p>
+<p>表级约束除了default,not null都支持 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create table stuinfo(</span><br><span class="line">	id int,</span><br><span class="line">    stuName varchar(20),</span><br><span class="line">    gender char(1),</span><br><span class="line">    seat int,</span><br><span class="line">    age int,</span><br><span class="line">    majorId int.</span><br><span class="line">    constraint pk primary key(id), #constarint 约束名 可以省略 </span><br><span class="line">    Unique(seat),</span><br><span class="line">    check(gender &#x3D; &#39;male&#39; or gender &#x3D; &#39;female&#39;).</span><br><span class="line">    foreign key(majorid) references major(id)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>修改表示添加约束</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alter table stuinfo modify column stuname varchar(20) not null</span><br><span class="line">alter table stuinfo modify column id int primary key </span><br><span class="line">alter table stuinfo add primary key(id)</span><br><span class="line"> #constarin &lt;name&gt; 是为了删除方便</span><br><span class="line">alter table stuinfo add constarin fk_stuinfo_major foreign key(majorid) references user(id)</span><br></pre></td></tr></table></figure>
+
+<p>修改表示删除约束</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#删除非空约束和默认约束</span><br><span class="line">alter talble stuinfo modify column stuname varchar(20) null #null可以省略</span><br><span class="line">#删除主键</span><br><span class="line">alter table stuinfo drop primary key</span><br><span class="line">#删除唯一</span><br><span class="line">alter table stuinfo drop index seat</span><br><span class="line">#删除外键</span><br><span class="line">alter table stuinfo drop foreign key fk_stuinfo_major</span><br></pre></td></tr></table></figure>
+
+<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p>事务是由一组SQL语句组成的逻辑处理单元</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">set autocommit &#x3D; 0 #关闭自动提交</span><br><span class="line">start transaction; #开始事务</span><br><span class="line">delete from user where name &#x3D; &#39;bob&#39;</span><br><span class="line">savepoint a; #设置回滚点</span><br><span class="line">delete from user where id &#x3D; 1;</span><br><span class="line">rollback to a;</span><br><span class="line">commit; #提交事务</span><br></pre></td></tr></table></figure>
+
+<p><strong>ACID属性</strong></p>
+<p>原子性(Atomicity)：事务是一个原子操作单元，其对数据的修改，要么全都执行，要么全不执行</p>
+<p>一致性(Consistent)：在事务开始和完成时，数据都必须保持一致状态。这意味着所有相关的数据规则都必须应用于事务的修改，以保持数据的完整性;事务结束时，所有的内部数据结构（如B树索引或双向链表）也都必须是正确的。</p>
+<p>隔离性：数据库系统提供一定的隔离机制，保证事务在不受外部并发操作影响的“独立”环境执行。这意味着事务处理过程中的中间状态对外部是不可见的，反之亦然。</p>
+<p>持久性：事务完成之后，它对于数据的修改是永久性的，即使出现系统故障也能够保持</p>
+<p><strong>并发问题</strong>：对于同时运行的多个事务，当这些事务访问数据库中相同的数据时,如果没有采取必要的隔离机制,就会导致各种并发问题</p>
+<ul>
+<li><p>脏读：对于两个事务T1,T2,T1读取了已经被T2更新但还没有被提交的字段.之后,若T2回滚,T1读取的内容就是临时且无效的.</p>
+</li>
+<li><p>不可重复读:对于两个事务T1,T2,T1读取了一个字段,然后T2更新了该字段.之后,T1再次读取同一个字段,值就不同了.</p>
+</li>
+<li><p>幻读:对于两个事务T1,T2,T1从一个表中读取了一个字段,然后T2在该表中插入了一些新的行.之后,如果T1再次读取同一个表,就会多出几行.</p>
+</li>
+</ul>
+<p><strong>事务隔离级别</strong></p>
+<p><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/image-20210204153156245.png" alt="image-20210204153156245"></p>
+<p>mysql默认隔离级别为可重复读</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#查看当前隔离级别</span><br><span class="line">select @@tx_isolation</span><br><span class="line">#修改隔离级别</span><br><span class="line">set session transaction isolation level read uncommitted</span><br></pre></td></tr></table></figure>
+
+<h1 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h1><p>视图在使用时动态生成 只保存sql逻辑 不保存查询结果</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#创建视图</span><br><span class="line">create or replace view myview as </span><br><span class="line">select last_name,department_name,job_title from employees e join departments d on e.department_id &#x3D; d.department_id join jobs j on j.job_id &#x3D; e.job_id</span><br><span class="line">#使用视图</span><br><span class="line">select * from myview where last_name like &#39;%a%&#39;</span><br><span class="line">#修改视图</span><br><span class="line">alter vim myview as select * from employees</span><br><span class="line">#删除视图</span><br><span class="line">drop view name1,name2,name...</span><br><span class="line">#查看视图</span><br><span class="line">desc name1 或者 show create view name1</span><br><span class="line">#视图的更新 把视图当作一张表进行操（不建议更新）</span><br><span class="line">insert into myview values(‘zhangfei’)</span><br></pre></td></tr></table></figure>
+
+<p>以下视图不能更新</p>
+<ul>
+<li><p>视图中包含 聚合函数。</p>
+</li>
+<li><p>视图中包含 UNION、UNION ALL、DISTINCT、 GROUP BY 和 HAVING 等关键字。</p>
+</li>
+<li><p>常量视图</p>
+</li>
+<li><p>视图中的select中包含子查询</p>
+</li>
+<li><p>由不可更新的视图导出的视图</p>
+</li>
+<li><p>创建视图时，ALGORITHM 为 TEMPTABLE 类型</p>
+</li>
+</ul>
+<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><h1 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h1><p>局变量与会话变量的区别就在于，对全局变量的修改会影响到整个服务器，但是对会话变量的修改，只会影响到当前的会话</p>
+<h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><p>查看: show global variables like ‘%xxx%’ 如果不加模糊查询就是查询所有变量</p>
+<p>查看具体的值 select @@global.&lt;系统变量名&gt;</p>
+<p> 赋值：set global 系统变量名 = 值</p>
+<p>作用域：服务器每次启动为所有的全局变量赋初始值 针对于所有会话有效 但不能跨重启</p>
+<h3 id="会话变量"><a href="#会话变量" class="headerlink" title="会话变量"></a>会话变量</h3><p>查看：show 【session】 variables </p>
+<p>查看具体值 select @@【session】变量名</p>
+<p>赋值：set 【session】变量名=值</p>
+<p>作用域：仅对于当前会话有效</p>
+<p>注：以上的session可以省略</p>
+<h2 id="自定义变量"><a href="#自定义变量" class="headerlink" title="自定义变量"></a>自定义变量</h2><h3 id="用户变量"><a href="#用户变量" class="headerlink" title="用户变量"></a>用户变量</h3><p>当前会话有效</p>
+<p>初始化或赋值：set @变量名=值</p>
+<p>赋值：select count(*) into @count from…</p>
+<p>查看：select @用户变量名</p>
+<h3 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h3><p>仅仅在定义它的begin end中有效</p>
+<p>声明：declare 变量名 类型 【default 值】</p>
+<p>赋值：set 或select into 不用加@</p>
+<p>查看 select 变量名</p>
+<h1 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h1><p>参数模式有输入in，输出out，输入兼输出inout</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create procedure mypro(inout a int,inout b int)</span><br><span class="line">begin </span><br><span class="line">	set a &#x3D; a * 2;</span><br><span class="line">	set b &#x3D; b + a;</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">set @a &#x3D; 1;</span><br><span class="line">set @b &#x3D; 2;</span><br><span class="line">#调用存储过程</span><br><span class="line">#如果时参数模式是in a和b的值不会被修改</span><br><span class="line">call mypro(@a,@b);</span><br><span class="line">#查看存储过程</span><br><span class="line">show create procedure mypro</span><br><span class="line">#删除存储过程</span><br><span class="line">drop procedure mypro</span><br></pre></td></tr></table></figure>
+
+<h1 id="函数-1"><a href="#函数-1" class="headerlink" title="函数"></a>函数</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#启用函数</span><br><span class="line">set global log_bin_trust_function_creators &#x3D; on</span><br><span class="line">#创建</span><br><span class="line"></span><br><span class="line">CREATE FUNCTION genPerson(name varchar(20)) RETURNS varchar(50)</span><br><span class="line">BEGIN</span><br><span class="line">  DECLARE str VARCHAR(50) DEFAULT &#39;&#39;;</span><br><span class="line">  SET @tableName&#x3D;name;</span><br><span class="line">  SET str&#x3D;CONCAT(&#39;create table &#39;, @tableName,&#39;(id int, name varchar(20));&#39;);</span><br><span class="line">  return str;</span><br><span class="line">end</span><br><span class="line">#执行函数</span><br><span class="line">select genPerson(&#39;student&#39;);</span><br><span class="line">#查看函数</span><br><span class="line">show create function genPerson()</span><br><span class="line">#删除函数</span><br><span class="line">drop function genPerson</span><br></pre></td></tr></table></figure>
+
+<h1 id="流程控制结构"><a href="#流程控制结构" class="headerlink" title="流程控制结构"></a>流程控制结构</h1><h2 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h2><p>CASE</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create procedure test_case(in score int)</span><br><span class="line">begin</span><br><span class="line">	case </span><br><span class="line">	when score &gt;&#x3D; 90 and score &lt;&#x3D; 100 then select &#39;A&#39;</span><br><span class="line">	when score &gt;&#x3D; 80 and then select &#39;B&#39;</span><br><span class="line">	when score &gt;&#x3D; 70 and then select &#39;C&#39;</span><br><span class="line">	else select &#39;D&#39;</span><br><span class="line">	end case;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>IF</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create procedure test_case(in score int)</span><br><span class="line">begin</span><br><span class="line">	if score &gt;&#x3D; 90 and score &lt;&#x3D; 100 then return &#39;A&#39;;</span><br><span class="line">	elseif score &gt;&#x3D; 80 then return &#39;B&#39;</span><br><span class="line">	elseif score &gt;&#x3D; 70 then return &#39;C&#39;</span><br><span class="line">	else return &#39;D&#39;</span><br><span class="line">	end if</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h2 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h2><p>leave相当于break iterate相当于continue</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#while</span><br><span class="line">while 循环条件 do</span><br><span class="line">	循环体</span><br><span class="line">end while 标签</span><br><span class="line">#loop</span><br><span class="line">loop </span><br><span class="line">	循环体</span><br><span class="line">end loop 标签 </span><br><span class="line">#repeat</span><br><span class="line">repeat </span><br><span class="line">	循环体</span><br><span class="line">until 结束循环的条件</span><br><span class="line">end repeat 标签</span><br><span class="line"></span><br><span class="line">#举例</span><br><span class="line">create procedure test_while(in insertCount int)</span><br><span class="line">begin</span><br><span class="line">	declare i int default 1;</span><br><span class="line">	a:while i&lt;&#x3D;insertCount Do</span><br><span class="line">		insert into admin(username,password) values (&#39;bob&#39;,&#39;123&#39;);</span><br><span class="line">		if i &gt;&#x3D; 20 then leave a;</span><br><span class="line">		end if;</span><br><span class="line">		set i &#x3D; i + 1;</span><br><span class="line">	end while a;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<h1 id="逻辑架构"><a href="#逻辑架构" class="headerlink" title="逻辑架构"></a>逻辑架构</h1><p><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612428706122.png" alt="img"></p>
+<p>sql执行加载顺序</p>
+<p><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612428715733.png" alt="img"></p>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><p>索引是帮助mysql高效获取数据的数据结构,一般是Btree 索引本身也很大 一般以索引文件的形式存储在磁盘上</p>
+<p>优点：提高数据检索效率 降低数据库io成本 通过索引列对数据进行排序 降低数据排序的成本 降低了cpu的消耗 </p>
+<p>缺点：降低更新表的速度<br><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612440213371.png" alt="img"></p>
+<ul>
+<li>非叶子节点不存储数据 只存储指引搜索方向的数据项</li>
+</ul>
+<p>索引分为以下几类</p>
+<ul>
+<li><p>单值索引：一个索引只包含单个列 </p>
+</li>
+<li><p>唯一索引：索引列的值必须唯一 但允许有空值 primary key ，unique</p>
+</li>
+<li><p>复合索引：一个索引包含多个列</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#创建索引</span><br><span class="line">CREATE [UNIQUE] INDEX indexName on tableName(columnName) #如果有unique是唯一索引 如果多个列是复合索引</span><br><span class="line">ALTER tableName ADD [UNIQUE] INDEX INDEXNAME on(columnName)</span><br><span class="line">#删除索引</span><br><span class="line">DROP INDEX indexName on tableName</span><br><span class="line">#查看索引</span><br><span class="line">SHOW INDEX FROM tableName</span><br></pre></td></tr></table></figure>
+
+<p>需要创建索引的情况</p>
+<ul>
+<li><p>主键自动创建唯一索引</p>
+</li>
+<li><p>频繁作为查询条件的字段应该创建索引</p>
+</li>
+<li><p>查询中与其他表关联的字段，外键关系建立索引</p>
+</li>
+<li><p>频繁更新的字段不适合创建索引 因为更新不仅更新记录还会更新索引</p>
+</li>
+<li><p>where条件里用不到的字段不创建索引</p>
+</li>
+<li><p>单键/组合索引选择问题：高并发下倾向创建组合索引</p>
+</li>
+<li><p>查询中排序的字段 排序字段若通过索引去访问将大大提高查询速度</p>
+</li>
+<li><p>查询中统计或者分组字段</p>
+</li>
+</ul>
+<p>不需要创建索引的情况</p>
+<ul>
+<li><p>表记录太少 </p>
+</li>
+<li><p>经常增删改的表</p>
+</li>
+<li><p>如果某个数据列包含许多重复的内容 为他建立索引没有太大实际效果</p>
+</li>
+</ul>
+<h1 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h1><p>使用explain关键字可以模拟优化器执行sql查询的语句 从而知道mysql是如何处理你的sql语句的 分析你的查询语句或表结构的性能瓶颈</p>
+<p>Explain各字段</p>
+<ul>
+<li><p>id：select查询的序列号 包含一组数字 表示查询中select或操作表的执行顺序如果id相同 执行顺序由上至下 id不同的话id大的优先级高 先执行</p>
+</li>
+<li><p>select_type：<a href="https://www.cnblogs.com/danhuangpai/p/8475458.html">https://www.cnblogs.com/danhuangpai/p/8475458.html</a></p>
+</li>
+<li><p>table：这行数据关于哪张表</p>
+</li>
+<li><p>type：查询使用的类型 性能从最好到最差 system-&gt;cosnt-&gt;eq_ref-&gt;ref-&gt;range-&gt;index-&gt;all 至少能达到range级别 最好到ref</p>
+<ul>
+<li>system：表中只有一条记录 等于系统表 是const类型的特例</li>
+<li>const：表示通过索引一次就找到了 用于比较primary key 和 unique索引</li>
+<li>eq_ref：唯一性索引扫描 用于联表查询的情况,按联表的主键或唯一键联合查询 表中只有一条记录与之匹配</li>
+<li>ref：非唯一性索引扫描 返回匹配某个单独值 的所有行</li>
+<li>range：检索给定范围的行 使用一个索引来选择行 key列显示了用哪个索引  </li>
+<li>index：index和all都是全表扫描 但index从索引中读取</li>
+<li>all：全表扫描</li>
+</ul>
+</li>
+<li><p>possible_keys：显示可能应用在这张表上的索引，查询涉及到的字段上如果存在索引 该索引将被列出</p>
+</li>
+<li><p>key：实际使用的索引 如果为null则没用到索引 查询中如果用到覆盖索引 该索引只出现在key列表</p>
+<ul>
+<li><p>覆盖索引：查询的字段和建立索引的个数 顺序刚好一致 或是其子集</p>
+<ul>
+<li><pre><code class="mysql">create index ide_col1_col2 on mytalbe(col1,col2)
+select col1,col2 from mytable;
+
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">    * 覆盖索引中<span class="keyword">select</span>的数据列只用从索引中就能够取得 不必读取数据行，mysql可以利用索引返回<span class="keyword">select</span>列表中的字段 而不必根据索引再次读取数据文件 也就是说查询列要被所建的索引覆盖</span><br><span class="line"></span><br><span class="line">    * 如果要使用覆盖索引 一定要注意<span class="keyword">select</span>列表中只取出所需要的列 不可用<span class="keyword">select</span>*，因为如果将所有字段一起做索引会导致索引文件过大 查询新能下降</span><br><span class="line"></span><br><span class="line">* key_len：表示索引中使用的字节数 显示的值为索引字段的最大可能长度 并非实际使用长度 这个值根据表定义计算得出 不是通过表内检索得出 在不失精度的前提下 长度越短越好</span><br><span class="line"></span><br><span class="line">* <span class="keyword">ref</span>：库.表.字段或const 显示索引的哪一列被使用了，有时候会是一个常量：表示哪些列或常量被用于查找索引列上的值 只有当<span class="keyword">type</span>为<span class="keyword">ref</span>和eq_ref的时候，<span class="keyword">ref</span>这列才会有值</span><br><span class="line"></span><br><span class="line">  * ![img](mysql笔记/clip_image002<span class="number">-1612446344425.</span>png)</span><br><span class="line"></span><br><span class="line">* <span class="keyword">rows</span>：查询所需要读取的行数</span><br><span class="line"></span><br><span class="line">* Extra：不适合在其他列中显示但十分重要的额外信息</span><br><span class="line"></span><br><span class="line">  * <span class="keyword">Using</span> fileSort：在使用<span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">group</span> <span class="keyword">by</span>关键字的时候 没有使用索引的排序	</span><br><span class="line"></span><br><span class="line">    * ```mysql</span><br><span class="line">      <span class="keyword">create</span> <span class="keyword">index</span> idx_salary_name <span class="keyword">user</span>(salary,<span class="type">name</span>)</span><br><span class="line">      #建立索引的顺序是salary <span class="type">name</span> 使用时直接使用<span class="type">name</span> 不符合最左匹配原则 </span><br><span class="line">      <span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="type">name</span>;</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+</ul>
+</li>
+<li><p>using temporary：排序没有走索引、使用union、子查询连接查询、使用某些视图等原因，因此创建了一个内部临时表</p>
+</li>
+<li><p>using index：表示相应的select操作中使用了覆盖索引 如果同时出现using where 表示索引被用来执行索引键值的查找 如果没有using where 表明索引被用来执行读取数据而不是查找动作</p>
+<ul>
+<li><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612446539518.png" alt="img"></li>
+</ul>
+</li>
+<li><p>using where：表明使用了where过滤 </p>
+</li>
+<li><p>using join buffer ：使用了连接缓存</p>
+</li>
+<li><p>impossible where：where子句的值总是false 不能用来获取任何元组</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h1><p>​    最佳做前缀法则：如果索引了多列 查询从索引的最左前列开始并且不跳过索引中的列</p>
+<p>​    在索引列上做任何操作（计算 函数 自动或手动转换）会使索引失效</p>
+<p>​    范围条件右边的列索引失效</p>
+<p>​    使用!= &lt;&gt;会使索引失效</p>
+<p>​    like以通配符开头会使索引失效</p>
+<p>​    字符串不加单引号使索引失效</p>
+<p>​    用or连接会使索引失效</p>
+<p>​    is null ，is not null 无法使用索引</p>
+<p>​    尽量使用覆盖索引减少使用select*</p>
+<p>​    order by中的字段要么全是升序排列 要么全是降序排列 否则会使索引失效</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#首先创建复合索引c1 ~ c4</span><br><span class="line">#查询时用到了c1c2排序时用到了c3 没用到c4</span><br><span class="line">explain  select * from test where c1 &#x3D; &#39;a1&#39; and c2 &#x3D; &#39;a2&#39; and c4 &#x3D; &#39;c4&#39; order by c3</span><br><span class="line">#查询时用到了c1 c2 但不会出现fillSort因为 c2已经是常量了 所以排序时进行优化只用到了c3 </span><br><span class="line">explain  select * from test where c1 &#x3D; &#39;a1&#39; and c2 &#x3D; &#39;a2&#39; and c5 &#x3D; &#39;c5&#39; order by c3,c2</span><br><span class="line">#分组之前必排序：第二个sql没用到索引c2和c3 所以要建立临时表自己进行排序 第一个sql用c2和c3进行排序和分组</span><br><span class="line">explain  select * from test where c1 &#x3D; &#39;a1&#39; and c4 &#x3D; &#39;c4&#39; order by c2,c3</span><br><span class="line">explain  select * from test where c1 &#x3D; &#39;a1&#39; and c4 &#x3D; &#39;c4&#39; order by c3,c2</span><br></pre></td></tr></table></figure>
+
+<h1 id="In和Exist"><a href="#In和Exist" class="headerlink" title="In和Exist"></a>In和Exist</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#当B表的数据集必须小于A表的数据集时，用in优于exists</span><br><span class="line">select * from A where id in (select id from B)</span><br><span class="line">等价于</span><br><span class="line">for select id from B</span><br><span class="line">for select * from A where A.id &#x3D; B.id</span><br><span class="line">#当A表的数据集必须小于B表的数据集时，用exists优于in</span><br><span class="line">#select 1也可以是 select * 因为exists结果返回bool值 实际执行会忽略select清单</span><br><span class="line">select * from A where exists (select 1 from B where B.id &#x3D; A.id)</span><br><span class="line">等价于</span><br><span class="line">for select * from A</span><br><span class="line">for select * from B Where B.id &#x3D; A.id</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>select … from table where exists(subquery) 该语法可理解为：将主查询的数据放到子查询中做认证 根据验证结果(true,false)来决定著查询的数据是否得以保留</p>
+<h1 id="FileSort"><a href="#FileSort" class="headerlink" title="FileSort"></a>FileSort</h1><p>mysql4.1之前是双路排序：从磁盘取排序字段 在buffer进行排序 在从磁盘取其他字段 两次io</p>
+<p>单路排序：读出所有查询的列在buffer中进行排序 然后输出 一次io</p>
+<p>在sort_buffer中，方法B比方法A要多占用很多空间，因为方法B是把所有字段都取出,所以有可能取出的数据的总大小超出了sort_buffer的容量，导致每次只能取sort_buffer容量大小的数据，进行排序（创建tmp文件，多路合并)，排完再取sort_buffer容量大小，再排……从而多次lO。本来想省一次lO操作，反而导致了大量的I/O操作，反而得不偿失。可以增大sort_buffer_size和max_length_for_sort_data进行优化</p>
+<h1 id="慢查询日志"><a href="#慢查询日志" class="headerlink" title="慢查询日志"></a>慢查询日志</h1><p>慢查询日志用来记录在mysql中响应速度超过阈值的语句 具体指运行时间超过long_query_time值得sql 则会被记录到慢查询日志中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#查看是否开启</span><br><span class="line">show variables like &#39;%slow_query_log%&#39;</span><br><span class="line">#查看阈值 超过这个时间显示的sql语句被记录到日志中</span><br><span class="line">show variables like &#39;%slow_query_time%&#39;</span><br><span class="line">#开启慢查询</span><br><span class="line">set global general_log &#x3D; 1</span><br><span class="line">set global log_output &#x3D; &#39;table&#39;</span><br><span class="line">#被记录到mysql库中的general_log表中 可以用以下语句进行查看</span><br><span class="line">select * from mysql.general_log</span><br></pre></td></tr></table></figure>
+
+<h1 id="show-profile"><a href="#show-profile" class="headerlink" title="show profile"></a>show profile</h1><p>​    优化顺序：慢查询-&gt;explain-&gt;show profile</p>
+<p>​    showfile是mysql提供用来分析当前会话中语句执行的资源消耗情况 默认情况关闭 可以保存最近15次的运行结果</p>
+<p>​    查看是否支持show variables like ‘profiling%’  开启:set profiling = on</p>
+<p>​    查看语句的执行结果 show profiles  </p>
+<p>​    诊断sql：show profile cpu,block io for query 9; 数字是要诊断的sql对应于show profiles列表中的id</p>
+<p>​    showfile各字段</p>
+<p><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612450485937.png" alt="img"></p>
+<p>出现以下几种情况很危险</p>
+<ul>
+<li>converting heap to myisam : 查询结果太大 内存不够用忘内存上搬</li>
+<li>creating tmp table ：创建临时表，拷贝数据到临时表 用完再删除</li>
+<li>copying to tmp  table on disk：把内存中临时表复制到磁盘</li>
+</ul>
+<h1 id="数据库锁"><a href="#数据库锁" class="headerlink" title="数据库锁"></a>数据库锁</h1><h2 id="表锁"><a href="#表锁" class="headerlink" title="表锁"></a>表锁</h2><p>偏向myisam存储引擎 开销小 加锁块 无死锁 锁定粒度大 发生锁冲突的概率最高 并发程度低</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#查看表的上锁情况 </span><br><span class="line">show open tables;</span><br><span class="line">#解锁</span><br><span class="line">unlock tables;</span><br><span class="line">#读锁：上了读锁之后不能修改此表 不能访问别的表 其他用户可以读其他表和此表 但修改表时会阻塞 直到解锁</span><br><span class="line">lock table user read </span><br><span class="line">#写锁：上了读锁之后可以读写此表 不能读其他表  其他用户可以读其他表 读此表的时候阻塞 不能写此表</span><br><span class="line">lock table user write</span><br></pre></td></tr></table></figure>
+
+<p>​     <img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612450686998.png" alt="img"></p>
+<p>​     <img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image004-1612450686996.png" alt="img">    </p>
+<p>​     <img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image006-1612450686997.png" alt="img"></p>
+<h2 id="行锁"><a href="#行锁" class="headerlink" title="行锁"></a>行锁</h2><p>行锁：偏向InnoDb存储引擎 开销大 加锁慢，会出现死锁，锁定粒度最小，发生锁冲突的概率最低 并发度也最高</p>
+<p>如果使用针对InnoDB的表使用行锁，被锁定字段不是主键，也没有针对它建立索引的话。行锁锁定的也是整张表。锁整张表会造成程序的执行效率会很低。</p>
+<p>索引失效会使行锁变表锁</p>
+<p>事务未提交时 事务所涉及的行会自动锁住 其他行不会</p>
+<p>​        <img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612450784685.png" alt="img"></p>
+<p>解决不可重复读：在会话一中更新一条数据 在会话二中开启自动提交 再在会话一中提交 会话二中查询出的数据是更新后的数据</p>
+<h2 id="间隙锁"><a href="#间隙锁" class="headerlink" title="间隙锁"></a>间隙锁</h2><p>当我们用范围条件而不是相等条件检索数据，并请求共享或排他锁时，InnoDB会给符合条件的已有数据记录的索引项加锁;对于键值在条件范围内但并不存在的记录，叫做“间隙（GAP)”，</p>
+<p>InnoDB也会对这个“间隙”加锁，这种锁机制就是所谓的间隙锁_(Next-key锁）</p>
+<p><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image001.png" alt="img"></p>
+<p>间隙锁的危害</p>
+<ul>
+<li>因为Query执行过程中通过过范围查找的话，他会锁定整个范围内所有的索引键值，即使这个键值并不存在。</li>
+<li>间隙锁有一个比较致命的弱点，就是当锁定一个范围键值之后，即使某些不存在的键值也会被无辜的锁定，而造成在锁定的时候无法插入锁定键值范围内的任何数据。在某些场景下这可能会对性能造成很大的危害</li>
+</ul>
+<p>如何锁定一行</p>
+<p><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612450977750.png" alt="img"></p>
+<p>如何分析行锁定</p>
+<p>通过检查Innodb_row_lock状态变量来分析系统上的行锁的争夺情况</p>
+<p>show status like ‘%innodb_row_lock%’</p>
+<p>各个字段</p>
+<p><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/image-20210204230741935.png" alt="image-20210204230741935"></p>
 ]]></content>
       <categories>
         <category>数据库</category>

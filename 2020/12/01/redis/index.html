@@ -42,7 +42,7 @@
 <meta property="og:image" content="http://example.com/2020/12/01/redis/image-20201203090416317.png">
 <meta property="og:image" content="http://example.com/2020/12/01/redis/image-20201203094734020.png">
 <meta property="article:published_time" content="2020-12-01T10:13:56.000Z">
-<meta property="article:modified_time" content="2021-02-03T14:47:18.852Z">
+<meta property="article:modified_time" content="2021-02-18T07:49:49.129Z">
 <meta property="article:author" content="鲍炳江">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
@@ -149,12 +149,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">15</span></a>
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">13</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">28</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">30</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -242,7 +242,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-03 22:47:18" itemprop="dateModified" datetime="2021-02-03T22:47:18+08:00">2021-02-03</time>
+                <time title="修改时间：2021-02-18 15:49:49" itemprop="dateModified" datetime="2021-02-18T15:49:49+08:00">2021-02-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -402,12 +402,14 @@
 <p>移动key到其他数据库：move name n</p>
 <p>删除key：del name</p>
 <h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>数字和字符串都用String存储</p>
+<p>set</p>
+<p>get</p>
 <p>append：追加字符串 没有的话新建一个</p>
 <p>strlen：获取字符串长度</p>
 <p>incr：自增 第二个参数可以指定步长 incr views 10</p>
 <p>decr：自减 第二个参数可以指定步长</p>
 <p>getrange：getrange name 0 3  如果最后一个参数是-1则获取整个字符串</p>
-<p>setrange: setrange name 0 xx  | abcde-&gt;xxcde</p>
+<p>setrange: setrange name 0 xx  =&gt; abcde-&gt;xxcde</p>
 <p>setex：为指定的 key 设置值及其过期时间。如果 key 已经存在， SETEX 命令将会替换旧的值。setex name 10 bob</p>
 <p>setnx：如果不存在才创建 setnx name bob </p>
 <p>mget：批量获取值 mget k1 k2</p>
@@ -419,7 +421,7 @@
 <p>getset：返回旧值 设置新值 getset name bob</p>
 <h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>lpush(头插法)：从左端放入对应的是rpush(尾插法)</p>
 <p>lrange：获取指定范围 如果最后一个参数是-1则获取全部</p>
-<p>Lpop：移除头部元素 对应的是rpop</p>
+<p>lpop：移除头部元素 对应的是rpop</p>
 <p>lindex：获取下标对应的元素</p>
 <p>llen：返回列表长度</p>
 <p>lrem：移除指定的值 第二个参数是移除的数量 lrm list 1 one 从头部开始移除</p>
@@ -429,25 +431,25 @@
 <p>linsert：linsert list after/before “two” “world” 往two后面/前面插入world</p>
 <h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><p>set中的值不能重复</p>
 <p>sadd： 添加元素</p>
+<p>srem：移除指定元素</p>
+<p>spop：随机删除元素</p>
+<p>srandmember：随机获取n个元素</p>
 <p>smembers：查看集合中的元素</p>
 <p>sismember：查看集合中是否有某个元素</p>
 <p>scard：获取集合中的元素个数</p>
-<p>srem：移除指定元素</p>
-<p>srandmember：随机获取n个元素</p>
-<p>spop：随机删除元素</p>
-<p>smove：smove set1 set2 value1将指定值移动到另一个集合</p>
-<p>sdiff：sdiff set1 set2查看set1中哪些元素set2中没有</p>
+<p>smove set1 set2 value1将指定值移动到set2</p>
+<p>sdiff set1 set2查看set1中哪些元素set2中没有</p>
 <p>sinter：两个集合的交集</p>
 <p>sunion：两个集合的并集</p>
 <h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><p>存放的key是一个map</p>
 <p>hset和hget：设置 获取元素 也有hmset和hmget</p>
-<p>hdel：删除</p>
+<p>hsetnx</p>
 <p>hgetall：获取所有键值对</p>
+<p>hdel：删除</p>
 <p>hlen：获取键值对数量</p>
 <p>hkeys：只获取所有key</p>
 <p>hvals：只获取所有value</p>
 <p>hincrby ：hincrby hash age 5 </p>
-<p>hsetnx</p>
 <h2 id="Zset"><a href="#Zset" class="headerlink" title="Zset"></a>Zset</h2><p>是set的有序版本</p>
 <p>zset：zset myset 1 bob </p>
 <p>zrange</p>
@@ -687,14 +689,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -737,12 +739,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">388k</span>
+    <span title="站点总字数">521k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:53</span>
+    <span title="站点阅读时长">7:53</span>
 </div>
 
 
@@ -762,7 +764,7 @@
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">123.3k</span> 字
+      博客全站共： <span class="post-count">186.7k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->

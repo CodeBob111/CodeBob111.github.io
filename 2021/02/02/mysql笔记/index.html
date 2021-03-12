@@ -20,21 +20,18 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="MySQL是一个关系型数据库管理系统">
+  <meta name="description" content="MySQL是一个关系型数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql笔记">
 <meta property="og:url" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="勺子柄の博客">
-<meta property="og:description" content="MySQL是一个关系型数据库管理系统">
+<meta property="og:description" content="MySQL是一个关系型数据库">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image006.png">
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image008.png">
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image010.png">
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612253586742.png">
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image004-1612253586743.png">
-<meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612420433798.png">
-<meta property="og:image" content="file:///C:/Users/BAOBIN~1/AppData/Local/Temp/msohtmlclip1/01/clip_image004.png">
-<meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/image-20210204143734978.png">
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/image-20210204153156245.png">
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612428706122.png">
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612428715733.png">
@@ -45,11 +42,11 @@
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image004-1612450686996.png">
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image006-1612450686997.png">
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612450784685.png">
-<meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image001.png">
+<meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/image-20210216134205633.png">
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612450977750.png">
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/image-20210204230741935.png">
 <meta property="article:published_time" content="2021-02-02T07:36:24.000Z">
-<meta property="article:modified_time" content="2021-02-04T15:08:44.385Z">
+<meta property="article:modified_time" content="2021-02-16T05:42:53.526Z">
 <meta property="article:author" content="鲍炳江">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
@@ -156,12 +153,12 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">15</span></a>
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">13</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">28</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">30</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -249,7 +246,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-04 23:08:44" itemprop="dateModified" datetime="2021-02-04T23:08:44+08:00">2021-02-04</time>
+                <time title="修改时间：2021-02-16 13:42:53" itemprop="dateModified" datetime="2021-02-16T13:42:53+08:00">2021-02-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,7 +278,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>16k</span>
+              <span>17k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -290,7 +287,7 @@
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>15 分钟</span>
             </span>
-            <div class="post-description">MySQL是一个关系型数据库管理系统</div>
+            <div class="post-description">MySQL是一个关系型数据库</div>
 
         </div>
       </header>
@@ -313,7 +310,7 @@
 </li>
 <li><p>查看mysql版本 1)select version(); 2)在cmd输入mysql –version</p>
 </li>
-<li><p>注释 # ，– ，/* */</p>
+<li><p>注释 # ，– (后面要加一个空格)，/* */</p>
 </li>
 </ul>
 <p>起别名用<strong>AS</strong> 且AS可以省略</p>
@@ -390,7 +387,7 @@ from employees
 
 <h1 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h1><h2 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h2><p>inner可以省略</p>
 <p><strong>等值查询</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查询名字中包含e的员工名和工种名 </span></span><br><span class="line"><span class="keyword">select</span> last_name,job_title <span class="keyword">from</span> employees e <span class="keyword">inner</span> <span class="keyword">join</span> jobs <span class="keyword">on</span> e.job_id = j.job_id <span class="keyword">where</span> e.last_name <span class="keyword">like</span> <span class="string">&#x27;%e%&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#查询名字中包含e的员工名和工种名 </span><br><span class="line">select last_name,job_title from employees e inner join jobs j on e.job_id &#x3D; j.job_id where e.last_name like &#39;%e%&#39;</span><br></pre></td></tr></table></figure>
 
 <p><strong>非等值连接</strong></p>
 <p><strong>自连接</strong></p>
@@ -443,7 +440,7 @@ from employees
 
 <p>exit后面的子查询：<code>select exists(select employee_id from employees where salary = 3000) #结果0或1</code></p>
 <h1 id="增删改"><a href="#增删改" class="headerlink" title="增删改"></a>增删改</h1><p><strong>INSERT</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#方法一</span><br><span class="line">insert into study(id,name,sex) values(12,&#39;bob&#39;,&#39;male&#39;)；</span><br><span class="line">insert into study values(12,&#39;bob&#39;,&#39;male&#39;);</span><br><span class="line">#方法二</span><br><span class="line">insert into study set id &#x3D; 1,name &#x3D; &#39;bob&#39;,sex &#x3D; &#39;male&#39;;</span><br><span class="line">#方法一支持同时插入多行和子查询</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#方法一</span><br><span class="line">insert into study(id,name,sex) values(12,&#39;bob&#39;,&#39;male&#39;)；</span><br><span class="line">insert into study values(12,&#39;bob&#39;,null);</span><br><span class="line">#方法二</span><br><span class="line">insert into study set id &#x3D; 1,name &#x3D; &#39;bob&#39;,sex &#x3D; &#39;male&#39;;</span><br><span class="line">#方法一支持同时插入多行和子查询</span><br></pre></td></tr></table></figure>
 
 <p><strong>UPDATE</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#修改单表</span><br><span class="line">update user set name &#x3D; &#39;bob&#39; where name &#x3D; &#39;zhangsan&#39;</span><br><span class="line">#修改多表:修改bob的女朋友的手机号为114</span><br><span class="line">update boys bo inner join beauty b on bo.id &#x3D; b.boyfriend_id set b.phone &#x3D; 114 where bo.boyName &#x3D; &#39;bob&#39;</span><br></pre></td></tr></table></figure>
@@ -466,26 +463,28 @@ from employees
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create table user(id int,name varchar(20),sex varchar(8));</span><br></pre></td></tr></table></figure>
 
 <p>表的修改</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#修改列名，必须要带上类型</span><br><span class="line">alter table user change column id num int;</span><br><span class="line">#修改列的类型或约束</span><br><span class="line">alter table user modify column name char;</span><br><span class="line">#添加新列</span><br><span class="line">alter table user add column hobby varchar(20);</span><br><span class="line">#删除列</span><br><span class="line">alter table user drop column hobby;</span><br><span class="line">#修改表名</span><br><span class="line">alter table user rename to users;</span><br><span class="line">#删除表</span><br><span class="line">drop table (if exists) user;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#修改列名，必须要带上类型</span><br><span class="line">alter table user change column id newId int;</span><br><span class="line">#修改列的类型或约束</span><br><span class="line">alter table user modify column name char;</span><br><span class="line">#添加新列</span><br><span class="line">alter table user add column hobby varchar(20);</span><br><span class="line">#删除列</span><br><span class="line">alter table user drop column hobby;</span><br><span class="line">#修改表名</span><br><span class="line">alter table user rename to users;</span><br><span class="line">#删除表</span><br><span class="line">drop table (if exists) user;</span><br></pre></td></tr></table></figure>
 
 <p>表的复制</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#仅复制表的结构</span><br><span class="line">create table myCopy like user;</span><br><span class="line">#复制表的结构和数据</span><br><span class="line">create  table myCopy select * from user;</span><br><span class="line">#只复制一部分数据 全部结构</span><br><span class="line">create  table myCopy select id,name from user where name &#x3D; ‘bob’;</span><br><span class="line">#仅复制某些字段</span><br><span class="line">create  table myCopy select id,name from user where 0;</span><br></pre></td></tr></table></figure>
 
-<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>整型：Tinyint(1字节) Smallint（2字节） Mediumint（3字节） Int ，integer（四字节） Bigint（8字节）后面加unsigned表示无符号</p>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>整型：Tinyint(1字节)  Smallint（2字节） Mediumint（3字节） Int ，integer（四字节） Bigint（8字节）后面加unsigned表示无符号</p>
 <p>小数</p>
 <ul>
-<li><p>浮点数 ：float(4byte) double（9byte）</p>
+<li><p>浮点数 ：float(4byte) double（8byte）</p>
 </li>
 <li><p>定点数 ：DEC(M,D) 共M位 小数占D位 默认M=10 D=0</p>
 </li>
 </ul>
 <p>较短的文本：varchar(M)和char(M)， M表示最多字符数 char可以省略M 默认为1 varchar长度可变</p>
-<p>​       较长的文本: blob(较大的二进制)，text </p>
-<p>​       保存较短的二进制 binary varbinary</p>
-<p>​       set  </p>
-<p>​           <img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612420433798.png" alt="img"></p>
-<p>​       enum      </p>
-<p>​           <img src="file:///C:/Users/BAOBIN~1/AppData/Local/Temp/msohtmlclip1/01/clip_image004.png" alt="img">m插入不进去 只能插入 1，2，3，a,b,c,A,B,C</p>
+<p>较长的文本: blob(较大的二进制)，text </p>
+<p>保存较短的二进制 binary varbinary</p>
+<p>set  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create table tab_char(c1 set(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;))</span><br><span class="line">#只能插入 1，2，3，a,b,c,A,B,C</span><br><span class="line">insert into tab_char values(&#39;a&#39;);</span><br><span class="line">insert into tab_char values(&#39;a,b&#39;);</span><br><span class="line">insert into tab_char values(&#39;b,c&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>enum    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create table tab_char(c1 enum(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;))</span><br><span class="line">#只能插入 1，2，3，a,b,c,A,B,C</span><br><span class="line">insert into tab_char values(&#39;a&#39;);</span><br></pre></td></tr></table></figure>
+
 <p>字符型</p>
 <ul>
 <li><p>较短的文本：varchar(M)和char(M)， M表示最多字符数 char可以省略M 默认为1 varchar长度可变</p>
@@ -494,31 +493,63 @@ from employees
 </li>
 <li><p>保存较短的二进制 binary varbinary</p>
 </li>
-<li><p>set  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create table tab_set(s1 set(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;));</span><br><span class="line">insert into tab_set values(&#39;a&#39;)</span><br><span class="line">insert into tab_set values(&#39;a,b&#39;)</span><br><span class="line">insert into tab_set values(&#39;a,c,d&#39;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>enum      </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create tab_char(c1 enum(&#39;a&#39;,&#39;b&#39;,&#39;v&#39;));</span><br><span class="line">insert into tab_char values(&#39;a&#39;); #值只能为1，2，3，a,b,c,A,B,C中的一个</span><br></pre></td></tr></table></figure>
-
-</li>
 </ul>
 <p>日期型</p>
-<p><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/image-20210204143734978.png" alt="image-20210204143734978"></p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">字节</th>
+<th align="center">最小值</th>
+<th align="center">最大值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">date</td>
+<td align="center">4</td>
+<td align="center">1000-01-01</td>
+<td align="center">9999-12-31</td>
+</tr>
+<tr>
+<td align="center">datatime</td>
+<td align="center">8</td>
+<td align="center">1000-01-01 00:00:00</td>
+<td align="center">9999-12-31 23:59:59</td>
+</tr>
+<tr>
+<td align="center">stamptime</td>
+<td align="center">4</td>
+<td align="center">19700101000001</td>
+<td align="center">2038年的某个时刻</td>
+</tr>
+<tr>
+<td align="center">time</td>
+<td align="center">3</td>
+<td align="center">-838:59:59</td>
+<td align="center">838:59:59</td>
+</tr>
+<tr>
+<td align="center">year</td>
+<td align="center">1</td>
+<td align="center">1901</td>
+<td align="center">2155</td>
+</tr>
+</tbody></table>
 <ul>
-<li>timestamp回会根据时区变化</li>
+<li>timestamp会根据时区变化</li>
 </ul>
 <h1 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h1><p><strong>六大约束</strong></p>
-<pre><code>    1. NOT NULL ：非空约束，用于保证该字段的值不能为空 
-    2. DEFAULT ：默认约束，用于保证该字段有默认值 
-    3. PRIMARY KEY ：主键约束，用于保证该字段的值具有唯一性，并且非空 
-    4.  UNIQUE : 唯一约束，用于保证该字段的值具有唯一性，可以为空     
-    5. CHECK：检查约束【mysql中不支持，sql语法支持，语法不报错，但是没效果】     比如年龄、性别，可以设置一个范围     
-    6. FOREIGN KEY ：外键约束，用于限制两个表的关系，用于保证该字段的值必须来自于主表的关联列的值</code></pre>
+<p><strong>NOT NULL</strong> ：非空约束，用于保证该字段的值不能为空 </p>
+<p><strong>DEFAULT</strong> ：默认约束，用于保证该字段有默认值 </p>
+<p><strong>PRIMARY KEY</strong> ：主键约束，用于保证该字段的值具有唯一性，并且非空 </p>
+<p><strong>UNIQUE</strong> : 唯一约束，用于保证该字段的值具有唯一性，可以为空     </p>
+<p><strong>CHECK</strong>：检查约束【mysql中不支持，sql语法支持，语法不报错，但是没效果】     比如年龄、性别，可以设置一个范围     </p>
+<p><strong>FOREIGN KEY</strong> ：外键约束，用于限制两个表的关系，用于保证该字段的值必须来自于主表的关联列的值</p>
 <ul>
-<li>PRIMARY KEY 和UNIQUE的区别：都可以保证唯一 主键不允许为空，unique允许 但是只能有一个null 主键只能有一个 unique可以多个 都支持组合列</li>
+<li>PRIMARY KEY 和UNIQUE的区别：都可以保证唯一 主键不允许为空，unique允许 但是只能有一个null 主键只能有一个 unique可以多个 都支持组合列 </li>
 <li>FOREIGN KEY ：从表的外键列类型和主表的关联列的类型要求一致或兼容，主表的关联列必须是一个key，插入数据时先插入主表，删除数据时先删除从表</li>
 </ul>
-<p>列级约束都支持foreign key无效</p>
+<p>列级约束都支持但foreign key无效</p>
 <p>表级约束除了default,not null都支持 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">create table stuinfo(</span><br><span class="line">	id int,</span><br><span class="line">    stuName varchar(20),</span><br><span class="line">    gender char(1),</span><br><span class="line">    seat int,</span><br><span class="line">    age int,</span><br><span class="line">    majorId int.</span><br><span class="line">    constraint pk primary key(id), #constarint 约束名 可以省略 </span><br><span class="line">    Unique(seat),</span><br><span class="line">    check(gender &#x3D; &#39;male&#39; or gender &#x3D; &#39;female&#39;).</span><br><span class="line">    foreign key(majorid) references major(id)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
@@ -533,7 +564,7 @@ from employees
 
 <p><strong>ACID属性</strong></p>
 <p>原子性(Atomicity)：事务是一个原子操作单元，其对数据的修改，要么全都执行，要么全不执行</p>
-<p>一致性(Consistent)：在事务开始和完成时，数据都必须保持一致状态。这意味着所有相关的数据规则都必须应用于事务的修改，以保持数据的完整性;事务结束时，所有的内部数据结构（如B树索引或双向链表）也都必须是正确的。</p>
+<p>一致性(Consistent)：在事务开始和完成时，数据都必须保持一致状态。这意味着所有相关的数据规则都必须应用于事务的修改，以保持数据的完整性;事务结束时，所有的内部数据结构（如B树索引或双向链表）也都必须是正确的。 </p>
 <p>隔离性：数据库系统提供一定的隔离机制，保证事务在不受外部并发操作影响的“独立”环境执行。这意味着事务处理过程中的中间状态对外部是不可见的，反之亦然。</p>
 <p>持久性：事务完成之后，它对于数据的修改是永久性的，即使出现系统故障也能够保持</p>
 <p><strong>并发问题</strong>：对于同时运行的多个事务，当这些事务访问数据库中相同的数据时,如果没有采取必要的隔离机制,就会导致各种并发问题</p>
@@ -568,7 +599,7 @@ from employees
 <li><p>创建视图时，ALGORITHM 为 TEMPTABLE 类型</p>
 </li>
 </ul>
-<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><h1 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h1><p>局变量与会话变量的区别就在于，对全局变量的修改会影响到整个服务器，但是对会话变量的修改，只会影响到当前的会话</p>
+<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><h1 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h1><p>全局变量与会话变量的区别就在于，对全局变量的修改会影响到整个服务器，但是对会话变量的修改，只会影响到当前的会话</p>
 <h3 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h3><p>查看: show global variables like ‘%xxx%’ 如果不加模糊查询就是查询所有变量</p>
 <p>查看具体的值 select @@global.&lt;系统变量名&gt;</p>
 <p> 赋值：set global 系统变量名 = 值</p>
@@ -601,7 +632,7 @@ from employees
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#while</span><br><span class="line">while 循环条件 do</span><br><span class="line">	循环体</span><br><span class="line">end while 标签</span><br><span class="line">#loop</span><br><span class="line">loop </span><br><span class="line">	循环体</span><br><span class="line">end loop 标签 </span><br><span class="line">#repeat</span><br><span class="line">repeat </span><br><span class="line">	循环体</span><br><span class="line">until 结束循环的条件</span><br><span class="line">end repeat 标签</span><br><span class="line"></span><br><span class="line">#举例</span><br><span class="line">create procedure test_while(in insertCount int)</span><br><span class="line">begin</span><br><span class="line">	declare i int default 1;</span><br><span class="line">	a:while i&lt;&#x3D;insertCount Do</span><br><span class="line">		insert into admin(username,password) values (&#39;bob&#39;,&#39;123&#39;);</span><br><span class="line">		if i &gt;&#x3D; 20 then leave a;</span><br><span class="line">		end if;</span><br><span class="line">		set i &#x3D; i + 1;</span><br><span class="line">	end while a;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
 
 <h1 id="逻辑架构"><a href="#逻辑架构" class="headerlink" title="逻辑架构"></a>逻辑架构</h1><p><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612428706122.png" alt="img"></p>
-<p>sql执行加载顺序</p>
+<p>sql执行加载顺序 </p>
 <p><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612428715733.png" alt="img"></p>
 <h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><p>索引是帮助mysql高效获取数据的数据结构,一般是Btree 索引本身也很大 一般以索引文件的形式存储在磁盘上</p>
 <p>优点：提高数据检索效率 降低数据库io成本 通过索引列对数据进行排序 降低数据排序的成本 降低了cpu的消耗 </p>
@@ -676,8 +707,7 @@ from employees
 <ul>
 <li><pre><code class="mysql">create index ide_col1_col2 on mytalbe(col1,col2)
 select col1,col2 from mytable;
-
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    * 覆盖索引中<span class="keyword">select</span>的数据列只用从索引中就能够取得 不必读取数据行，mysql可以利用索引返回<span class="keyword">select</span>列表中的字段 而不必根据索引再次读取数据文件 也就是说查询列要被所建的索引覆盖</span><br><span class="line"></span><br><span class="line">    * 如果要使用覆盖索引 一定要注意<span class="keyword">select</span>列表中只取出所需要的列 不可用<span class="keyword">select</span>*，因为如果将所有字段一起做索引会导致索引文件过大 查询新能下降</span><br><span class="line"></span><br><span class="line">* key_len：表示索引中使用的字节数 显示的值为索引字段的最大可能长度 并非实际使用长度 这个值根据表定义计算得出 不是通过表内检索得出 在不失精度的前提下 长度越短越好</span><br><span class="line"></span><br><span class="line">* <span class="keyword">ref</span>：库.表.字段或const 显示索引的哪一列被使用了，有时候会是一个常量：表示哪些列或常量被用于查找索引列上的值 只有当<span class="keyword">type</span>为<span class="keyword">ref</span>和eq_ref的时候，<span class="keyword">ref</span>这列才会有值</span><br><span class="line"></span><br><span class="line">  * ![img](mysql笔记/clip_image002<span class="number">-1612446344425.</span>png)</span><br><span class="line"></span><br><span class="line">* <span class="keyword">rows</span>：查询所需要读取的行数</span><br><span class="line"></span><br><span class="line">* Extra：不适合在其他列中显示但十分重要的额外信息</span><br><span class="line"></span><br><span class="line">  * <span class="keyword">Using</span> fileSort：在使用<span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">group</span> <span class="keyword">by</span>关键字的时候 没有使用索引的排序	</span><br><span class="line"></span><br><span class="line">    * ```mysql</span><br><span class="line">      <span class="keyword">create</span> <span class="keyword">index</span> idx_salary_name <span class="keyword">user</span>(salary,<span class="type">name</span>)</span><br><span class="line">      #建立索引的顺序是salary <span class="type">name</span> 使用时直接使用<span class="type">name</span> 不符合最左匹配原则 </span><br><span class="line">      <span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="type">name</span>;</span><br></pre></td></tr></table></figure></code></pre>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">      </span><br><span class="line">* 覆盖索引中<span class="keyword">select</span>的数据列只用从索引中就能够取得 不必读取数据行，mysql可以利用索引返回<span class="keyword">select</span>列表中的字段 而不必根据索引再次读取数据文件 也就是说查询列要被所建的索引覆盖</span><br><span class="line">    </span><br><span class="line">* 如果要使用覆盖索引 一定要注意<span class="keyword">select</span>列表中只取出所需要的列 不可用<span class="keyword">select</span>*，因为如果将所有字段一起做索引会导致索引文件过大 查询新能下降</span><br><span class="line">  </span><br><span class="line">* key_len：表示索引中使用的字节数 显示的值为索引字段的最大可能长度 并非实际使用长度 这个值根据表定义计算得出 不是通过表内检索得出 在不失精度的前提下 长度越短越好</span><br><span class="line"></span><br><span class="line">* <span class="keyword">ref</span>：库.表.字段或const 显示索引的哪一列被使用了，有时候会是一个常量：表示哪些列或常量被用于查找索引列上的值 只有当<span class="keyword">type</span>为<span class="keyword">ref</span>和eq_ref的时候，<span class="keyword">ref</span>这列才会有值</span><br><span class="line"></span><br><span class="line">  * ![img](mysql笔记/clip_image002<span class="number">-1612446344425.</span>png)</span><br><span class="line"></span><br><span class="line">* <span class="keyword">rows</span>：查询所需要读取的行数</span><br><span class="line"></span><br><span class="line">* Extra：不适合在其他列中显示但十分重要的额外信息</span><br><span class="line"></span><br><span class="line">  * <span class="keyword">Using</span> fileSort：在使用<span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">group</span> <span class="keyword">by</span>关键字的时候 没有使用索引的排序	</span><br><span class="line"></span><br><span class="line">    * ```mysql</span><br><span class="line">      <span class="keyword">create</span> <span class="keyword">index</span> idx_salary_name <span class="keyword">user</span>(salary,<span class="type">name</span>)</span><br><span class="line">      #建立索引的顺序是salary <span class="type">name</span> 使用时直接使用<span class="type">name</span> 不符合最左匹配原则 </span><br><span class="line">      <span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="type">name</span>;</span><br></pre></td></tr></table></figure></code></pre>
 </li>
 </ul>
 </li>
@@ -697,7 +727,7 @@ select col1,col2 from mytable;
 </ul>
 </li>
 </ul>
-<h1 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h1><p>​    最佳做前缀法则：如果索引了多列 查询从索引的最左前列开始并且不跳过索引中的列</p>
+<h1 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h1><p>​    最佳左前缀法则：如果索引了多列 查询从索引的最左前列开始并且不跳过索引中的列</p>
 <p>​    在索引列上做任何操作（计算 函数 自动或手动转换）会使索引失效</p>
 <p>​    范围条件右边的列索引失效</p>
 <p>​    使用!= &lt;&gt;会使索引失效</p>
@@ -745,7 +775,7 @@ select col1,col2 from mytable;
 <p>解决不可重复读：在会话一中更新一条数据 在会话二中开启自动提交 再在会话一中提交 会话二中查询出的数据是更新后的数据</p>
 <h2 id="间隙锁"><a href="#间隙锁" class="headerlink" title="间隙锁"></a>间隙锁</h2><p>当我们用范围条件而不是相等条件检索数据，并请求共享或排他锁时，InnoDB会给符合条件的已有数据记录的索引项加锁;对于键值在条件范围内但并不存在的记录，叫做“间隙（GAP)”，</p>
 <p>InnoDB也会对这个“间隙”加锁，这种锁机制就是所谓的间隙锁_(Next-key锁）</p>
-<p><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image001.png" alt="img"></p>
+<p><img src="/2021/02/02/mysql%E7%AC%94%E8%AE%B0/image-20210216134205633.png" alt="image-20210216134205633"></p>
 <p>间隙锁的危害</p>
 <ul>
 <li>因为Query执行过程中通过过范围查找的话，他会锁定整个范围内所有的索引键值，即使这个键值并不存在。</li>
@@ -789,7 +819,10 @@ select col1,col2 from mytable;
     <a href="/2021/02/01/zookeeper/" rel="prev" title="zookeeper">
       <i class="fa fa-chevron-left"></i> zookeeper
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/15/%E8%B0%B7%E7%B2%92%E5%95%86%E5%9F%8E/" rel="next" title="谷粒商城">
+      谷粒商城 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -865,14 +898,14 @@ select col1,col2 from mytable;
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -915,12 +948,12 @@ select col1,col2 from mytable;
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">388k</span>
+    <span title="站点总字数">521k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:53</span>
+    <span title="站点阅读时长">7:53</span>
 </div>
 
 
@@ -940,7 +973,7 @@ select col1,col2 from mytable;
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">123.3k</span> 字
+      博客全站共： <span class="post-count">186.7k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->

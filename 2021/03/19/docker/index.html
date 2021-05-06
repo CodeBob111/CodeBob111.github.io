@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的镜像中，然后发布到任何流行的 Linux或Windows 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker">
+<meta property="og:url" content="http://example.com/2021/03/19/docker/index.html">
+<meta property="og:site_name" content="勺子柄の博客">
+<meta property="og:description" content="Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的镜像中，然后发布到任何流行的 Linux或Windows 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/image-20201106103334369.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/log/source_posts/docker/image-20210326144801192.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/log/source_posts/docker/image-20210326144957674.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/log/source_posts/docker/image-20210326144737928.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200926194534367.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/kuangshen-notes/docker/image-20201107203220774.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927094142961.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927094216063.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927094617723.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927094704724.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927094741483.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927094849878.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927095058156.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927114921514.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927115914744.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927124330680.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927124407311.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927124449253.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927124639590.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/log/source_posts/docker/image-20210326150236879.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/kuangshen-notes/docker/image-20201107140036356.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927161923734.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927161936716.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927161959296.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927162020831.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927160225714.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927160327806.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927161313804.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927175737851.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927180241076.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927184738709.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927190719361.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927191252374.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927192711585.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/kuangshen-notes/docker/image-20201107152325685.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927193234115.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927194632317.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927194641080.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927195532016.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200927200250001.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200928074944874.png">
+<meta property="og:image" content="http://example.com/2021/03/19/docker/Users/baobingjiang/AppData/Roaming/Typora/typora-user-images/image-20200928075241846.png">
+<meta property="article:published_time" content="2021-03-19T07:36:54.000Z">
+<meta property="article:modified_time" content="2021-03-26T07:03:06.389Z">
+<meta property="article:author" content="鲍炳江">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/03/19/docker/image-20201106103334369.png">
+
+<link rel="canonical" href="http://example.com/2021/03/19/docker/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>docker | 勺子柄の博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="勺子柄の博客" type="application/atom+xml">
+</head>
+
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">勺子柄の博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录生活中的点点滴滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">9</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">20</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">41</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/19/docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="鲍炳江">
+      <meta itemprop="description" content="不接受任何评判">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="勺子柄の博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          docker
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-19 15:36:54" itemprop="dateCreated datePublished" datetime="2021-03-19T15:36:54+08:00">2021-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-26 15:03:06" itemprop="dateModified" datetime="2021-03-26T15:03:06+08:00">2021-03-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/19/docker/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/19/docker/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+            <div class="post-description">Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的镜像中，然后发布到任何流行的 Linux或Windows 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="名词概念"><a href="#名词概念" class="headerlink" title="名词概念"></a>名词概念</h1><p>镜像(image):好比一个模板 可以通过这个模板来创建容器服务 tomcat镜像 ===&gt;run ==&gt;tomcat01容器 ,通过这个镜像可以创建多个容器</p>
+<p>容器:docker利用容器技术 独立运行一个或者一组应用 通过镜像来创建</p>
+<p>仓库:存放镜像 分为公有仓库和私有仓库</p>
+<h1 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h1><p>在linux上安装docker：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/centos/">https://docs.docker.com/engine/install/centos/</a></p>
+<p>docker info 可以查看docker的信息 docker version可以查看docker版本</p>
+<p>安装要使用国内的镜像地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo to /etc/yum.repos.d/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<p>如果运行的镜像没有 会从中央仓库下载 指令 <code>docker images </code> 查看镜像</p>
+<p>启动docker:<code>systemctl start docker</code></p>
+<p>查看版本:<code>docker -v</code></p>
+<p>配置镜像加速</p>
+<ul>
+<li>mkdir -p /etc/docker</li>
+<li>vim /etc/docker/daemon.json.rpmsave<ul>
+<li><img src="/2021/03/19/docker/image-20201106103334369.png" alt="image-20201106103334369"></li>
+</ul>
+</li>
+<li>systemctl daemon-reload</li>
+<li>systemctl restart docker</li>
+</ul>
+<h1 id="docker原理"><a href="#docker原理" class="headerlink" title="docker原理"></a>docker原理</h1><p><img src="/2021/03/19/docker/log\source_posts\docker\image-20210326144801192.png" alt="image-20210326144801192"></p>
+<p>docker为什么比vm快</p>
+<ul>
+<li>Docker有着比虚拟机更少的抽象层</li>
+<li>docker利用的是宿主机的内核，vm需要Guest OS（虚拟机中的系统）</li>
+</ul>
+<p><img src="/2021/03/19/docker/log\source_posts\docker\image-20210326144957674.png" alt="image-20210326144957674"></p>
+<h1 id="镜像的基本命令"><a href="#镜像的基本命令" class="headerlink" title="镜像的基本命令"></a>镜像的基本命令</h1><p>参考文档：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/docker/">https://docs.docker.com/engine/reference/commandline/docker/</a></p>
+<p>docker images 显示镜像信息 </p>
+<ul>
+<li>-q只显示镜像的id </li>
+<li>-a显示全部镜像</li>
+<li>–digests:显示镜像的摘要信息</li>
+<li>–no-trunc:显示完整的镜像信息</li>
+</ul>
+<p>docker search 搜索镜像</p>
+<ul>
+<li>-s n 收藏数不小于n的镜像</li>
+<li>–no-trunc:显示完整的镜像信息</li>
+<li>–automated:只列出automated build类型的镜像</li>
+</ul>
+<p>docker pull 拉取镜像 默认拉取最新版本</p>
+<p>docker rmi 删除镜像 默认删除最新版本 需要先把容器停止 或者使用-f强制删除</p>
+<ul>
+<li>删除全部 docker -rmi -f $(docker images -qa)</li>
+</ul>
+<h1 id="容器的基本命令"><a href="#容器的基本命令" class="headerlink" title="容器的基本命令"></a>容器的基本命令</h1><p>新建容器并启动：docker run [可选参数] image</p>
+<ul>
+<li>–name = ‘’容器名字’’  为容器起一个名字如果不指定 随机分配一个名字</li>
+<li>-d 后台方式运行</li>
+<li>-i 使用交互方式运行 </li>
+<li>-t 为容器重新分配一个伪输入端口 通常与i同时使用</li>
+<li>-p:指定容器的端口</li>
+<li>-P:随机端口映射</li>
+<li>-p 主机端口:docker容器端口</li>
+</ul>
+<p>退出容器</p>
+<ul>
+<li>exit:容器停止并退出</li>
+<li>crtl+p+q:容器不停止退出</li>
+</ul>
+<p>查看正在运行的容器：docker ps</p>
+<ul>
+<li>-a:列出当前所有正在运行的容器+历史上运行过的</li>
+<li>-l:显示最近创建的容器</li>
+<li>-n:显示最近n个创建的容器</li>
+<li>-q:静默模式，只显示容器编号</li>
+<li>–no-trunc:不截断输出</li>
+</ul>
+<p>启动容器docker start</p>
+<p>重启容器docker restart</p>
+<p>停止容器docker stop</p>
+<p>强制停止容器docker kill</p>
+<p>删除已停止的容器docker rm 容器id 加上参数-f可以强制删除</p>
+<ul>
+<li>一次性删除多个容器<ul>
+<li>docker rm -f ${docker ps -a -q}</li>
+<li>docker ps -a -q|xargs docker rm</li>
+</ul>
+</li>
+</ul>
+<p>查看容器日志docker logs -f -t –tail n 容器id </p>
+<ul>
+<li>-f可以不停的追加 实时显示日志信息</li>
+</ul>
+<p>查看容器内运行的进程 docke top 容器id</p>
+<p>查看容器内部细节：docker inspect id</p>
+<p>进入正在运行的容器并以命令行方式交互</p>
+<ul>
+<li><p>命令一：<code>docker exec -it 容器id /bin/bash</code>   进去容器后开启一个新的终端 可以在里面进行一些操作</p>
+</li>
+<li><p>命令二：<code>docker attach 容器id</code>      进入容器正在执行的终端 不会启动新的进程</p>
+</li>
+</ul>
+<h1 id="从容器内拷贝文件到主机"><a href="#从容器内拷贝文件到主机" class="headerlink" title="从容器内拷贝文件到主机"></a>从容器内拷贝文件到主机</h1><p><img src="/2021/03/19/docker/log\source_posts\docker\image-20210326144737928.png" alt="image-20210326144737928"></p>
+<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><h2 id="部署mongodb"><a href="#部署mongodb" class="headerlink" title="部署mongodb"></a>部署mongodb</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">docker</span> <span class="selector-tag">pull</span> <span class="selector-tag">mongo</span><span class="selector-pseudo">:latest</span></span><br><span class="line"><span class="selector-tag">docker</span> <span class="selector-tag">run</span> <span class="selector-tag">-itd</span> <span class="selector-tag">--name</span> <span class="selector-tag">mongo</span> <span class="selector-tag">-p</span> 27017<span class="selector-pseudo">:27017</span> <span class="selector-tag">mongo</span> <span class="selector-tag">--auth</span> <span class="selector-id">#--auth</span>表示需要密码才能访问容器服务</span><br><span class="line"><span class="selector-tag">docker</span> <span class="selector-tag">exec</span> <span class="selector-tag">-it</span> <span class="selector-tag">mongo</span> <span class="selector-tag">mongo</span> <span class="selector-tag">admin</span></span><br><span class="line"><span class="selector-tag">db</span><span class="selector-class">.createUser</span>(&#123; <span class="attribute">user</span>:<span class="string">&#x27;admin&#x27;</span>,pwd:<span class="string">&#x27;admin&#x27;</span>,roles:[ &#123; role:<span class="string">&#x27;userAdminAnyDatabase&#x27;</span>, db: <span class="string">&#x27;admin&#x27;</span>&#125;,&quot;<span class="selector-tag">readWriteAnyDatabase</span>&quot;]&#125;);</span><br><span class="line"><span class="selector-tag">db</span><span class="selector-class">.admin</span>(&quot;<span class="selector-tag">admin</span>&quot;,&quot;<span class="selector-tag">admin</span>&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>部署rabbitmq</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker</span> run -dit --name rabbitmq -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin -p <span class="number">15672</span>:<span class="number">15672</span> -p <span class="number">5672</span>:<span class="number">5672</span> <span class="number">867</span>da<span class="number">7</span>fcdf<span class="number">92</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="部署zookeeper"><a href="#部署zookeeper" class="headerlink" title="部署zookeeper"></a>部署zookeeper</h2><p>docker run -d –name zookeeper -p 2181:2181 -t wurstmeister/zookeeper</p>
+<h2 id="部署kafka"><a href="#部署kafka" class="headerlink" title="部署kafka"></a>部署kafka</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="builtin-name">run</span>  -d --name kafka -p 9092:9092 -e <span class="attribute">KAFKA_BROKER_ID</span>=0 -e <span class="attribute">KAFKA_ZOOKEEPER_CONNECT</span>=192.168.52.131:2181  -e <span class="attribute">KAFKA_ADVERTISED_LISTENERS</span>=PLAINTEXT://192.168.52.131:9092 -e <span class="attribute">KAFKA_LISTENERS</span>=PLAINTEXT://0.0.0.0:9092 -t wurstmeister/kafka </span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lblblblblzdx/article/details/80548294?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.baidujs&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.baidujs">参考文章</a></p>
+<p>进入容器执行命令：<a target="_blank" rel="noopener" href="https://www.hangge.com/blog/cache/detail_2791.html">https://www.hangge.com/blog/cache/detail_2791.html</a></p>
+<h2 id="部署nginx"><a href="#部署nginx" class="headerlink" title="部署nginx"></a>部署nginx</h2><p>拉取镜像 docker pull nginx</p>
+<p>启动容器 docker run -d –name nginx01 -p 80:80 nginx 在容器外访问3304可以访问到容器内的80端口</p>
+<p>访问：crul localhost:3304 </p>
+<h2 id="部署tomcat"><a href="#部署tomcat" class="headerlink" title="部署tomcat"></a>部署tomcat</h2><p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200926194534367.png" alt="image-20200926194534367"></p>
+<p>启动：docker run -d -p 3355:8080 –name tomcat01 tomcat</p>
+<p>这个tomcat是极简版的 要把webapps.dist的文件拷贝到webapps</p>
+<p>进入容器并复制：cp -r webapps.dist/* webapps</p>
+<h2 id="部署es-kibana"><a href="#部署es-kibana" class="headerlink" title="部署es+kibana"></a>部署es+kibana</h2><p>启动es：<code>docker run -d --name elasticsearch -p9200:9200 -p9300:9300 -e &quot;discovery.type=single-node&quot;  elasticsearch:7.6.1</code></p>
+<p>启动kibana：<code>docker run -d -p 5601:5601 --name kibana --link elasticsearch:elasticsearch docker.io/kibana:7.6.1</code></p>
+<p>修改kibana容器中kibana.yml  把hosts改为自己的ip</p>
+<p><img src="/2021/03/19/docker/kuangshen-notes\docker\image-20201107203220774.png" alt="image-20201107203220774"></p>
+<p>es镜像的缺点：暴漏十分多的接口  十分耗内存 es的数据一般要放置在安全目录 </p>
+<p>查看容器资源利用率:docker stats</p>
+<p>关闭容器 修改配置文件 增加内存的限制 -e 环境配置修改</p>
+<p>​    <code>docker run -d --name elasticsearch     -p9200:9200 -p9300:9300 -e &quot;discovery.type=single-node&quot; -e ES_JAVA_OPTS=&quot;-Xms64m -Xmx512m&quot; elasticsearch:7.6.1</code></p>
+<p><strong>安装ik分词器</strong></p>
+<p>首先在docker中部署好es和kibana</p>
+<p>在es中添加ik分词器插件:elasticsearch-plugin install <a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.6.1/e">https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.6.1/e</a></p>
+<p>重启es：docker restart id</p>
+<h2 id="部署redis"><a href="#部署redis" class="headerlink" title="部署redis"></a>部署redis</h2><p>启动：docker run -p 6379:6379 -v /home/redis/data:/data -v /home/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf -d redis redis-server /usr/local/etc/redis/redis.conf –appendonly yes</p>
+<p>执行客户端：docker exec -it id redis-cli</p>
+<h2 id="部署RocketMQ"><a href="#部署RocketMQ" class="headerlink" title="部署RocketMQ"></a>部署RocketMQ</h2><p><strong>启动NameServer：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 9876:9876 --name rmqserver  foxiswho/rocketmq:server-4.5.1</span><br></pre></td></tr></table></figure>
+
+<p>启动broker：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 10911:10911 -p 10909:10909\</span><br><span class="line"> --name rmqbroker --link rmqserver:namesrv\</span><br><span class="line"> -e <span class="string">&quot;NAMESRV_ADDR=namesrv:9876&quot;</span> -e <span class="string">&quot;JAVA_OPTS=-Duser.home=/opt&quot;</span>\</span><br><span class="line"> -e <span class="string">&quot;JAVA_OPT_EXT=-server -Xms128m -Xmx128m&quot;</span>\</span><br><span class="line"> foxiswho/rocketmq:broker-4.5.1</span><br></pre></td></tr></table></figure>
+
+<p>启动rocketmq console</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name rmqconsole -p 8180:8080 --link rmqserver:namesrv\</span><br><span class="line"> -e <span class="string">&quot;JAVA_OPTS=-Drocketmq.namesrv.addr=namesrv:9876\</span></span><br><span class="line"><span class="string"> -Dcom.rocketmq.sendMessageWithVIPChannel=false&quot;</span>\</span><br><span class="line"> -t styletang/rocketmq-console-ng</span><br></pre></td></tr></table></figure>
+
+<p>查询启动情况：docker ps|grep rocketmq</p>
+<h2 id="Portainer可视化面板安装"><a href="#Portainer可视化面板安装" class="headerlink" title="Portainer可视化面板安装"></a>Portainer可视化面板安装</h2><p>安装：<code>docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock --privileged=true portainer/portainer</code></p>
+<p>访问192.168.52.128:8088 选择本地连接</p>
+<h1 id="镜像原理"><a href="#镜像原理" class="headerlink" title="镜像原理"></a>镜像原理</h1><p>镜像是一种轻量级、可执行的独立软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含运行某个软件所需的所有内容，包括代码、运行时、库、环境变量和配置文件。</p>
+<p>UnionFS (联合文件系统） :Union文件系统( UnionFS )是一种分层、轻量级并且高性能的文件系统，它支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下(unite several directories into a single virtualfilesystem)。Union文件系统是Docker镜像的基础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像），可以制作各种具体的应用镜像。</p>
+<p>特性︰一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录</p>
+<h2 id="镜像加载原理"><a href="#镜像加载原理" class="headerlink" title="镜像加载原理"></a>镜像加载原理</h2><h3 id="联合文件系统"><a href="#联合文件系统" class="headerlink" title="联合文件系统"></a>联合文件系统</h3><p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927094142961.png" alt="image-20200927094142961"></p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927094216063.png" alt="image-20200927094216063"></p>
+<h3 id="分层理解"><a href="#分层理解" class="headerlink" title="分层理解"></a>分层理解</h3><p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927094617723.png" alt="image-20200927094617723"></p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927094704724.png" alt="image-20200927094704724"></p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927094741483.png" alt="image-20200927094741483"></p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927094849878.png" alt="image-20200927094849878"></p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927095058156.png" alt="image-20200927095058156"></p>
+<h1 id="commit镜像"><a href="#commit镜像" class="headerlink" title="commit镜像"></a>commit镜像</h1><p>docker commit 提交容器成为一个新的副本</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927114921514.png" alt="image-20200927114921514"></p>
+<h1 id="容器数据卷"><a href="#容器数据卷" class="headerlink" title="容器数据卷"></a>容器数据卷</h1><h2 id="什么是容器数据卷"><a href="#什么是容器数据卷" class="headerlink" title="什么是容器数据卷"></a>什么是容器数据卷</h2><p>​    <img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927115914744.png" alt="image-20200927115914744"></p>
+<p>作用：容器的持久化和同步操作，容器间数据共享</p>
+<h2 id="使用数据卷"><a href="#使用数据卷" class="headerlink" title="使用数据卷"></a>使用数据卷</h2><p>使用命令挂载 -v : docker run -it -v  主机目录：容器内目录 <code>docker run -it -v /home/test:/home centos /bin/bash</code></p>
+<p>容器的/home和主机上的home/test双向同步 无论修改哪个目录 会被同步到另一个目录</p>
+<h2 id="实战：mysql同步数据"><a href="#实战：mysql同步数据" class="headerlink" title="实战：mysql同步数据"></a>实战：mysql同步数据</h2><p>启动mysql <code>docker run -d -p 3306:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=Bbj0611.. --name mysql01 mysql:5.7</code></p>
+<h2 id="具名挂载和匿名挂载"><a href="#具名挂载和匿名挂载" class="headerlink" title="具名挂载和匿名挂载"></a>具名挂载和匿名挂载</h2><p>匿名挂载：-v 容器内目录 自动在主机生成一个目录    </p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927124330680.png" alt="image-20200927124330680"></p>
+<p>具名挂载：-v 卷名：容器内路径</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927124407311.png" alt="image-20200927124407311"></p>
+<p>查看卷</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927124449253.png" alt="image-20200927124449253"></p>
+<p>拓展</p>
+<p>​    <img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927124639590.png" alt="image-20200927124639590"></p>
+<p>默认是rw</p>
+<h2 id="使用dockerFile添加数据卷"><a href="#使用dockerFile添加数据卷" class="headerlink" title="使用dockerFile添加数据卷"></a>使用dockerFile添加数据卷</h2><p>创建/mydocker并进入 创建dockerfile</p>
+<p><img src="/2021/03/19/docker/log\source_posts\docker\image-20210326150236879.png" alt="image-20210326150236879"></p>
+<p>因为不同主机 目录不同 为了移植性更高 使用volueme只指定容器中的卷</p>
+<p>使用build在当前目录下创建新的镜像：docker build -f /mydocker/dockerfile -t baobingjiang/centos .</p>
+<h2 id="容器间传递共享"><a href="#容器间传递共享" class="headerlink" title="容器间传递共享"></a>容器间传递共享</h2><p>先启动一个父容器centos1:docker run -d -it –name centos1 62bb58c893b3 </p>
+<p>再启动一个子容器centos2:docker run -d -it –volumes-from centos1 –name centos2 62bb58c893b3 </p>
+<p>再创建一个子容器centos3</p>
+<p>父子容器之间可以共享 父容器删除后子容器之间也可以共享</p>
+<p>结论：容器之间配置信息的传递，数据卷的生命周期一直持续到没有容器使用它为止</p>
+<h1 id="DockFile"><a href="#DockFile" class="headerlink" title="DockFile"></a>DockFile</h1><p>dockerfile中的每条指令都会创建一个新的镜像层 并对镜像进行提交</p>
+<p>保留字指令</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span>    基础镜像，当前新镜像是基于哪个镜像的。</span><br><span class="line"></span><br><span class="line"><span class="keyword">MAINTAINER</span>    镜像维护者名字和邮箱地址</span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash">    容器构建时需要运行的命令 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span>     当期容器对外暴露的端口</span><br><span class="line"></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash">    指定在创建容器后，终端默认登陆进来工作的目录，一个落脚点</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span>     用来在构建的过程中设置环境变量，这个环境变量可以在后续的任何 <span class="keyword">RUN</span><span class="bash"> 指令中使用，这就如同在命令前面指定了环境变量前缀一样；也可以直接在其他指令中使用这些变量.</span></span><br><span class="line">        比如:  前面写有 EVN  MY_PATH /home            使用： <span class="keyword">WORKDIR</span><span class="bash"> <span class="variable">$MY_PATH</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ADD</span><span class="bash">     将宿主机目录下的文件拷贝进镜像，且ADD命令会自动处理URL和解压tar压缩包</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash">    类似ADD命令，拷贝文件和目录到镜像中，将构建上下文目录中&lt;源路径&gt; 的文件/目录复制到新的一层的镜像内的&lt;目标路径&gt; 位置</span></span><br><span class="line">　　　　 使用方式 <span class="number">1</span>. <span class="keyword">COPY</span><span class="bash"> 源路径  目标路径    2. COPY[<span class="string">&quot;源路径&quot;</span>,<span class="string">&quot;目标路径&quot;</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">VOLUME</span><span class="bash">  容器数据卷，用于数据保存和持久化</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="bash">    指定一个容器启动时需要运行的命令，Dockerfile中可以有多个CMD指令，但只有最后一个生效，CMD会被docker run 后面的参数替换</span></span><br><span class="line"></span><br><span class="line">ENTPYPOINT 指定一个容器启动时需要运行的命令，ENTPYPOINT和<span class="keyword">CMD</span><span class="bash">一样都是在指定容器启动程序及参数。区别在于CMD只有最后一个生效， ENTPYPOINT 在docker run 后面追加参数。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ONBUILD</span>   当构建一个被集成的Dockerfile时运行，父镜像在被子镜像集成后，父镜像的<span class="keyword">ONBUILD</span>会被触发</span><br></pre></td></tr></table></figure>
+
+<p>onbuild:子镜像构建的时候 父镜像会打出这句话</p>
+<p><img src="/2021/03/19/docker/kuangshen-notes\docker\image-20201107140036356.png" alt="image-20201107140036356"></p>
+<h2 id="CMD和ENTRYPOINT的区别"><a href="#CMD和ENTRYPOINT的区别" class="headerlink" title="CMD和ENTRYPOINT的区别"></a>CMD和ENTRYPOINT的区别</h2><p>cmd</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927161923734.png" alt="image-20200927161923734"></p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927161936716.png" alt="image-20200927161936716"></p>
+<p>entrypoint</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927161959296.png" alt="image-20200927161959296"></p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927162020831.png" alt="image-20200927162020831"></p>
+<p>​    追加命令相当于执行了 ls -al</p>
+<h1 id="构建自己的centos"><a href="#构建自己的centos" class="headerlink" title="构建自己的centos"></a>构建自己的centos</h1><p>创建dockfile</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927160225714.png" alt="image-20200927160225714"></p>
+<p>创建容器</p>
+<p>​    <img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927160327806.png" alt="image-20200927160327806"></p>
+<p>​    关于最后面的. ：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43002202/article/details/108735549">https://blog.csdn.net/weixin_43002202/article/details/108735549</a></p>
+<p>启动容器 发现自动进入 /usr/local</p>
+<p>通过docker history 查看镜像的构建过程</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927161313804.png" alt="image-20200927161313804"></p>
+<h1 id="构建自己的tomcat"><a href="#构建自己的tomcat" class="headerlink" title="构建自己的tomcat"></a>构建自己的tomcat</h1><p>dockerfile文件命名为Dockerfiles build会自动寻找这个文件 就不需要-f指定了</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927175737851.png" alt="image-20200927175737851"></p>
+<p>jdk和tomcat包都在当前目录下</p>
+<p>启动</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927180241076.png" alt="image-20200927180241076"></p>
+<h1 id="发布镜像到docker-hub"><a href="#发布镜像到docker-hub" class="headerlink" title="发布镜像到docker hub"></a>发布镜像到docker hub</h1><p>登录docker hub账户 <code>docker login -u baobingjiang</code></p>
+<p>给image设置一个tag：<code>docker tag 9b072cf047b2 baobingjiang/mycentos</code></p>
+<p>push:<code> docker push baobingjiang/mycentos</code> </p>
+<h1 id="发布镜像到阿里云容器服务"><a href="#发布镜像到阿里云容器服务" class="headerlink" title="发布镜像到阿里云容器服务"></a>发布镜像到阿里云容器服务</h1><p>创建命名空间</p>
+<p>创建镜像仓库：本地的</p>
+<p>将镜像推送到registry</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927184738709.png" alt="image-20200927184738709"></p>
+<h1 id="docker网络"><a href="#docker网络" class="headerlink" title="docker网络"></a>docker网络</h1><p>每启动一个docker容器     docker就会给docker容器分配一个ip 只要安装了docker 就会分配一个桥接模式网卡docker0 使用的技术是evth-pair</p>
+<p>evth-pair:是一对的虚拟设备接口 他们都是成对出现的 一端连着协议 一端彼此相连 它可以充当一个桥梁 连接各种虚拟网络设备</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927190719361.png" alt="image-20200927190719361"></p>
+<p>原理图</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927191252374.png" alt="image-20200927191252374"></p>
+<p>所有的容器在不指定网络的情况下 都是docker0路由的 docker会给我们的容器分配一个默认的可用ip</p>
+<h1 id="容器互联–link"><a href="#容器互联–link" class="headerlink" title="容器互联–link"></a>容器互联–link</h1><p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927192711585.png" alt="image-20200927192711585"></p>
+<p>docker network ls 列出网卡</p>
+<p>docker network inspect id查看网卡信息</p>
+<p>通过docker inspect 容器id 可以看到再tomcat03中配置了tomcat02</p>
+<p><img src="/2021/03/19/docker/kuangshen-notes\docker\image-20201107152325685.png" alt="image-20201107152325685"></p>
+<p>通过docker exec -it tomcat03 cat /etc/hosts可以看到–link在hosts中增加了一个映射 </p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927193234115.png" alt="image-20200927193234115"></p>
+<p>不建议使用–link  现在推荐使用自定义网络 因为docker0 不支持容器名连接访问</p>
+<h1 id="自定义网络"><a href="#自定义网络" class="headerlink" title="自定义网络"></a>自定义网络</h1><p>网络模式</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927194632317.png" alt="image-20200927194632317"></p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927194641080.png" alt="image-20200927194641080"></p>
+<p>创建自定义网络：<code>docker network create --driver bridge  --subnet 192.168.0.0/16 --gateway 192.168.0.1 mynet </code></p>
+<p>查看mynet信息：<code>docker network inspect mynet</code></p>
+<p>通过自定义网路创建容器:<code>docker run -d -P --name tomcat01 --net mynet tomcat</code></p>
+<p>自定义网络中 不同容器之间不仅可以通过ip地址ping通 还可以通过容器名ping通</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927195532016.png" alt="image-20200927195532016"></p>
+<h1 id="网络联通"><a href="#网络联通" class="headerlink" title="网络联通"></a>网络联通</h1><p>创建三个tomcat-net-01和tomcat-net-02在mynet下,tomcat01在docker0下 想让tomcat01和其他两个tomcat通信可以使用connect指令</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200927200250001.png" alt="image-20200927200250001"></p>
+<p>相当于一个容器有两个ip地址</p>
+<h1 id="部署redis集群"><a href="#部署redis集群" class="headerlink" title="部署redis集群"></a>部署redis集群</h1><p>创建一个网络 <code>docker network create redisnet --subnet 172.38.0.0/16</code></p>
+<p>通过脚本创建6个redis服务在/mydata下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">for port in $(seq 1 6); \</span><br><span class="line">do \</span><br><span class="line">mkdir -p /mydata/redis/node-$&#123;port&#125;/conf</span><br><span class="line">touch /mydata/redis/node-$&#123;port&#125;/conf/redis.conf</span><br><span class="line">cat &lt;&lt; EOF &gt;/mydata/redis/node-$&#123;port&#125;/conf/redis.conf</span><br><span class="line">port 6379 </span><br><span class="line">bind 0.0.0.0</span><br><span class="line">cluster-enabled yes </span><br><span class="line">cluster-config-file nodes.conf</span><br><span class="line">cluster-node-timeout 5000</span><br><span class="line">cluster-announce-ip 172.38.0.1$&#123;port&#125;</span><br><span class="line">cluster-announce-port 6379</span><br><span class="line">cluster-announce-bus-port 16379</span><br><span class="line">appendonly yes</span><br><span class="line">EOF</span><br><span class="line">done</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>启动容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 6371:6379 -p 16371:16379 --name redis-1 \</span><br><span class="line">  -v /mydata/redis/node-1/data:/data \</span><br><span class="line">  -v /mydata/redis/node-1/conf/redis.conf:/etc/redis/redis.conf \</span><br><span class="line">  -d --net redisnet --ip 172.38.0.11 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf</span><br></pre></td></tr></table></figure>
+
+
+
+<p>进入redis 使用的是sh：<code>docker exec -it redis-1 /bin/sh</code></p>
+<p>建立集群 <code>redis-cli --cluster create 172.38.0.11:6379 172.38.0.12:6379  172.38.0.13:6379  172.38.0.14:6379  172.38.0.15:6379  172.38.0.16:6379 -- cluster-replicas 1 </code></p>
+<h1 id="SpringBoot微服务打包docker镜像"><a href="#SpringBoot微服务打包docker镜像" class="headerlink" title="SpringBoot微服务打包docker镜像"></a>SpringBoot微服务打包docker镜像</h1><p>创建一个project 并打包</p>
+<p>创建一个Dockerfile文件</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200928074944874.png" alt="image-20200928074944874"></p>
+<p>将project的jar包和Dockerfile文件上传到linux的目录中</p>
+<p>创建images</p>
+<p><img src="/2021/03/19/docker/Users\baobingjiang\AppData\Roaming\Typora\typora-user-images\image-20200928075241846.png" alt="image-20200928075241846"></p>
+<p>​    </p>
+<p>​    </p>
+<p>​    </p>
+<p>​    </p>
+<p>​    </p>
+<p>​    </p>
+
+    </div>
+
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/18/tomcat/" rel="prev" title="tomcat">
+      <i class="fa fa-chevron-left"></i> tomcat
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="设计模式">
+      设计模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8D%E8%AF%8D%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">名词概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">安装和配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">docker原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">镜像的基本命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">容器的基本命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E5%AE%B9%E5%99%A8%E5%86%85%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6%E5%88%B0%E4%B8%BB%E6%9C%BA"><span class="nav-number">6.</span> <span class="nav-text">从容器内拷贝文件到主机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2"><span class="nav-number">7.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2mongodb"><span class="nav-number">7.1.</span> <span class="nav-text">部署mongodb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2zookeeper"><span class="nav-number">7.2.</span> <span class="nav-text">部署zookeeper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2kafka"><span class="nav-number">7.3.</span> <span class="nav-text">部署kafka</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2nginx"><span class="nav-number">7.4.</span> <span class="nav-text">部署nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2tomcat"><span class="nav-number">7.5.</span> <span class="nav-text">部署tomcat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2es-kibana"><span class="nav-number">7.6.</span> <span class="nav-text">部署es+kibana</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2redis"><span class="nav-number">7.7.</span> <span class="nav-text">部署redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2RocketMQ"><span class="nav-number">7.8.</span> <span class="nav-text">部署RocketMQ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Portainer%E5%8F%AF%E8%A7%86%E5%8C%96%E9%9D%A2%E6%9D%BF%E5%AE%89%E8%A3%85"><span class="nav-number">7.9.</span> <span class="nav-text">Portainer可视化面板安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E5%8E%9F%E7%90%86"><span class="nav-number">8.</span> <span class="nav-text">镜像原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86"><span class="nav-number">8.1.</span> <span class="nav-text">镜像加载原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E5%90%88%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">8.1.1.</span> <span class="nav-text">联合文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B1%82%E7%90%86%E8%A7%A3"><span class="nav-number">8.1.2.</span> <span class="nav-text">分层理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">8.1.3.</span> <span class="nav-text">特点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#commit%E9%95%9C%E5%83%8F"><span class="nav-number">9.</span> <span class="nav-text">commit镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-number">10.</span> <span class="nav-text">容器数据卷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-number">10.1.</span> <span class="nav-text">什么是容器数据卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-number">10.2.</span> <span class="nav-text">使用数据卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%EF%BC%9Amysql%E5%90%8C%E6%AD%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">10.3.</span> <span class="nav-text">实战：mysql同步数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E5%90%8D%E6%8C%82%E8%BD%BD%E5%92%8C%E5%8C%BF%E5%90%8D%E6%8C%82%E8%BD%BD"><span class="nav-number">10.4.</span> <span class="nav-text">具名挂载和匿名挂载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8dockerFile%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-number">10.5.</span> <span class="nav-text">使用dockerFile添加数据卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E9%97%B4%E4%BC%A0%E9%80%92%E5%85%B1%E4%BA%AB"><span class="nav-number">10.6.</span> <span class="nav-text">容器间传递共享</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DockFile"><span class="nav-number">11.</span> <span class="nav-text">DockFile</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CMD%E5%92%8CENTRYPOINT%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">11.1.</span> <span class="nav-text">CMD和ENTRYPOINT的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84centos"><span class="nav-number">12.</span> <span class="nav-text">构建自己的centos</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84tomcat"><span class="nav-number">13.</span> <span class="nav-text">构建自己的tomcat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E9%95%9C%E5%83%8F%E5%88%B0docker-hub"><span class="nav-number">14.</span> <span class="nav-text">发布镜像到docker hub</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E9%95%9C%E5%83%8F%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91%E5%AE%B9%E5%99%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">15.</span> <span class="nav-text">发布镜像到阿里云容器服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker%E7%BD%91%E7%BB%9C"><span class="nav-number">16.</span> <span class="nav-text">docker网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E4%BA%92%E8%81%94%E2%80%93link"><span class="nav-number">17.</span> <span class="nav-text">容器互联–link</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C"><span class="nav-number">18.</span> <span class="nav-text">自定义网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%81%94%E9%80%9A"><span class="nav-number">19.</span> <span class="nav-text">网络联通</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2redis%E9%9B%86%E7%BE%A4"><span class="nav-number">20.</span> <span class="nav-text">部署redis集群</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringBoot%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%89%93%E5%8C%85docker%E9%95%9C%E5%83%8F"><span class="nav-number">21.</span> <span class="nav-text">SpringBoot微服务打包docker镜像</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="鲍炳江"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">鲍炳江</p>
+  <div class="site-description" itemprop="description">不接受任何评判</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鲍炳江</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">706k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10:42</span>
+</div>
+
+
+<!-- 新增访客统计代码 -->
+
+<div class="busuanzi-count">
+    <script async="" src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      访问用户： <span class="busuanzi-value" id="busuanzi_value_site_uv"></span> 人
+    </span>
+    <div class="powered-by"></div>
+    <span class="site-uv">
+      <i class="fa fa-eye"></i>
+      访问次数： <span class="busuanzi-value" id="busuanzi_value_site_pv"></span> 次
+    </span>
+    <!-- 博客字数统计 -->
+    <span class="site-pv">
+      <i class="fa fa-pencil"></i>
+      博客全站共： <span class="post-count">264.1k</span> 字
+    </span>
+</div>
+<!-- 新增访客统计代码 END-->
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Q8d8san4rQK6RMUMN9Cn773b-gzGzoHsz',
+      appKey     : 'W6WIDWUfTyiNEDcQ490kGNaJ',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
+<script type="text/javascript" src="/js/src/clicklove.js"></script>

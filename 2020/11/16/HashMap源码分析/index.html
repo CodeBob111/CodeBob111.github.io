@@ -20,18 +20,18 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="HashMap的一些方法详解和源码分析">
+  <meta name="description" content="HashMap和ConcurrentHashMap的一些方法详解和源码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HashMap源码分析">
 <meta property="og:url" content="http://example.com/2020/11/16/HashMap%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="勺子柄の博客">
-<meta property="og:description" content="HashMap的一些方法详解和源码分析">
+<meta property="og:description" content="HashMap和ConcurrentHashMap的一些方法详解和源码">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2020/11/16/HashMap%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/image.png">
 <meta property="article:published_time" content="2020-11-16T15:49:37.000Z">
-<meta property="article:modified_time" content="2021-02-03T13:45:15.172Z">
+<meta property="article:modified_time" content="2021-03-30T03:00:53.855Z">
 <meta property="article:author" content="鲍炳江">
-<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2020/11/16/HashMap%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/image.png">
 
@@ -131,17 +131,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">8</span></a>
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">9</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">15</span></a>
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">33</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">41</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-03 21:45:15" itemprop="dateModified" datetime="2021-02-03T21:45:15+08:00">2021-02-03</time>
+                <time title="修改时间：2021-03-30 11:00:53" itemprop="dateModified" datetime="2021-03-30T11:00:53+08:00">2021-03-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -261,16 +261,16 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
+              <span>1.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
-            <div class="post-description">HashMap的一些方法详解和源码分析</div>
+            <div class="post-description">HashMap和ConcurrentHashMap的一些方法详解和源码</div>
 
         </div>
       </header>
@@ -281,21 +281,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42034205/article/details/90384772">为什么与hashcode &gt;&gt;&gt; 16异或？</a></p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">int</span> hash(<span class="keyword">Object</span> <span class="built_in">key</span>) &#123;</span><br><span class="line">    <span class="built_in">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">key</span> == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = <span class="built_in">key</span>.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h1><p>参考：<a target="_blank" rel="noopener" href="https://snailclimb.gitee.io/javaguide/#/docs/java/collection/HashMap(JDK1.8)%E6%BA%90%E7%A0%81+%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90">https://snailclimb.gitee.io/javaguide/#/docs/java/collection/HashMap(JDK1.8)%E6%BA%90%E7%A0%81+%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90</a></p>
+<h2 id="底层数据结构"><a href="#底层数据结构" class="headerlink" title="底层数据结构"></a>底层数据结构</h2><p>HashMap 通过 key 的 hashCode 经过扰动函数处理过后得到 hash 值，然后通过 <code>(n - 1) &amp; hash</code> 判断当前元素存放的位置（这里的 n 指的是数组的长度），如果当前位置存在元素的话，就判断该元素与要存入的元素的 hash 值以及 key 是否相同，如果相同的话，直接覆盖，不相同就通过拉链法解决冲突。</p>
+<p>所谓扰动函数指的就是 HashMap 的 hash 方法。使用 hash 方法也就是扰动函数是为了防止一些实现比较差的 hashCode() 方法 换句话说使用扰动函数之后可以减少碰撞。</p>
+<p>JDK 1.8 的 hash 方法 相比于 JDK 1.7 hash 方法更加简化，但是原理不变。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="comment">// key.hashCode()：返回散列值也就是hashcode</span></span><br><span class="line">    <span class="comment">// ^ ：按位异或</span></span><br><span class="line">    <span class="comment">// &gt;&gt;&gt;:无符号右移，忽略符号位，空位都以0补齐</span></span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/JustBeauty/article/details/81116144">ParameterizedType详解</a></p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> Class&lt;?&gt; comparableClassFor(<span class="built_in">Object</span> x) &#123;</span><br><span class="line">    <span class="keyword">if</span> (x instanceof <span class="built_in">Comparable</span>) &#123;</span><br><span class="line">        Class&lt;?&gt; c; <span class="built_in">Type</span>[] ts, <span class="keyword">as</span>; <span class="built_in">Type</span> t; ParameterizedType p;</span><br><span class="line">        <span class="keyword">if</span> ((c = x.getClass()) == <span class="built_in">String</span>.<span class="keyword">class</span>) <span class="comment">// bypass checks</span></span><br><span class="line">            <span class="keyword">return</span> c;</span><br><span class="line">        <span class="keyword">if</span> ((ts = c.getGenericInterfaces()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; ts.length; ++i) &#123;</span><br><span class="line">                <span class="keyword">if</span> (((t = ts[i]) instanceof ParameterizedType) &amp;&amp;</span><br><span class="line">                    ((p = (ParameterizedType)t).getRawType() ==</span><br><span class="line">                     <span class="built_in">Comparable</span>.<span class="keyword">class</span>) &amp;&amp;</span><br><span class="line">                    (<span class="keyword">as</span> = p.getActualTypeArguments()) != <span class="keyword">null</span> &amp;&amp;</span><br><span class="line">                    <span class="keyword">as</span>.length == <span class="number">1</span> &amp;&amp; <span class="keyword">as</span>[<span class="number">0</span>] == c) <span class="comment">// type arg is c</span></span><br><span class="line">                    <span class="keyword">return</span> c;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对比一下 JDK1.7 的 HashMap 的 hash 方法源码.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(<span class="keyword">int</span> h)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// This function ensures that hashCodes that differ only by</span></span><br><span class="line">    <span class="comment">// constant multiples at each bit position have a bounded</span></span><br><span class="line">    <span class="comment">// number of collisions (approximately 8 at default load factor).</span></span><br><span class="line"></span><br><span class="line">    h ^= (h &gt;&gt;&gt; <span class="number">20</span>) ^ (h &gt;&gt;&gt; <span class="number">12</span>);</span><br><span class="line">    <span class="keyword">return</span> h ^ (h &gt;&gt;&gt; <span class="number">7</span>) ^ (h &gt;&gt;&gt; <span class="number">4</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>相比于 JDK1.8 的 hash 方法 ，JDK 1.7 的 hash 方法的性能会稍差一点点，因为毕竟扰动了 4 次。</p>
+<ul>
+<li><p><strong>loadFactor 加载因子</strong></p>
+<p>loadFactor 加载因子是控制数组存放数据的疏密程度，loadFactor 越趋近于 1，那么 数组中存放的数据(entry)也就越多，也就越密，也就是会让链表的长度增加，loadFactor 越小，也就是趋近于 0，数组中存放的数据(entry)也就越少，也就越稀疏。</p>
+<p><strong>loadFactor 太大导致查找元素效率低，太小导致数组的利用率低，存放的数据会很分散。loadFactor 的默认值为 0.75f 是官方给出的一个比较好的临界值</strong>。</p>
+<p>给定的默认容量为 16，负载因子为 0.75。Map 在使用过程中不断的往里面存放数据，当数量达到了 16 * 0.75 = 12 就需要将当前 16 的容量进行扩容，而扩容这个过程涉及到 rehash、复制数据等操作，所以非常消耗性能。</p>
+</li>
+<li><p><strong>threshold</strong></p>
+<p><strong>threshold = capacity * loadFactor</strong>，<strong>当 Size&gt;=threshold</strong>的时候，那么就要考虑对数组的扩增了，也就是说，这个的意思就是 <strong>衡量数组是否需要扩增的一个标准</strong>。</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42034205/article/details/90384772">为什么与hashcode &gt;&gt;&gt; 16异或？</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/loading4/p/6239441.html">返回大于输入参数且最近的2的整数次幂的数</a></p>
 <figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">static final <span class="built_in">int</span> tableSizeFor(<span class="built_in">int</span> cap) &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">n</span> = cap - <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">n</span> |= <span class="built_in">n</span> &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">n</span> |= <span class="built_in">n</span> &gt;&gt;&gt; <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">n</span> |= <span class="built_in">n</span> &gt;&gt;&gt; <span class="number">4</span>;</span><br><span class="line">    <span class="built_in">n</span> |= <span class="built_in">n</span> &gt;&gt;&gt; <span class="number">8</span>;</span><br><span class="line">    <span class="built_in">n</span> |= <span class="built_in">n</span> &gt;&gt;&gt; <span class="number">16</span>;</span><br><span class="line">    return (<span class="built_in">n</span> &lt; <span class="number">0</span>) ? <span class="number">1</span> <span class="symbol">:</span> (<span class="built_in">n</span> &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY <span class="symbol">:</span> <span class="built_in">n</span> + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>关于为什么最后要+1：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e33d3fa32091">https://www.jianshu.com/p/e33d3fa32091</a></p>
 <p>以cap = 5为例</p>
 <p><img src="/2020/11/16/HashMap%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/image.png"></p>
 <p>参考：</p>
 <p>​    <a target="_blank" rel="noopener" href="https://blog.csdn.net/woshimaxiao1/article/details/83661464">https://blog.csdn.net/woshimaxiao1/article/details/83661464</a></p>
 <p>​    <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40574571/article/details/97612100">https://blog.csdn.net/qq_40574571/article/details/97612100</a></p>
+<h1 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h1><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016143805">https://segmentfault.com/a/1190000016143805</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/78989cd553b4">https://www.jianshu.com/p/78989cd553b4</a></p>
 
     </div>
 
@@ -315,7 +331,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
           </div>
 
         
@@ -328,8 +344,8 @@
       <i class="fa fa-chevron-left"></i> ElasticSearch笔记
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/11/23/MongoDB/" rel="next" title="MongoDB">
-      MongoDB <i class="fa fa-chevron-right"></i>
+    <a href="/2020/11/23/MongoDB/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -390,6 +406,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap"><span class="nav-number">1.</span> <span class="nav-text">HashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">底层数据结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ConcurrentHashMap"><span class="nav-number">2.</span> <span class="nav-text">ConcurrentHashMap</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -405,20 +422,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -455,12 +472,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">579k</span>
+    <span title="站点总字数">706k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:46</span>
+    <span title="站点阅读时长">10:42</span>
 </div>
 
 
@@ -480,7 +497,7 @@
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">208.4k</span> 字
+      博客全站共： <span class="post-count">264.1k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->

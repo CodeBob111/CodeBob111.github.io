@@ -62,7 +62,7 @@
 <meta property="og:image" content="http://example.com/2021/03/13/rabbitmq/1527090258083.png">
 <meta property="og:image" content="http://example.com/2021/03/13/rabbitmq/1532767726274.png">
 <meta property="article:published_time" content="2021-03-13T02:20:39.000Z">
-<meta property="article:modified_time" content="2021-03-13T03:09:21.559Z">
+<meta property="article:modified_time" content="2021-03-27T15:30:06.215Z">
 <meta property="article:author" content="鲍炳江">
 <meta property="article:tag" content="消息队列">
 <meta name="twitter:card" content="summary">
@@ -164,17 +164,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">8</span></a>
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">9</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">15</span></a>
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">33</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">41</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -254,10 +254,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-03-13 10:20:39 / 修改时间：11:09:21" itemprop="dateCreated datePublished" datetime="2021-03-13T10:20:39+08:00">2021-03-13</time>
+              <time title="创建时间：2021-03-13 10:20:39" itemprop="dateCreated datePublished" datetime="2021-03-13T10:20:39+08:00">2021-03-13</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-27 23:30:06" itemprop="dateModified" datetime="2021-03-27T23:30:06+08:00">2021-03-27</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -539,7 +545,7 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">rabbitmq:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.56</span><span class="number">.101</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">leyou</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">leyou</span></span><br><span class="line">    <span class="attr">virtual-host:</span> <span class="string">/leyou</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="监听者"><a href="#监听者" class="headerlink" title="监听者"></a>监听者</h2><p>在SpringAmqp中，对消息的消费者进行了封装和抽象，一个普通的JavaBean中的普通方法，只要通过简单的注解，就可以成为一个消费者。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Listener</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RabbitListener(bindings = @QueueBinding(</span></span><br><span class="line"><span class="meta">            value = @Queue(value = &quot;spring.test.queue&quot;, durable = &quot;true&quot;),</span></span><br><span class="line"><span class="meta">            exchange = @Exchange(</span></span><br><span class="line"><span class="meta">                    value = &quot;spring.test.exchange&quot;,</span></span><br><span class="line"><span class="meta">                    ignoreDeclarationExceptions = &quot;true&quot;,</span></span><br><span class="line"><span class="meta">                    type = ExchangeTypes.TOPIC</span></span><br><span class="line"><span class="meta">            ),</span></span><br><span class="line"><span class="meta">            key = &#123;&quot;#.#&quot;&#125;))</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listen</span><span class="params">(String msg)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;接收到消息：&quot;</span> + msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Listener</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RabbitListener(bindings = @QueueBinding(</span></span><br><span class="line"><span class="meta">            value = @Queue(value = &quot;spring.test.queue&quot;, durable = &quot;true&quot;),</span></span><br><span class="line"><span class="meta">            exchange = @Exchange(</span></span><br><span class="line"><span class="meta">                    value = &quot;spring.test.exchange&quot;,</span></span><br><span class="line"><span class="meta">                    ignoreDeclarationExceptions = &quot;true&quot;,</span></span><br><span class="line"><span class="meta">                    type = ExchangeTypes.TOPIC</span></span><br><span class="line"><span class="meta">            ),</span></span><br><span class="line"><span class="meta">            key = &#123;&quot;#.#&quot;&#125;))</span></span><br><span class="line">    <span class="comment">//Message:原生消息详细信息：消息头+消息体</span></span><br><span class="line">    <span class="comment">//OrderReturnReasonEntity:消息内容</span></span><br><span class="line">    <span class="comment">//Channel:当前传输数据的通道</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listen</span><span class="params">(Message message,OrderReturnReasonEntity content,Channel channel)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;接收到消息：&quot;</span> + msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><code>@RabbitListener</code>：方法上的注解，声明这个方法是一个消费者方法，需要指定下面的属性：<ul>
@@ -676,20 +682,20 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -726,12 +732,12 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">579k</span>
+    <span title="站点总字数">706k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:46</span>
+    <span title="站点阅读时长">10:42</span>
 </div>
 
 
@@ -751,7 +757,7 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">208.4k</span> 字
+      博客全站共： <span class="post-count">264.1k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->

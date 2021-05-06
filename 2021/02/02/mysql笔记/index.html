@@ -46,7 +46,7 @@
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/clip_image002-1612450977750.png">
 <meta property="og:image" content="http://example.com/2021/02/02/mysql%E7%AC%94%E8%AE%B0/image-20210204230741935.png">
 <meta property="article:published_time" content="2021-02-02T07:36:24.000Z">
-<meta property="article:modified_time" content="2021-02-16T05:42:53.526Z">
+<meta property="article:modified_time" content="2021-04-07T14:49:42.294Z">
 <meta property="article:author" content="鲍炳江">
 <meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
@@ -148,17 +148,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">8</span></a>
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">9</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">15</span></a>
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">33</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">41</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -246,7 +246,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-16 13:42:53" itemprop="dateModified" datetime="2021-02-16T13:42:53+08:00">2021-02-16</time>
+                <time title="修改时间：2021-04-07 22:49:42" itemprop="dateModified" datetime="2021-04-07T22:49:42+08:00">2021-04-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,7 +278,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>17k</span>
+              <span>16k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -420,10 +420,7 @@ from employees
 <li>列子查询：结果集中有一列多行</li>
 <li>表子查询：结果集中有多行多列</li>
 </ul>
-<p>where后面的标量子查询</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#假设只有一个last_name为adel的人</span><br><span class="line">select first_name from employees where salary &gt; (select salary from employees where last_name &#x3D; ‘adel’)</span><br></pre></td></tr></table></figure>
-
-<p>where后面的行子查询</p>
+<p>where后面的标量子查询where后面的行子查询</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#查询员工编号最小并且工资最高的员工信息</span><br><span class="line">select * from employees where (employee_id,salary)&#x3D;(select MIN(employee_id),MAX(salary) from employees)</span><br></pre></td></tr></table></figure>
 
 <p>where后面的列子查询：使用多行比较操作符 in,not in,any/some,all</p>
@@ -707,7 +704,7 @@ from employees
 <ul>
 <li><pre><code class="mysql">create index ide_col1_col2 on mytalbe(col1,col2)
 select col1,col2 from mytable;
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">      </span><br><span class="line">* 覆盖索引中<span class="keyword">select</span>的数据列只用从索引中就能够取得 不必读取数据行，mysql可以利用索引返回<span class="keyword">select</span>列表中的字段 而不必根据索引再次读取数据文件 也就是说查询列要被所建的索引覆盖</span><br><span class="line">    </span><br><span class="line">* 如果要使用覆盖索引 一定要注意<span class="keyword">select</span>列表中只取出所需要的列 不可用<span class="keyword">select</span>*，因为如果将所有字段一起做索引会导致索引文件过大 查询新能下降</span><br><span class="line">  </span><br><span class="line">* key_len：表示索引中使用的字节数 显示的值为索引字段的最大可能长度 并非实际使用长度 这个值根据表定义计算得出 不是通过表内检索得出 在不失精度的前提下 长度越短越好</span><br><span class="line"></span><br><span class="line">* <span class="keyword">ref</span>：库.表.字段或const 显示索引的哪一列被使用了，有时候会是一个常量：表示哪些列或常量被用于查找索引列上的值 只有当<span class="keyword">type</span>为<span class="keyword">ref</span>和eq_ref的时候，<span class="keyword">ref</span>这列才会有值</span><br><span class="line"></span><br><span class="line">  * ![img](mysql笔记/clip_image002<span class="number">-1612446344425.</span>png)</span><br><span class="line"></span><br><span class="line">* <span class="keyword">rows</span>：查询所需要读取的行数</span><br><span class="line"></span><br><span class="line">* Extra：不适合在其他列中显示但十分重要的额外信息</span><br><span class="line"></span><br><span class="line">  * <span class="keyword">Using</span> fileSort：在使用<span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">group</span> <span class="keyword">by</span>关键字的时候 没有使用索引的排序	</span><br><span class="line"></span><br><span class="line">    * ```mysql</span><br><span class="line">      <span class="keyword">create</span> <span class="keyword">index</span> idx_salary_name <span class="keyword">user</span>(salary,<span class="type">name</span>)</span><br><span class="line">      #建立索引的顺序是salary <span class="type">name</span> 使用时直接使用<span class="type">name</span> 不符合最左匹配原则 </span><br><span class="line">      <span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="type">name</span>;</span><br></pre></td></tr></table></figure></code></pre>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">* 覆盖索引中<span class="keyword">select</span>的数据列只用从索引中就能够取得 不必读取数据行，mysql可以利用索引返回<span class="keyword">select</span>列表中的字段 而不必根据索引再次读取数据文件 也就是说查询列要被所建的索引覆盖</span><br><span class="line">  </span><br><span class="line">* 如果要使用覆盖索引 一定要注意<span class="keyword">select</span>列表中只取出所需要的列 不可用<span class="keyword">select</span>*，因为如果将所有字段一起做索引会导致索引文件过大 查询新能下降</span><br><span class="line">  </span><br><span class="line">* key_len：表示索引中使用的字节数 显示的值为索引字段的最大可能长度 并非实际使用长度 这个值根据表定义计算得出 不是通过表内检索得出 在不失精度的前提下 长度越短越好</span><br><span class="line"></span><br><span class="line">* <span class="keyword">ref</span>：库.表.字段或const 显示索引的哪一列被使用了，有时候会是一个常量：表示哪些列或常量被用于查找索引列上的值 只有当<span class="keyword">type</span>为<span class="keyword">ref</span>和eq_ref的时候，<span class="keyword">ref</span>这列才会有值</span><br><span class="line"></span><br><span class="line">  * ![img](mysql笔记/clip_image002<span class="number">-1612446344425.</span>png)</span><br><span class="line"></span><br><span class="line">* <span class="keyword">rows</span>：查询所需要读取的行数</span><br><span class="line"></span><br><span class="line">* Extra：不适合在其他列中显示但十分重要的额外信息</span><br><span class="line"></span><br><span class="line">  * <span class="keyword">Using</span> fileSort：在使用<span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">group</span> <span class="keyword">by</span>关键字的时候 没有使用索引的排序	</span><br><span class="line"></span><br><span class="line">    * ```mysql</span><br><span class="line">      <span class="keyword">create</span> <span class="keyword">index</span> idx_salary_name <span class="keyword">user</span>(salary,<span class="type">name</span>)</span><br><span class="line">      #建立索引的顺序是salary <span class="type">name</span> 使用时直接使用<span class="type">name</span> 不符合最左匹配原则 </span><br><span class="line">      <span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="type">name</span>;</span><br></pre></td></tr></table></figure></code></pre>
 </li>
 </ul>
 </li>
@@ -898,20 +895,20 @@ select col1,col2 from mytable;
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -948,12 +945,12 @@ select col1,col2 from mytable;
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">579k</span>
+    <span title="站点总字数">706k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:46</span>
+    <span title="站点阅读时长">10:42</span>
 </div>
 
 
@@ -973,7 +970,7 @@ select col1,col2 from mytable;
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">208.4k</span> 字
+      博客全站共： <span class="post-count">264.1k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->

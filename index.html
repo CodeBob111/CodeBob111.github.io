@@ -136,7 +136,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">44</span></a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">45</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -193,6 +193,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/16/grpc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="鲍炳江">
+      <meta itemprop="description" content="不接受任何评判">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="勺子柄の博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/05/16/grpc/" class="post-title-link" itemprop="url">grpc</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-16 10:25:03 / 修改时间：11:19:48" itemprop="dateCreated datePublished" datetime="2021-05-16T10:25:03+08:00">2021-05-16</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/05/16/grpc/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/16/grpc/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>576</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/oolo/p/11840305.html">https://www.cnblogs.com/oolo/p/11840305.html</a></p>
+<p>代码：grpc</p>
+<p><img src="/2021/05/16/grpc/log\source_posts\grpc\image-20210516104041823.png" alt="image-20210516104041823"></p>
+<p>安装grpc和编译插件</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="built_in">get</span> google.golang.org/grpc</span><br><span class="line"><span class="keyword">go</span> <span class="built_in">get</span> -<span class="keyword">u</span> github.<span class="keyword">com</span>/golang/protobuf/protoc-gen-<span class="keyword">go</span></span><br></pre></td></tr></table></figure>
+
+<p>创建一个protobuf文件</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"><span class="keyword">option</span> go_package = <span class="string">&quot;./proto&quot;</span>;</span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">StringMessage</span> </span>&#123;</span><br><span class="line">    <span class="keyword">repeated</span> StringSingle ss = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">StringSingle</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> id = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">string</span> name = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Empty</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">MaxSize</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">rpc</span> Echo(Empty) <span class="keyword">returns</span> (stream StringMessage) </span>&#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行命令进行编译该文件：protoc –go_out=plugins=grpc:. service.proto</p>
+<p>应用：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000015135650/">https://segmentfault.com/a/1190000015135650/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+	<div>
+	  
+	</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -224,7 +325,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-14 20:43:02" itemprop="dateModified" datetime="2021-05-14T20:43:02+08:00">2021-05-14</time>
+                <time title="修改时间：2021-05-17 14:10:01" itemprop="dateModified" datetime="2021-05-17T14:10:01+08:00">2021-05-17</time>
               </span>
 
           
@@ -247,7 +348,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.6k</span>
+              <span>2.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -266,8 +367,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>1</p>
-<h1 id="day01"><a href="#day01" class="headerlink" title="day01"></a>day01</h1><h2 id="修改代码并上传"><a href="#修改代码并上传" class="headerlink" title="修改代码并上传"></a>修改代码并上传</h2><p>把代码clone到linux /home/bingjiang.bao目录下 进行修改</p>
+          <h1 id="week1"><a href="#week1" class="headerlink" title="week1"></a>week1</h1><h2 id="day01"><a href="#day01" class="headerlink" title="day01"></a>day01</h2><h3 id="修改代码并上传"><a href="#修改代码并上传" class="headerlink" title="修改代码并上传"></a>修改代码并上传</h3><p>把代码clone到linux /home/bingjiang.bao目录下 进行修改</p>
 <p>修改代码之后 使用git flow 上传</p>
 <p>git flow init</p>
 <p>git flow feature start timeLogFeature</p>
@@ -278,7 +378,7 @@
 <p>提交到develop：git push origin develop</p>
 <p>在gitlab上提交merge申请</p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510162112266.png" alt="image-20210510162112266"></p>
-<h2 id="上传配置"><a href="#上传配置" class="headerlink" title="上传配置"></a>上传配置</h2><p>登录atlantis 进入负责的模块</p>
+<h3 id="上传配置"><a href="#上传配置" class="headerlink" title="上传配置"></a>上传配置</h3><p>登录atlantis 进入负责的模块</p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510161256085.png" alt="image-20210510161256085"></p>
 <p>在linux上clone配置文件仓库</p>
 <p>在仓库目录下 上传项目中的配置</p>
@@ -289,7 +389,7 @@
 <p>之后在配置管理中打tag并编辑配置</p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510161409881.png" alt="image-20210510161409881"></p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510161417897.png" alt="image-20210510161417897"></p>
-<h2 id="上线"><a href="#上线" class="headerlink" title="上线"></a>上线</h2><p>merge请求被通过之后 会触发钩子函数 发送请求到jenkins<strong>做一些事情</strong>比如从github上下载文件 执行build.sh等事情</p>
+<h3 id="上线"><a href="#上线" class="headerlink" title="上线"></a>上线</h3><p>merge请求被通过之后 会触发钩子函数 发送请求到jenkins<strong>做一些事情</strong>比如从github上下载文件 执行build.sh等事情</p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510172549747.png" alt="image-20210510172549747"></p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510172602515.png" alt="image-20210510172602515"></p>
 <p>进行上线</p>
@@ -303,7 +403,7 @@
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510172310334.png" alt="image-20210510172310334"></p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510172329595.png" alt="image-20210510172329595"></p>
 <p>添加配置标签和版本号 上线前动作没意义 上线重启</p>
-<h1 id="day02"><a href="#day02" class="headerlink" title="day02"></a>day02</h1><p>熟悉rta_stats_sync模块</p>
+<h2 id="day02"><a href="#day02" class="headerlink" title="day02"></a>day02</h2><p>熟悉rta_stats_sync模块</p>
 <p>在linux搭建运行环境</p>
 <p>编辑.bash_profile 配置运行环境</p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210511150758962.png" alt="image-20210511150758962"></p>
@@ -321,11 +421,14 @@
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210511153521966.png" alt="image-20210511153521966"></p>
 <p>这个shell中通过软链启动项目 执行命令./RTBAdInfo.sh start 真正执行的是RTBAdinfo-1.73.2/bin/RTBAdinfo</p>
 <p><strong>学习rta_Adinfo代码</strong></p>
-<h1 id="day03"><a href="#day03" class="headerlink" title="day03"></a>day03</h1><p>学习rta_collect模块 改成mod模式 并提交</p>
+<h2 id="day03"><a href="#day03" class="headerlink" title="day03"></a>day03</h2><p>学习rta_collect模块 改成mod模式 并提交</p>
 <p>rta_collect模块上线</p>
 <p>go项目在linux环境下  执行build.sh文件 生成可执行文件 然后执行即可</p>
 <p>上线的时候 不要提交.idea vendors(依赖包目录) target bin 目录</p>
-
+<h2 id="day04"><a href="#day04" class="headerlink" title="day04"></a>day04</h2><p>可以基于媒体x客户来，自定义的配置出价阈值。如果低于阈值，就触发报警。</p>
+<p>报警的方式：通过飞书的Webhook</p>
+<p>创建Webhook报警<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/173081.html">https://help.aliyun.com/document_detail/173081.html</a></p>
+<h1 id="week2"><a href="#week2" class="headerlink" title="week2"></a>week2</h1><h2 id="day01-1"><a href="#day01-1" class="headerlink" title="day01"></a>day01</h2>
       
     </div>
 
@@ -863,10 +966,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-05-08 11:19:01 / 修改时间：11:35:19" itemprop="dateCreated datePublished" datetime="2021-05-08T11:19:01+08:00">2021-05-08</time>
+              <time title="创建时间：2021-05-08 11:19:01" itemprop="dateCreated datePublished" datetime="2021-05-08T11:19:01+08:00">2021-05-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-16 10:24:48" itemprop="dateModified" datetime="2021-05-16T10:24:48+08:00">2021-05-16</time>
+              </span>
 
           
   
@@ -888,7 +997,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>399</span>
+              <span>464</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -907,7 +1016,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>代码：ThriftDemo</p>
+          <h1 id="java"><a href="#java" class="headerlink" title="java"></a>java</h1><p>代码：ThriftDemo</p>
 <p>创建一个maven项目</p>
 <p>导入jar包</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.thrift<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>libthrift<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -917,6 +1026,8 @@
 
 <p>thrift-0.9.0.exe 是官网提供的windows下编译工具，运用这个工具生成相关代码</p>
 <p>在cmd中切换目录到thrift文件的根目录 进行编译：thrift-0.9.0.exe -r -gen java DemoHello.thrift</p>
+<h1 id="GO"><a href="#GO" class="headerlink" title="GO"></a>GO</h1><p>代码：ThriftDemo</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000019752111">https://segmentfault.com/a/1190000019752111</a></p>
 
       
     </div>
@@ -1093,8 +1204,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-26 09:08:16" itemprop="dateModified" datetime="2021-04-26T09:08:16+08:00">2021-04-26</time>
+                <time title="修改时间：2021-05-16 14:55:34" itemprop="dateModified" datetime="2021-05-16T14:55:34+08:00">2021-05-16</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+                </span>
+            </span>
 
           
   
@@ -1123,7 +1243,7 @@
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>12 分钟</span>
+              <span>13 分钟</span>
             </span>
 
         </div>
@@ -1135,187 +1255,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Mybatis一级、二级缓存"><a href="#Mybatis一级、二级缓存" class="headerlink" title="Mybatis一级、二级缓存"></a>Mybatis一级、二级缓存</h2><h3 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h3><p>　Mybatis对缓存提供支持，但是在没有配置的默认情况下，它只开启一级缓存，一级缓存只是相对于同一个SqlSession而言。所以在参数和SQL完全一样的情况下，我们使用同一个SqlSession对象调用一个Mapper方法，往往只执行一次SQL，因为使用SelSession第一次查询后，MyBatis会将其放在缓存中，以后再查询的时候，如果没有声明需要刷新，并且缓存没有超时的情况下，SqlSession都会取出当前缓存的数据，而不会再次发送SQL到数据库。</p>
-<p><img src="/2021/04/06/%E9%9D%A2%E7%BB%8F%E6%80%BB%E7%BB%93/log\source_posts\面经总结\image-20210406141934323.png" alt="image-20210406141934323"></p>
-<p>一级缓存的生命周期：当SqlSession调用close方法和clearCache方法或者执行更新操作 会使缓存失效</p>
-<p>如何判断完全相同的两次查询</p>
-<ul>
-<li>传入的statementId</li>
-<li>查询时要求的结果集中的结果范围<ul>
-<li>sql语句和参数</li>
-</ul>
-</li>
-</ul>
-<h3 id="二级缓存"><a href="#二级缓存" class="headerlink" title="二级缓存"></a>二级缓存</h3><p>　MyBatis的二级缓存是Application级别的缓存，它可以提高对数据库查询的效率，以提高应用的性能</p>
-<p><img src="/2021/04/06/%E9%9D%A2%E7%BB%8F%E6%80%BB%E7%BB%93/log\source_posts\面经总结\image-20210406142221333.png" alt="image-20210406142221333"></p>
-<p>SqlSessionFactory层面上的二级缓存默认是不开启的，二级缓存的开启需要进行配置，实现二级缓存的时候，MyBatis要求返回的POJO必须是可序列化的。 也就是要求实现Serializable接口，配置方法很简单，只需要在映射XML文件配置就可以开启缓存了<cache>，如果我们配置了二级缓存就意味着：</cache></p>
-<ul>
-<li>映射语句文件中的所有select语句将会被缓存。</li>
-<li>映射语句文件中的所有insert、update和delete语句会刷新缓存。</li>
-<li>缓存会使用默认的Least Recently Used（LRU，最近最少使用的）算法来收回。</li>
-<li>缓存会存储列表集合或对象(无论查询方法返回什么)的1024个引用</li>
-<li>缓存会被视为是read/write(可读/可写)的缓存，意味着对象检索不是共享的，而且可以安全的被调用者修改，不干扰其他调用者或线程所做的潜在修改。</li>
-</ul>
-<p>除了在映射配置文件中设置开启缓存 还要在全局配置中开启</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--这个配置使全局的映射器(二级缓存)启用或禁用缓存--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">&quot;cacheEnabled&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">        .....</span><br><span class="line">    <span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br><span class="line">    ....</span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Ping过程及其原理"><a href="#Ping过程及其原理" class="headerlink" title="Ping过程及其原理"></a>Ping过程及其原理</h2><p><img src="/2021/04/06/%E9%9D%A2%E7%BB%8F%E6%80%BB%E7%BB%93/log\source_posts\面经总结\image-20210406144955826.png" alt="image-20210406144955826"></p>
-<p>同一网段ping：如果主机A，要去 ping主机B，那么主机A，就要封装二层报文，他会先查自己的arp缓存表，如果没有B的MAC地址，就会向外发送一个ARP广播包</p>
-<p>跨网段ping：如果主机A要ping主机C,那么主机A发现主机C的IP和自己不是同一网段,他就去找 <strong>网关</strong> 转发,但是他也不知道网关的MAC情况下呢?他就会向之前那个步骤一样 <strong>先发送一个ARP广播,学到网关的MAC,再发封装ICMP报文给网关路由器.**当路由器收到主机A发过来的ICMP报文,发现自己的目的地址是其本身MAC地址,根据目的的IP2.1.1.1,查路由表,发现2.1.1.1/24的路由表项,得到一个出口指针,去掉原来的MAC头部.加上自己的MAC地址向主机C转发( **如果网关也没有主机C的MAC地址,还是要向前面一个步骤一样,ARP广播一下即可相互学到….路由器2端口能学到主机D的MAC,主机D也能学到路由器2端口的MAC.</strong> .) </p>
-<h2 id="ping命令使用的协议"><a href="#ping命令使用的协议" class="headerlink" title="ping命令使用的协议"></a>ping命令使用的协议</h2><p>使用的是<a target="_blank" rel="noopener" href="http://www.so.com/s?q=ICMP&ie=utf-8&src=internal_wenda_recommend_text">ICMP</a>协议，是“Internet Control Message Protocol”（Internet控制消息协议）的缩写，是<a target="_blank" rel="noopener" href="http://www.so.com/s?q=TCP/IP%E5%8D%8F%E8%AE%AE%E6%97%8F&ie=utf-8&src=internal_wenda_recommend_text">TCP/IP协议族</a>的一个子协议，用于在IP主机、<a target="_blank" rel="noopener" href="http://www.so.com/s?q=%E8%B7%AF%E7%94%B1%E5%99%A8&ie=utf-8&src=internal_wenda_recommend_text">路由器</a>之间传递控制消息。控制消息是指网络通不通、主机是否可达、路由是否可用等网络本身的消息。这些控制消息虽然并不传输用户数据，但是对于用户数据的传递起着重要的作用。<br>它是用来检查网络是否通畅或者网络连接速度的命令。它所利用的原理是这样的：利用网络上机器IP地址的唯一性，给目标IP地址发送一个数据包，再要求对方返回一个同样大小的数据包来确定两台网络机器是否连接相通，时延是多少。</p>
-<p>ICMP是网络层协议</p>
-<h2 id="dns域名解析过程"><a href="#dns域名解析过程" class="headerlink" title="dns域名解析过程"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/baidu_37964071/article/details/80500825?utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.baidujs&dist_request_id=1331974.5978.16185553650719277&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.baidujs">dns域名解析过程</a></h2><h2 id="主从复制的原理"><a href="#主从复制的原理" class="headerlink" title="主从复制的原理"></a>主从复制的原理</h2><p>为什么要做主从复制？</p>
-<p>1、在业务复杂的系统中，有这么一个情景，有一句sql语句需要锁表，导致暂时不能使用读的服务，那么就很影响运行中的业务，使用主从复制，让主库负责写，从库负责读，这样，即使主库出现了锁表的情景，通过读从库也可以保证业务的正常运作。</p>
-<p>2、做数据的热备</p>
-<p>3、架构的扩展。业务量越来越大，I/O访问频率过高，单机无法满足，此时做多库的存储，降低磁盘I/O访问的频率，提高单个机器的I/O性能。</p>
-<p><strong>原理</strong></p>
-<p><img src="/2021/04/06/%E9%9D%A2%E7%BB%8F%E6%80%BB%E7%BB%93/log\source_posts\面经总结\image-20210406145829715.png" alt="image-20210406145829715"></p>
-<ul>
-<li>步骤一：主库db的更新事件(update、insert、delete)被写到binlog</li>
-<li>步骤二：从库发起连接，连接到主库</li>
-<li>步骤三：此时主库创建一个binlog dump thread，把binlog的内容发送到从库</li>
-<li>步骤四：从库启动之后，创建一个I/O线程，读取主库传过来的binlog内容并写入到relay log</li>
-<li>步骤五：还会创建一个SQL线程，从relay log里面读取内容，从<strong>Exec_Master_Log_Pos</strong>位置开始执行读取到的更新事件，将更新内容写入到slave的db</li>
-</ul>
-<p>注：上面的解释是解释每一步做了什么，整个mysql主从复制是异步的，不是按照上面的步骤执行的。</p>
-<h2 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h2><p>序列化和反序列化的定义：</p>
-<p>(1)Java序列化就是指把Java对象转换为字节序列的过程</p>
-<p>​    Java反序列化就是指把字节序列恢复为Java对象的过程。</p>
-<p>(2)序列化最重要的作用：在传递和保存对象时.保证对象的完整性和可传递性。对象转换为有序字节流,以便在网络上传输或者保存在本地文件中。</p>
-<p>​    反序列化的最重要的作用：根据字节流中保存的对象状态及描述信息，通过反序列化重建对象。  </p>
-<p>(3)序列化和反序列化的注意点：</p>
-<p>​    ①序列化时，只对对象的状态进行保存，而不管对象的方法；</p>
-<p>​    ②当一个父类实现序列化，子类自动实现序列化，不需要显式实现Serializable接口；</p>
-<p>​    ③当一个对象的实例变量引用其他对象，序列化该对象时也把引用对象进行序列化；这是能用序列化解决深拷贝的重要原因；</p>
-<p>​    ④并非所有的对象都可以序列化，至于为什么不可以，有很多原因了，比如：</p>
-<p>​        安全方面的原因，比如一个对象拥有private，public等field，对于一个要传输的对象，比如写到文件，或者进行RMI传输等等，在序列    化进行传输的过程中，这个对象的private等域是不受保护的；</p>
-<p>​        资源分配方面的原因，比如socket，thread类，如果可以序列化，进行传输或者保存，也无法对他们进行重新的资源分配，而且，也是没有必要这样实现；</p>
-<p>​    ⑤声明为static和transient类型的成员数据不能被序列化。因为static代表类的状态，transient代表对象的临时数据。</p>
-<p>​    ⑥序列化运行时使用一个称为 serialVersionUID 的版本号与每个可序列化类相关联，该序列号在反序列化过程中用于验证序列化对象的发送者和接收者是否为该对象加载了与序列化兼容的类。为它赋予明确的值。显式地定义serialVersionUID有两种用途：在某些场合，希望类的不同版本对序列化兼容，因此需要确保类的不同版本具有相同的serialVersionUID；在某些场合，不希望类的不同版本对序列化兼容，因此需要确保类的不同版本具有不同的serialVersionUID。</p>
-<p>​    ⑦Java有很多基础类已经实现了serializable接口，比如String,Vector等。但是也有一些没有实现serializable接口的；</p>
-<h2 id="JDBC原理"><a href="#JDBC原理" class="headerlink" title="JDBC原理"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qlqwjy/p/8227665.html"><strong>JDBC原理</strong></a></h2><h2 id="java三大特性"><a href="#java三大特性" class="headerlink" title="java三大特性"></a>java三大特性</h2><p><strong>封装</strong></p>
-<p>封装也称信息隐藏，是指利用抽象数据类型把数据和基于数据的操作封装起来，使其成为一个不可分割的整体，数据隐藏在抽象数据内部，尽可能的隐藏数据细节，只保留一些接口使其与外界发生联系。也就是说用户无需知道内部的数据和方法的具体实现细节，只需根据留在外部的接口进行操作就行。</p>
-<p>为了保证属性的安全性可以把属性的访问修饰符改为private 通过setter和getter 方法访问和复制</p>
-<p><strong>继承</strong></p>
-<p>多个类具有共同的属性（成员变量）与行为（成员方法）的时候，将这些共同的部分抽取出来定义到一个公共的类中，其他及各类可以与这个公共的类形成继承关系，从而在多个类中不需要重 复定义公共部分。这个公共的类就是父类，其他的类就是子类。子类可以直接访问父类的非私有化成员变量，访问父类的私有化成员变量可以使用super.get()方法。</p>
-<p>继承的特点：</p>
-<p>（1）子类比父类强大<br>（2）java是单继承，不能进行多继承。但是可以继承多层子类（<strong>不建议继承超过3层</strong>）<br>（3）子类继承父类，但是对父类的成员变量是无法直接操作，只能通过父类继承过来的setter和getter方法.</p>
-<p><strong>多态</strong></p>
-<p>java程序中定义的引用变量所指向的具体类型和通过该引用类型发出的方法在调用时不确定，该引用变量发出的方法到底调用哪个类的实现的方法，必须在程序运行期间才能决定</p>
-<p>多态有两种：引用多态和方法多态</p>
-<h2 id="Object类中的方法"><a href="#Object类中的方法" class="headerlink" title="Object类中的方法"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42570601/article/details/104049532">Object类中的方法</a></h2><h2 id="HashMap为什么使用拉链法解决地址冲突"><a href="#HashMap为什么使用拉链法解决地址冲突" class="headerlink" title="HashMap为什么使用拉链法解决地址冲突"></a>HashMap为什么使用拉链法解决地址冲突</h2><p>不用的key，可能会有相同的hashcode</p>
-<h2 id="TCP和UDP的应用"><a href="#TCP和UDP的应用" class="headerlink" title="TCP和UDP的应用"></a>TCP和UDP的应用</h2><p><img src="/2021/04/06/%E9%9D%A2%E7%BB%8F%E6%80%BB%E7%BB%93/log\source_posts\面经总结\image-20210407215856506.png" alt="image-20210407215856506"></p>
-<h2 id="数据先写Redis还是DB？redis缓存一致性问题？"><a href="#数据先写Redis还是DB？redis缓存一致性问题？" class="headerlink" title="数据先写Redis还是DB？redis缓存一致性问题？"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_20597727/article/details/88652045?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-3.baidujs&dist_request_id=1330144.34982.16182132035436085&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-3.baidujs">数据先写Redis还是DB？redis缓存一致性问题？</a></h2><h2 id="redis分布式锁"><a href="#redis分布式锁" class="headerlink" title="redis分布式锁"></a><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/47fd7f86c848">redis分布式锁</a></h2><h2 id="操作系统缓存一致性问题"><a href="#操作系统缓存一致性问题" class="headerlink" title="操作系统缓存一致性问题"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/HuiH/p/12690598.html">操作系统缓存一致性问题</a></h2><h2 id="有没有了解其他的缓存中间件？"><a href="#有没有了解其他的缓存中间件？" class="headerlink" title="有没有了解其他的缓存中间件？"></a>有没有了解其他的缓存中间件？</h2><p>1、MemCached介绍<br>MemCached是一种基于内存的key-value存储，用来存储小块的任意数据（字符串、对象）。它便于快速开发，减轻开发难度，解决了大数据量缓存的很多问题，本质上，它是一个简洁的key-value存储系统</p>
-<p>2、MemCached工作原理<br>主要通过缓存数据库查询结果，减少数据库访问次数，以提高动态Web应用的速度。</p>
-<p>Redis与MemCached的区别<br>（1）Redis和Memcache都是将数据存放在内存中，都是内存数据库。不过memcache还可用于缓存其他东西，例如图片、视频等等；<br>（2）Redis不仅仅支持简单的k/v类型的数据，同时还提供list，set，hash等数据结构的存储；<br>（3）虚拟内存–Redis当物理内存用完时，可以将一些很久没用到的value 交换到磁盘；<br>（4）分布式集群部署：<br>a、memcache集群节点间的数据是独立的，不能相互通讯，但可以利用magent开源软件解决 ;<br>b、Redis高可用的，可以做一主多从，主从之间进行数据同步。 当Master宕机后，通过选举算法(Paxos、Raft)从slave中选举出新Master继续对外提供服务，主机恢复后以slave的身份重新加入<br>（5）存储数据安全–memcache挂掉后，数据没了；redis可以定期保存到磁盘（持久化）；<br>（6）灾难恢复–memcache挂掉后，数据不可恢复; redis数据丢失后可以通过aof恢复；</p>
-<h2 id="分布式-session"><a href="#分布式-session" class="headerlink" title="分布式 session"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35620501/article/details/95047642?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-5.control&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-5.control">分布式 session</a></h2><h2 id="Spring-bean的循环依赖以及解决方式"><a href="#Spring-bean的循环依赖以及解决方式" class="headerlink" title="Spring-bean的循环依赖以及解决方式"></a><a target="_blank" rel="noopener" href="https://louyuting.blog.csdn.net/article/details/77940767?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.baidujs&dist_request_id=1330147.35086.16182171424877071&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.baidujs">Spring-bean的循环依赖以及解决方式</a></h2><h2 id="为什么需要三层缓存？两层或者一层行不行"><a href="#为什么需要三层缓存？两层或者一层行不行" class="headerlink" title="为什么需要三层缓存？两层或者一层行不行"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangmingan123/article/details/111178263">为什么需要三层缓存？两层或者一层行不行</a></h2><h2 id="Java进程CPU占用率高的排查和常见解决方案"><a href="#Java进程CPU占用率高的排查和常见解决方案" class="headerlink" title="Java进程CPU占用率高的排查和常见解决方案"></a><a target="_blank" rel="noopener" href="https://wangcw.blog.csdn.net/article/details/86242263?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-8.baidujs&dist_request_id=1330147.36178.16182310883074655&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-8.baidujs">Java进程CPU占用率高的排查和常见解决方案</a></h2><h2 id="给定-a、b-两个文件，各存放-50-亿个-URL，每个-URL-各占-64B，内存限制是-4G。请找出-a、b-两个文件共同的-URL"><a href="#给定-a、b-两个文件，各存放-50-亿个-URL，每个-URL-各占-64B，内存限制是-4G。请找出-a、b-两个文件共同的-URL" class="headerlink" title="给定 a、b 两个文件，各存放 50 亿个 URL，每个 URL 各占 64B，内存限制是 4G。请找出 a、b 两个文件共同的 URL"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/aspirant/p/7154551.html">给定 a、b 两个文件，各存放 50 亿个 URL，每个 URL 各占 64B，内存限制是 4G。请找出 a、b 两个文件共同的 URL</a></h2><h2 id="https的加密过程"><a href="#https的加密过程" class="headerlink" title="https的加密过程"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32998153/article/details/80022489">https的加密过程</a></h2><h2 id="HTTPS的数字证书验证原理"><a href="#HTTPS的数字证书验证原理" class="headerlink" title="HTTPS的数字证书验证原理"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/liuxingrong666/article/details/83869161?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.baidujs&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.baidujs">HTTPS的数字证书验证原理</a></h2><p>数字证书中有ijge</p>
-<h2 id="InnoDB怎么解决幻读问题"><a href="#InnoDB怎么解决幻读问题" class="headerlink" title="InnoDB怎么解决幻读问题"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33330687/article/details/89004462?utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.baidujs&dist_request_id=&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.baidujs">InnoDB怎么解决幻读问题</a></h2><p>根据这篇文章回答这两个问题:客户端拿到服务端的证书后是怎么验证证书的合法性？证书有什么内容？</p>
-<h2 id="Http，TCP，Socker之间的区别和联系"><a href="#Http，TCP，Socker之间的区别和联系" class="headerlink" title="Http，TCP，Socker之间的区别和联系"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jing99/p/6181488.html">Http，TCP，Socker之间的区别和联系</a></h2><h2 id="list和set的区别"><a href="#list和set的区别" class="headerlink" title="list和set的区别"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/q2546/p/11394723.html">list和set的区别</a></h2><h2 id="hashmap查询复杂度"><a href="#hashmap查询复杂度" class="headerlink" title="hashmap查询复杂度"></a>hashmap查询复杂度</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/donggua3694857/article/details/64127131?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-3.control&amp;dist_request_id=1331647.1257.16183250244152227&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-3.control">https://blog.csdn.net/donggua3694857/article/details/64127131?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-3.control&amp;dist_request_id=1331647.1257.16183250244152227&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-3.control</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/john1337/article/details/104727895">https://blog.csdn.net/john1337/article/details/104727895</a></p>
-<h2 id="数组实现扩容栈"><a href="#数组实现扩容栈" class="headerlink" title="数组实现扩容栈"></a>数组实现扩容栈</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Stack</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义一个数组容器 用于存储栈元素 data.length是最大容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> [] data;</span><br><span class="line">    <span class="comment">//栈顶标记 用于标记栈顶元素的位置 当栈为空时,top=-1,栈中有效元素的个数是top+1</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> top = -<span class="number">1</span>;</span><br><span class="line">    <span class="comment">//默认最大容量为10</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> capacity = <span class="number">10</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     创建一个默认容量为10的栈</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Stack</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.data=<span class="keyword">new</span> <span class="keyword">int</span>[capacity];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     创建一个指定容量为capacity的栈</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Stack</span><span class="params">(<span class="keyword">int</span> capacity)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(capacity&lt;<span class="number">0</span>)&#123;</span><br><span class="line">            capacity=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.data=<span class="keyword">new</span> <span class="keyword">int</span>[capacity];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将元素e入栈,如果当前的栈已经满了,则扩容</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> e 用户指定入栈的元素</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> e)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(top+<span class="number">1</span>==data.length)&#123;</span><br><span class="line">            <span class="keyword">int</span>[] newData = Arrays.copyOf(data,top * <span class="number">2</span>);</span><br><span class="line">            data = newData;</span><br><span class="line">        &#125;</span><br><span class="line">        data[++top]=e;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     从栈中弹出一个元素,如果栈已经是空,则返回-1即可</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回当前栈顶的元素,如果栈为空则返回-1</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(top==-<span class="number">1</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;栈为空，无法弹栈元素&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> data[top--];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     获取当前栈顶元素，如果栈为空，则返回-1即可</span></span><br><span class="line"><span class="comment">     <span class="doctag">@return</span> 返回当前栈顶元素，如果栈为空,如果栈为空,则返回-1</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">peek</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(top==-<span class="number">1</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;栈为空，无法弹栈元素&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> data[top];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     判断当前栈是否为空</span></span><br><span class="line"><span class="comment">     <span class="doctag">@return</span> true表示栈空,否则栈不为空</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> top==-<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     清空当前的栈</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;</span><br><span class="line">        top=-<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     获取栈中有效元素的个数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> top+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="hashmap不安全的原因"><a href="#hashmap不安全的原因" class="headerlink" title="hashmap不安全的原因"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/swpu_ocean/article/details/88917958?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.baidujs&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.baidujs">hashmap不安全的原因</a></h2><h2 id="PriorityQueue原理"><a href="#PriorityQueue原理" class="headerlink" title="PriorityQueue原理"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/u010623927/article/details/87179364">PriorityQueue原理</a></h2><h2 id="进程有哪些状态？是如何进行切换的"><a href="#进程有哪些状态？是如何进行切换的" class="headerlink" title="进程有哪些状态？是如何进行切换的"></a>进程有哪些状态？是如何进行切换的</h2><p><img src="/2021/04/06/%E9%9D%A2%E7%BB%8F%E6%80%BB%E7%BB%93/log\source_posts\面经总结\image-20210415132137774.png" alt="image-20210415132137774"></p>
-<h2 id="进程控制块"><a href="#进程控制块" class="headerlink" title="进程控制块"></a>进程控制块</h2><p>  存放进程的管理和控制信息的数据结构称为进程控制块。它是进程管理和控制的最重要的数据结构，每一个进程均有一个PCB，在创建进程时，建立PCB，伴随进程运行的全过程，直到进程撤消而撤消。</p>
-<p>在不同的操作系统中对进程的控制和管理机制不同，PCB中的信息多少也不一样，通常PCB应包含如下一些信息。</p>
-<p>1、进程标识符 name：每个进程都必须有一个唯一的标识符，可以是字符串，也可以是一个数字。UNIX系统中就是一个整型数。在进程创建时由系统赋予。</p>
-<p>2、进程当前状态 status：说明进程当前所处的状态。为了管理的方便，系统设计时会将相同的状态的进程组成一个队列，如就绪进程队列，等待进程则要根据等待的事件组成多个等待队列，如等待打印机队列、等待磁盘I/O完成队列等等。</p>
-<p>3、进程相应的程序和数据地址，以便把PCB与其程序和数据联系起来。</p>
-<p>4、进程资源清单。列出所拥有的除CPU外的资源记录，如拥有的I/O设备，打开的文件列表等。</p>
-<p>5、进程优先级 priority：进程的优先级反映进程的紧迫程序，通常由用户指定和系统设置。UNIX系统采用用户设置和系统计算相结合的方式确定进程的优先级 。 </p>
-<p>6、CPU现场保护区 cpustatus：当进程因某种原因不能继续占用CPU时（等待打印机），释放CPU，这时就要将CPU的各种状态信息保护起来，为将来再次得到处理机恢复CPU的各种状态，继续运行。</p>
-<p>7、进程同步与通信机制 用于实现进程间互斥、同步和通信所需的信号量等。</p>
-<p>8、进程所在队列PCB的链接字   根据进程所处的现行状态，进程相应的PCB参加到不同队列中。PCB链接字指出该进程所在队列中下一个进程PCB的首地址。</p>
-<p>9、与进程有关的其他信息。 如进程记账信息，进程占用CPU的时间等。</p>
-<h2 id="为什么要划分内核态和用户态"><a href="#为什么要划分内核态和用户态" class="headerlink" title="为什么要划分内核态和用户态"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29996285/article/details/88078906?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.baidujs&dist_request_id=1331647.20720.16184648700343463&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.baidujs">为什么要划分内核态和用户态</a></h2><h2 id="操作系统用户态和内核态之间的切换过程"><a href="#操作系统用户态和内核态之间的切换过程" class="headerlink" title="操作系统用户态和内核态之间的切换过程"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/ddna/article/details/4941373?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.baidujs&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.baidujs">操作系统用户态和内核态之间的切换过程</a></h2><h2 id="内核线程的作用"><a href="#内核线程的作用" class="headerlink" title="内核线程的作用"></a>内核线程的作用</h2><ol>
-<li>周期性的将dirty内存页同步到磁盘设备上。 比如 bpflush线程周期性的把dirty数据写回磁盘</li>
-<li>内存页很少的情况下，把内存page 交换到磁盘空间。 比如kswapd，系统会为每一个NUMA创建一个kswapd进程，但是在非NUMA系统上，则仅有一个kswapd</li>
-<li>管理延时动作</li>
-<li>实现文件系统的事物日志</li>
-</ol>
-<h2 id="进程上下文切换"><a href="#进程上下文切换" class="headerlink" title="进程上下文切换"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/xifeijian/article/details/8209783?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.baidujs&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.baidujs">进程上下文切换</a></h2><h2 id="线程上下文切换和进程上下文切换的区别"><a href="#线程上下文切换和进程上下文切换的区别" class="headerlink" title="线程上下文切换和进程上下文切换的区别"></a><a target="_blank" rel="noopener" href="https://www.msdn.hk/jshtml/jswz/752.html">线程上下文切换和进程上下文切换的区别</a></h2><h2 id="进程上下文切换频繁的后果"><a href="#进程上下文切换频繁的后果" class="headerlink" title="进程上下文切换频繁的后果"></a>进程上下文切换频繁的后果</h2><p>context switch过高会导致CPU频繁在寄存器和运行队列之间奔波 ，更多的时间花在了进程切换，而不是真正工作的进程上。直接的消耗包括CPU寄存器需要保存和加载，系统调度器的代码需要执行。间接消耗在于多核cache之间的共享数据。</p>
-<h2 id="大量close-wait对系统影响"><a href="#大量close-wait对系统影响" class="headerlink" title="大量close_wait对系统影响"></a>大量close_wait对系统影响</h2><p>在服务器与客户端通信过程中，因服务器发生了socket未关导致的closed_wait发生</p>
-<ol>
-<li>导致服务器资源消耗过大</li>
-<li>如果连接数满了，服务端进程将无法新建socket来响应新的请求。</li>
-<li>假设你的程序会去连接另一个服务，而未正常关闭，那么可能导致你的程序超过最大连接数的时候报异常，引起连锁反应甚至导致程序崩溃</li>
-</ol>
-<h2 id="三次握手第三次报文丢失怎么办"><a href="#三次握手第三次报文丢失怎么办" class="headerlink" title="三次握手第三次报文丢失怎么办"></a>三次握手第三次报文丢失怎么办</h2><p><strong>Server端</strong></p>
-<p>第三次的ACK在网络中丢失，那么Server 端该TCP连接的状态为SYN_RECV,并且会根据 TCP的超时重传机制，会等待3秒、6秒、12秒后重新发送SYN+ACK包，以便Client重新发送ACK包。 而Server重发SYN+ACK包的次数，可以通过设置</p>
-<p>/proc/sys/net/ipv4/tcp_synack_retries修改，默认值为5. 如果重发指定次数之后，仍然未收到 client 的ACK应答，那么一段时间后，Server自动关闭这个连接。</p>
-<p><strong>Client 端</strong></p>
-<p>在linux c 中，client 一般是通过 connect() 函数来连接服务器的，而connect()是在 TCP的三次握手的第二次握手完成后就成功返回值。也就是说 client 在接收到 SYN+ACK包，它的TCP连接状态就为 established （已连接），表示该连接已经建立。那么如果 第三次握手中的ACK包丢失的情况下，Client 向 server端发送数据，Server端将以 RST包响应，方能感知到Server的错误。</p>
-<p>关于rst包：<a target="_blank" rel="noopener" href="https://blog.csdn.net/hik_zxw/article/details/50167703">https://blog.csdn.net/hik_zxw/article/details/50167703</a></p>
-<h2 id="三次握手第二次报文丢失怎么办"><a href="#三次握手第二次报文丢失怎么办" class="headerlink" title="三次握手第二次报文丢失怎么办"></a>三次握手第二次报文丢失怎么办</h2><p>在发送完ACK+SYN报文后会启动一个定时器，超时没有收到ACK确认，会再次发送，会进行多次重试。超时时间依旧每次翻倍，重试次数可设置</p>
-<h2 id="tcp的push标志位"><a href="#tcp的push标志位" class="headerlink" title="tcp的push标志位"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/javajiawei/article/details/81987949">tcp的push标志位</a></h2><p>数据包先存放在tcp接受缓冲区中 收到带有push的报文后 在发送给应用层</p>
-<h2 id="TCP的发送缓冲区和接收缓冲区"><a href="#TCP的发送缓冲区和接收缓冲区" class="headerlink" title="TCP的发送缓冲区和接收缓冲区"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/kesenzhang/article/details/104881397">TCP的发送缓冲区和接收缓冲区</a></h2><h2 id="TCP头部"><a href="#TCP头部" class="headerlink" title="TCP头部"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/baidu_17611285/article/details/80171239">TCP头部</a></h2><h2 id="UDP头部"><a href="#UDP头部" class="headerlink" title="UDP头部"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/ASJBFJSB/article/details/80357111">UDP头部</a></h2><h2 id="如果程序有bug怎么排查"><a href="#如果程序有bug怎么排查" class="headerlink" title="如果程序有bug怎么排查"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38546942/article/details/103757949">如果程序有bug怎么排查</a></h2><h2 id="偏向锁升级到轻量级锁"><a href="#偏向锁升级到轻量级锁" class="headerlink" title="偏向锁升级到轻量级锁"></a>偏向锁升级到轻量级锁</h2><p>\1. 首先获取锁 对象的 Markword，判断是否处于可偏向状 态。（biased_lock=1、且 ThreadId 为空）</p>
-<p> \2. 如果是可偏向状态，则通过 CAS 操作，把当前线程的 ID 写入到 MarkWord a) 如果 cas 成功，那么 markword 就会变成这样。 表示已经获得了锁对象的偏向锁，接着执行同步代码 块 b) 如果 cas 失败，说明有其他线程已经获得了偏向锁， 这种情况说明当前锁存在竞争，需要撤销已获得偏向 锁的线程，并且把它持有的锁升级为轻量级锁（这个 操作需要等到全局安全点，也就是没有线程在执行字 节码）才能执行</p>
-<p>\3. 如果是已偏向状态，需要检查 markword 中存储的 ThreadID 是否等于当前线程的 ThreadID a) 如果相等，不需要再次获得锁，可直接执行同步代码 块 b) 如果不相等，说明当前锁偏向于其他线程，需要撤销 偏向锁并升级到轻量级锁</p>
-<h2 id="五种IO模型"><a href="#五种IO模型" class="headerlink" title="五种IO模型"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/tjiyu/article/details/52959418?utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.baidujs&dist_request_id=&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.baidujs">五种IO模型</a></h2><h2 id="redis实现分布式锁"><a href="#redis实现分布式锁" class="headerlink" title="redis实现分布式锁"></a><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/47fd7f86c848">redis实现分布式锁</a></h2><h2 id="Redis主从同步"><a href="#Redis主从同步" class="headerlink" title="Redis主从同步"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/daofaziran/p/10978628.html">Redis主从同步</a></h2><h2 id="谈谈你对-Springboot-的理解？为什么要用-Springboot？"><a href="#谈谈你对-Springboot-的理解？为什么要用-Springboot？" class="headerlink" title="谈谈你对 Springboot 的理解？为什么要用 Springboot？"></a>谈谈你对 Springboot 的理解？为什么要用 Springboot？</h2><p>我对spring boot的理解:<br>spring boot 是微服务框架的起点，他简化了配置过程、部署过程、监控过程。<br>它默认配置了很多框架的使用方式，就像maven整合了所有的jar包，4spring boot整合了很多的框架，同时 将其他技术同spring结合起来。<br>为什么使用springboot：<br>其实就是简单、快速、方便！平时如果我们需要搭建一个spring web项目的时候需要怎么做呢？</p>
-<p>1）配置web.xml，加载spring和spring mvc<br>2）配置数据库连接、配置spring事务<br>3）配置加载配置文件的读取，开启注解<br>4）配置日志文件<br>…<br>配置完成之后部署tomcat 调试<br>…<br>但是如果使用spring boot呢？</p>
-<p>很简单，我仅仅只需要非常少的几个配置就可以迅速方便的搭建起来一套web项目或者是构建一个微服务！</p>
-<h2 id="springboot的配置方式有哪些"><a href="#springboot的配置方式有哪些" class="headerlink" title="springboot的配置方式有哪些"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43809795/article/details/109206340">springboot的配置方式有哪些</a></h2><h2 id="MVC框架"><a href="#MVC框架" class="headerlink" title="MVC框架"></a>MVC框架</h2><p><img src="/2021/04/06/%E9%9D%A2%E7%BB%8F%E6%80%BB%E7%BB%93/log\source_posts\面经总结\image-20210416164524307.png" alt="image-20210416164524307"></p>
-<h2 id="java垃圾回收机制"><a href="#java垃圾回收机制" class="headerlink" title="java垃圾回收机制"></a>java垃圾回收机制</h2><p>程序员不需要去关心内存动态分配和垃圾回收的问题，这一切都交给了JVM来处理.回收机制使用可达性分析算法判断哪些是垃圾对象，并把堆分为年轻代和老年代，分别用不同的垃圾回收算法进行垃圾回收</p>
-<h2 id="B树和B-树"><a href="#B树和B-树" class="headerlink" title="B树和B+树"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42228338/article/details/97684517?utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control&dist_request_id=1331978.491.16185720218088971&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.control">B树和B+树</a></h2><h2 id="redo日志的刷盘策略"><a href="#redo日志的刷盘策略" class="headerlink" title="redo日志的刷盘策略"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38629422/article/details/105813338">redo日志的刷盘策略</a></h2><h2 id="hashmap为何引入红黑树"><a href="#hashmap为何引入红黑树" class="headerlink" title="hashmap为何引入红黑树"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43258908/article/details/89174471">hashmap为何引入红黑树</a></h2><h2 id="公平锁和非公平锁"><a href="#公平锁和非公平锁" class="headerlink" title="公平锁和非公平锁"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/heyouxin/p/13037146.html">公平锁和非公平锁</a></h2><p>ReentrantLock怎么实现公平锁和非公平锁，底层？</p>
-<h2 id="生产者消费者模式为什么使用notifyAll而不是notify-考虑了什么"><a href="#生产者消费者模式为什么使用notifyAll而不是notify-考虑了什么" class="headerlink" title="生产者消费者模式为什么使用notifyAll而不是notify 考虑了什么"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/chenchaofuck1/article/details/51660119?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-7.baidujs&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-7.baidujs">生产者消费者模式为什么使用notifyAll而不是notify 考虑了什么</a></h2><h2 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/yzpbright/article/details/112675352?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_baidulandingword-1&spm=1001.2101.3001.4242">阻塞队列</a></h2><h2 id="spring事务"><a href="#spring事务" class="headerlink" title="spring事务"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/mseddl/p/11577846.html">spring事务</a></h2><h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6dde7f92951e">协程</a></h2><h2 id="可重复读隔离级别的实现原理"><a href="#可重复读隔离级别的实现原理" class="headerlink" title="可重复读隔离级别的实现原理"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lmj612/p/10598971.html">可重复读隔离级别的实现原理</a></h2><h2 id="线程间的通信"><a href="#线程间的通信" class="headerlink" title="线程间的通信"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/jisuanji12306/article/details/86363390">线程间的通信</a></h2><h2 id="mmap为什么效率高"><a href="#mmap为什么效率高" class="headerlink" title="mmap为什么效率高"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/mg0832058/article/details/5890688?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-7.baidujs&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-7.baidujs">mmap为什么效率高</a></h2><h2 id="虚拟内存？细说"><a href="#虚拟内存？细说" class="headerlink" title="虚拟内存？细说"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yaoxiaowen/p/7805964.html">虚拟内存？细说</a></h2><h2 id="java负数的二进制表示"><a href="#java负数的二进制表示" class="headerlink" title="java负数的二进制表示"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/zgrjkflmkyc/article/details/12185143">java负数的二进制表示</a></h2><h2 id="数据库四种锁"><a href="#数据库四种锁" class="headerlink" title="数据库四种锁"></a>数据库四种锁</h2><p>（1）共享锁(S锁, 读锁)<br>共享锁锁定的资源可以被其它用户读取，但其它用户不能修改它。在SELECT 命令执行时，SQL Server 通常会对对象进行共享锁锁定。通常加共享锁的数据页被读取完毕后，共享锁就会立即被释放。</p>
-<p>（2）排他锁(X锁，写锁)<br>排他锁锁定的资源只允许进行锁定操作的程序使用，其它任何对该资源的操作均不会被接受。执行数据更新命令，即INSERT、UPDATE 或DELETE 命令时，SQL Server 会自动使用排他锁。但当对象上有其它锁存在时，无法对其加排他锁。排他锁一直到事务结束才能被释放。共享锁可以一层套一层的上锁，但排他锁只能加一个。</p>
-<p>（3）乐观锁<br>总是认为不会产生并发问题，每次去取数据的时候总认为不会有其他线程对数据进行修改，因此不会上锁，但是在更新时会判断其他线程在这之前有没有对数据进行修改，一般会使用版本号机制或CAS操作实现。</p>
-<p>version方式：一般是在数据表中加上一个数据版本号version字段，表示数据被修改的次数，当数据被修改时，version值会加一。当线程A要更新数据值时，在读取数据的同时也会读取version值，在提交更新时，若刚才读取到的version值为当前数据库中的version值相等时才更新，否则重试更新操作，直到更新成功。</p>
-<p>（4）悲观锁<br>总是假设最坏的情况，每次取数据时都认为其他线程会修改该数据，所以都会加锁（读锁、写锁、行锁等），当其他线程想要访问数据时，都要阻塞挂起。可以依靠数据库实现，如行锁、读锁和写锁等，都是在操作之前加锁，在Java中，synchronized的思想也是悲观锁。根据范围，锁还可以划分成行级锁和表锁。</p>
-<h2 id="隔离级别实现原理"><a href="#隔离级别实现原理" class="headerlink" title="隔离级别实现原理"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wajika/p/6680200.html">隔离级别实现原理</a></h2><h2 id="什么是面向对象"><a href="#什么是面向对象" class="headerlink" title="什么是面向对象"></a><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7a5b0043b035">什么是面向对象</a></h2><h2 id="如何实现负载均衡？"><a href="#如何实现负载均衡？" class="headerlink" title="如何实现负载均衡？"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/wenjianfeng/article/details/92033268">如何实现负载均衡？</a></h2><p>负载均衡算法：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuwc/p/14053765.html">https://www.cnblogs.com/xuwc/p/14053765.html</a></p>
-<h2 id="同步队列和等待队列"><a href="#同步队列和等待队列" class="headerlink" title="同步队列和等待队列"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/makecontral/article/details/78135531">同步队列和等待队列</a></h2><h2 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000013075736">中间人攻击</a></h2><h2 id="实现BST"><a href="#实现BST" class="headerlink" title="实现BST"></a>实现BST</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BstTree</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> val;</span><br><span class="line">        TreeNode left;</span><br><span class="line">        TreeNode right;</span><br><span class="line">        TreeNode(<span class="keyword">int</span> val)&#123;</span><br><span class="line">            <span class="keyword">this</span>.val = val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    TreeNode root;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">getMin</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> root;</span><br><span class="line">        <span class="keyword">while</span>(root.left != <span class="keyword">null</span>)&#123;</span><br><span class="line">            root = root.left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">getMax</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> root;</span><br><span class="line">        <span class="keyword">while</span>(root.right != <span class="keyword">null</span>)&#123;</span><br><span class="line">            root = root.right;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span>  <span class="title">insertIntoBST</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        root = insertIntoBST(root, val);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> TreeNode <span class="title">insertIntoBST</span><span class="params">(TreeNode root, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) root = <span class="keyword">new</span> TreeNode(val);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(root.val &lt; val)&#123;</span><br><span class="line">            root.right=  insertIntoBST(root.right,val);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(root.val &gt; val)&#123;</span><br><span class="line">            root.left = insertIntoBST(root.left,val);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        root = deleteNode(root, val);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// delete 考虑不同分支情况， 删除操作也需要自顶向下遍历查找到待删除节点位置</span></span><br><span class="line">    <span class="comment">// 0. 待删除节点为根节点</span></span><br><span class="line">    <span class="comment">// 1. 待删除节点无左孩子，用右孩子替代删除节点</span></span><br><span class="line">    <span class="comment">// 2. 待删除节点无右孩子，用左孩子替代删除节点</span></span><br><span class="line">    <span class="comment">// 3. 待删除节点既有右孩子又有左孩子，找到右子树的最小值替换待删除节点，然后删除右子树最小值</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> TreeNode <span class="title">deleteNode</span><span class="params">(TreeNode root, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(root.val &lt; val)&#123;</span><br><span class="line">            root.right= deleteNode(root.right,val);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(root.val &gt; val)&#123;</span><br><span class="line">            root.left = deleteNode(root.left,val);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(root.left == <span class="keyword">null</span>) <span class="keyword">return</span> root.right;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(root.right ==<span class="keyword">null</span>) <span class="keyword">return</span> root.left;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                TreeNode minNode = getMin(root);</span><br><span class="line">                root.val = minNode.val;</span><br><span class="line">                root.right = deleteNode(root.right,val);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">searchBST</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        TreeNode target = searchBST(root, val);</span><br><span class="line">        <span class="keyword">return</span> target == <span class="keyword">null</span> ? -<span class="number">1</span> : target.val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> TreeNode <span class="title">searchBST</span><span class="params">(TreeNode root, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span> || root.val == val)&#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (val &gt; root.val) &#123;</span><br><span class="line">            <span class="keyword">return</span> searchBST(root.right, val);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> searchBST(root.left, val);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>参考博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/huangdingsheng/article/details/99843453">https://blog.csdn.net/huangdingsheng/article/details/99843453</a></p>
-<p>​                   <a target="_blank" rel="noopener" href="https://blog.csdn.net/sheepmu/article/details/38407221?utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.baidujs&amp;dist_request_id=&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-1.baidujs">https://blog.csdn.net/sheepmu/article/details/38407221?utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.baidujs&amp;dist_request_id=&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.baidujs</a></p>
-<h2 id="float和double的区别"><a href="#float和double的区别" class="headerlink" title="float和double的区别"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/liutianci/p/8443372.html">float和double的区别</a></h2><h2 id="GCRoot有哪些"><a href="#GCRoot有哪些" class="headerlink" title="GCRoot有哪些"></a>GCRoot有哪些</h2><p> JVM垃圾回收的根对象的范围有以下几种：</p>
-<p>（1）虚拟机（JVM）栈中引用对象<br>（2）方法区中的类静态属性引用对象</p>
-<p>（3）方法区中常量引用的对象（final 的常量值）</p>
-<p>（4）本地方法栈JNI的引用对象</p>
-<h2 id="对多线程的理解"><a href="#对多线程的理解" class="headerlink" title="对多线程的理解"></a>对多线程的理解</h2><p><strong>多线程指的是在单个程序中可以同时运行多个不同的线程，执行不同的任务</strong></p>
-<p>多线程并发编程是开发高并发系统的基础，利用好多线程机制可以大大提高系统整体的并发能力以及性能。面对复杂业务模型，并行程序会比串行程序更适应业务需求，而并发编程更能吻合这种业务拆分 。</p>
-<p>并发编程三要素：原子性，可见性，有序性 。从这三个要素说一下如何保证多线程运行安全</p>
-<h2 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h2><p>索引是一种单独的、物理的对数据库表中一列或多列的值进行排序的一种存储结构，它是某个表中一列或若干列值的集合和相应的指向表中物理标识这些值的数据页的逻辑指针清单。</p>
-<p>索引的作用相当于图书的目录，可以根据目录中的页码快速找到所需的内容。索引提供指向存储在表的指定列中的数据值的指针，然后根据您指定的排序顺序对这些指针排序。</p>
-<h2 id="AOP原理"><a href="#AOP原理" class="headerlink" title="AOP原理"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/MoreeVan/article/details/11977115?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.baidujs&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-2.baidujs">AOP原理</a></h2><h2 id="三种垃圾收集算法的优劣"><a href="#三种垃圾收集算法的优劣" class="headerlink" title="三种垃圾收集算法的优劣"></a>三种垃圾收集算法的优劣</h2><p><strong>标记清除算法</strong></p>
-<p>​    优点：标记-清除算法实现起来比较容易</p>
-<p>​    缺点：但是有一个比较严重的问题就是容易产生内存碎片，碎片太多可能会导致后续过程中需要为大对象分配空间时无法找到足够的空间而提前触发新的一次垃圾收集动作。</p>
-<p><strong>复制算法</strong></p>
-<pre><code> 优点：这种算法虽然实现简单，运行高效且不容易产生内存碎片。
-
- 缺点：但是却对内存空间的使用做出了高昂的代价，因为能够使用的内存缩减到原来的一半。</code></pre>
-<p><strong>标记整理算法</strong></p>
-<p>​    优点：碎片少 内存利用率高</p>
-<p>​    缺点：算法复杂度大，执行步骤较多</p>
-<h2 id="TCP和HTTP的区别"><a href="#TCP和HTTP的区别" class="headerlink" title="TCP和HTTP的区别"></a>TCP和HTTP的区别</h2><p> http是要基于TCP连接基础上的，简单的说，TCP就是单纯建立连接，不涉及任何我们需要请求的实际数据，简单的传输。http是用来收发数据，即实际应用上来的。</p>
-<h2 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h2><p>动态代理的代理类是实现了一个InvocationHandler的接口，我们通过reflect.Proxy的类的newProxyInstance方法就可以得到这个接口的实例，然后再来作为参数传递进去，这里每一个在代理类上处理的东西也会被重定向到调用处理器上。</p>
-<p><img src="/2021/04/06/%E9%9D%A2%E7%BB%8F%E6%80%BB%E7%BB%93/log\source_posts\面经总结\image-20210423105943552.png" alt="image-20210423105943552"></p>
-<p>如果一个对象的a方法调用b方法不会触发动态代理 因为没有调用对象的代理类 </p>
-<h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><ol>
-<li><p>介绍一下项目</p>
-</li>
-<li><p>项目对JVM内存方面的考虑？</p>
-</li>
-<li><p>Redis存了啥？为什么要这么存？</p>
-</li>
-<li><p>项目有没有安全性考虑</p>
-</li>
-<li><p><strong>你的优势和劣势？</strong></p>
-<ol>
-<li>自学能力强、抗压能力强、能理解他人 懂得换位思考、责任心强、善于决策,独立思考</li>
-<li>不注重细节、喜欢争论、过于理想化、不愿意承认失败、太追求细节导致拖延、不善于决策、不愿意寻求帮助、</li>
-</ol>
-</li>
-<li><p>业余爱好</p>
-</li>
-<li><p>这几年的职业规划</p>
-<ol>
-<li>我今年刚毕业，对于工作方面的事情还没有一个很清楚的概念，不过我会在工作中不断的学习，切实的去了解工作当中所需要的技能。<br>更了解这个行业之后，我也会有针对性的改变自己的学习计划，使自己更加适应这个行业，朝着行业的大方向去发展。</li>
-</ol>
-</li>
-</ol>
-<ol start="8">
-<li></li>
-</ol>
-
+          <p>面经总结</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/06/%E9%9D%A2%E7%BB%8F%E6%80%BB%E7%BB%93/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2027,248 +1975,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/18/tomcat/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/author.jpg">
-      <meta itemprop="name" content="鲍炳江">
-      <meta itemprop="description" content="不接受任何评判">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="勺子柄の博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/18/tomcat/" class="post-title-link" itemprop="url">tomcat</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-18 14:36:01" itemprop="dateCreated datePublished" datetime="2021-03-18T14:36:01+08:00">2021-03-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-21 15:11:19" itemprop="dateModified" datetime="2021-03-21T15:11:19+08:00">2021-03-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/03/18/tomcat/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/18/tomcat/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Tomcat基础"><a href="#Tomcat基础" class="headerlink" title="Tomcat基础"></a>Tomcat基础</h1><h2 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h2><p><strong>http服务器请求处理</strong></p>
-<p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210318143747952.png" alt="image-20210318143747952"></p>
-<p>HTTP服务器不直接调用业务类，而是把请求交给容器来处理，容器通过 Servlet接口调用业务类。</p>
-<p>因此Servlet接口和Servlet容器的出现，达到了HTTP服务器与 业务类解耦的目的。而Servlet接口和Servlet容器这一整套规范叫作Servlet规范。 Tomcat按照Servlet规范的要求实现了Servlet容器，同时它们也具有HTTP服务器的功能。作为Java程序员，如果我们要实现新的业务功能，只需要实现一个Servlet，并把它 注册到Tomcat（Servlet容器）中，剩下的事情就由Tomcat帮我们处理了。</p>
-<p><strong>Tomcat整体架构</strong></p>
-<p>tomcat实现两个核心功能： </p>
-<ul>
-<li><p>处理Socket连接，负责网络字节流与Request和Response对象的转化。</p>
-</li>
-<li><p>加载和管理Servlet，以及具体处理Request请求。</p>
-</li>
-</ul>
-<p>因此Tomcat设计了两个核心组件连接器（Connector）和容器（Container）来分别做这 两件事情。连接器负责对外交流，容器负责内部处理。</p>
-<p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210318144050969.png" alt="image-20210318144050969"></p>
-<h2 id="IO模型与协议"><a href="#IO模型与协议" class="headerlink" title="IO模型与协议"></a>IO模型与协议</h2><p>在Coyote中 ， Tomcat支持的多种I/O模型和应用层协议，具体包含哪些IO模型和应用层 协议，请看下表：</p>
-<p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210318150203575.png" alt="image-20210318150203575"></p>
-<p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210318150221296.png" alt="image-20210318150221296"></p>
-<h2 id="连接器Coyote"><a href="#连接器Coyote" class="headerlink" title="连接器Coyote"></a>连接器Coyote</h2><p>Coyote 是Tomcat的连接器框架的名称 , 是Tomcat服务器提供的供客户端访问的外部接口。客户端通过Coyote与服务器建立连接、发送请求并接受响应 。</p>
-<p>Coyote 封装了底层的网络通信（Socket 请求及响应处理），为Catalina 容器提供了统一的接口，使Catalina 容器与具体的请求协议及IO操作方式完全解耦。Coyote 将Socket 输入转换封装为 Request 对象，交由Catalina 容器进行处理，处理请求完成后, Catalina通过Coyote 提供的Response 对象将结果写入输出流 。</p>
-<p>Coyote 作为独立的模块，只负责具体协议和IO的相关操作， 与Servlet 规范实现没有直 接关系，因此即便是 Request 和 Response 对象也并未实现Servlet规范对应的接口， 而是在Catalina 中将他们进一步封装为ServletRequest 和 ServletResponse 。</p>
-<p>Tomcat为了实现支持多种I/O模型和应用层协议，一个容器可能对接多个连接器，就好比 一个房间有多个门。但是单独的连接器或者容器都不能对外提供服务，需要把它们组装 起来才能工作，组装后这个整体叫作Service组件。这里请你注意，Service本身没有做什么重要的事情，只是在连接器和容器外面多包了一层，把它们组装在一起。Tomcat内可能有多个Service，这样的设计也是出于灵活性的考虑。通过在Tomcat中配置多个 Service，可以实现通过不同的端口号来访问同一台机器上部署的不同应用。</p>
-<p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210318144407639.png" alt="image-20210318144407639"></p>
-<h3 id="连接器组件"><a href="#连接器组件" class="headerlink" title="连接器组件"></a>连接器组件</h3><p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210318144839639.png" alt="image-20210318144839639"></p>
-<p><strong>EndPoint</strong>:Coyote 通信端点，即通信监听的接口，是具体Socket接收和发送处理器，是对传输层的抽象，因此EndPoint用来实现TCP/IP协议的。Tomcat 并没有EndPoint 接口，而是提供了一个抽象类AbstractEndpoint ， 里面定义了两个内部类：Acceptor和SocketProcessor。Acceptor用于监听Socket连接请求。 SocketProcessor用于处理接收到的Socket请求，它实现Runnable接口，在Run方法里调用协议处理组件Processor进行处理。为了提高处理能力，SocketProcessor被提交到线程池来执行。而这个线程池叫作执行器（Executor)</p>
-<p><strong>Processor</strong>:Coyote 协议处理接口 ，如果说EndPoint是用来实现TCP/IP协议的，那么 Processor用来实现HTTP协议，Processor接收来自EndPoint的Socket，读取字节流解 析成Tomcat Request和Response对象，并通过Adapter将其提交到容器处理， Processor是对应用层协议的抽象</p>
-<p><strong>ProtocolHandler</strong>:Coyote 协议接口， 通过Endpoint 和 Processor ，实现针对具体协议的处理能力。Tomcat 按照协议和I/O 提供了6个实现类 ： AjpNioProtocol ， AjpAprProtocol， AjpNio2Protocol ， Http11NioProtocol ，Http11Nio2Protocol,Http11AprProtocol。我们在配置tomcat/conf/server.xml 时 ， 至少要指定具体的 ProtocolHandler , 当然也可以指定协议名称 ， 如 ： HTTP/1.1</p>
-<p><strong>Adapter</strong>:由于协议不同，客户端发过来的请求信息也不尽相同，Tomcat定义了自己的Request类 来“存放”这些请求信息。ProtocolHandler接口负责解析请求并生成Tomcat Request类。 但是这个Request对象不是标准的ServletRequest，也就意味着，不能用Tomcat Request作为参数来调用容器。Tomcat设计者的解决方案是引入CoyoteAdapter，这是 适配器模式的经典运用，连接器调用CoyoteAdapter的Sevice方法，传入的是Tomcat Request对象，CoyoteAdapter负责将Tomcat Request转成ServletRequest，再调用容 器的Service方法。</p>
-<h2 id="容器Catalina"><a href="#容器Catalina" class="headerlink" title="容器Catalina"></a>容器Catalina</h2><p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210319145215568.png" alt="image-20210319145215568"></p>
-<p>Tomcat 本质上就是一款 Servlet 容器， 因此Catalina 才是 Tomcat 的核心 ， 其他模块 都是为Catalina 提供支撑的。 比如 ： 通过Coyote 模块提供链接通信，Jasper 模块提供 JSP引擎，Naming 提供JNDI 服务，Juli 提供日志服务。</p>
-<h3 id="Catalina-的主要组件"><a href="#Catalina-的主要组件" class="headerlink" title="Catalina 的主要组件"></a>Catalina 的主要组件</h3><p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210319145258094.png" alt="image-20210319145258094"></p>
-<p>如上图所示，Catalina负责管理Server（tomcat服务器），而Server表示着整个服务器。Server下面有多个 服务Service，每个服务都包含着多个连接器组件Connector（Coyote 实现）和<strong>一个</strong>容器 组件Container。在Tomcat 启动的时候， 会初始化一个Catalina的实例。</p>
-<p>Catalina 各个组件的职责：</p>
-<table>
-<thead>
-<tr>
-<th>组件</th>
-<th>职责</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Catalina</td>
-<td>负责解析Tomcat的配置文件 , 以此来创建服务器Server组件，并根据 命令来对其进行管理</td>
-</tr>
-<tr>
-<td>Server</td>
-<td>服务器表示整个Catalina Servlet容器以及其它组件，负责组装并启动 Servlet引擎,Tomcat连接器。Server通过实现Lifecycle接口，提供了 一种优雅的启动和关闭整个系统的方式</td>
-</tr>
-<tr>
-<td>Service</td>
-<td>服务是Server内部的组件，一个Server包含多个Service。它将若干个 Connector组件绑定到一个Container（Engine）上</td>
-</tr>
-<tr>
-<td>Connector</td>
-<td>连接器，处理与客户端的通信，它负责接收客户请求，然后转给相关 的容器处理，最后向客户返回响应结果</td>
-</tr>
-<tr>
-<td>Container</td>
-<td>容器，负责处理用户的servlet请求，并返回对象给web用户的模块</td>
-</tr>
-</tbody></table>
-<p>Tomcat设计了4种容器，分别是Engine、Host、Context和Wrapper。这4种容器不是平行关系，而是父子关系。Tomcat通过一种分层的架构，使得Servlet容器具有很好的灵活性。</p>
-<p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210319213053382.png" alt="image-20210319213053382"></p>
-<table>
-<thead>
-<tr>
-<th>容器</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Engine</td>
-<td>表示整个Catalina的Servlet引擎，用来管理多个虚拟站点，一个Service 最多只能有一个Engine，但是一个引擎可包含多个Host</td>
-</tr>
-<tr>
-<td>Host</td>
-<td>表示一个虚拟主机，或者说一个站点，可以给Tomcat配置多个虚拟主机地址，而一个虚拟主机下可包含多个Context</td>
-</tr>
-<tr>
-<td>Context</td>
-<td>表示一个Web应用程序， 一个Web应用可包含多个Wrapper</td>
-</tr>
-<tr>
-<td>Wrapper</td>
-<td>表示一个Servlet，Wrapper 作为容器中的最底层，不能包含子容器</td>
-</tr>
-</tbody></table>
-<p>那么，Tomcat是怎么管理这些容器的呢？你会发现这些容器具有父子关系，形成一个树形结构，你可能马上就想到了设计模式中的组合模式。没错，Tomcat就是用组合模式来管理这些容器的。具体实现方法是，所有容器组件都实现了Container接口，因此组合模式可以使得用户对单容器对象和组合容器对象的使用具有一致性。这里单容器对象指的是最底层的Wrapper，组合容器对象指的是上面的Context、Host或者Engine</p>
-<h2 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h2><p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210319221358739.png" alt="image-20210319221358739"></p>
-<p>ProtocalHandler再继续初始化EndPoint  endpoint绑定并监听相应的端口号</p>
-<p>ProtocalHandler继续调用Endpoint的start方法 ：开启线程，接受客户端请求</p>
-<p>加载Tomcat的配置文件，初始化容器组件 ，监听对应的端口号， 准备接受客户端请求</p>
-<h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3><h4 id="LifeCycle"><a href="#LifeCycle" class="headerlink" title="LifeCycle"></a>LifeCycle</h4><p>由于所有的组件均存在初始化、启动、停止等生命周期方法，拥有生命周期管理的特 性， 所以Tomcat在设计的时候， 基于生命周期管理抽象成了一个接口 Lifecycle ，而组件Server、Service、Container、Executor、Connector 组件 ， 都实现了一个生命周期 的接口，从而具有了以下生命周期中的核心方法：</p>
-<ul>
-<li>init：初始化组件</li>
-<li>start：启动组件</li>
-<li>stop：停止组件</li>
-<li>destory：销毁组件</li>
-</ul>
-<p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210320154226705.png" alt="image-20210320154226705"></p>
-<h4 id="各组件的默认实现"><a href="#各组件的默认实现" class="headerlink" title="各组件的默认实现"></a>各组件的默认实现</h4><p>上面我们提到的Server、Service、Engine、Host、Context都是接口， 下图中罗列了这 些接口的默认实现类。当前对于 Endpoint组件来说，在Tomcat中没有对应的Endpoint 接口， 但是有一个抽象类 AbstractEndpoint ，其下有三个实现类： NioEndpoint、 Nio2Endpoint、AprEndpoint ， 这三个实现类，分别对应于前面讲解链接器 Coyote 时， 提到的链接器支持的三种IO模型：NIO，NIO2，APR ， Tomcat8.5版本中，默认采 用的是 NioEndpoint</p>
-<p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210320154207762.png" alt="image-20210320154207762"></p>
-<p>ProtocolHandler ： Coyote协议接口，通过封装Endpoint和Processor ， 实现针对具体 协议的处理功能。Tomcat按照协议和IO提供了6个实现类</p>
-<p>AJP协议：</p>
-<ul>
-<li><p>AjpNioProtocol ：采用NIO的IO模型。 </p>
-</li>
-<li><p>AjpNio2Protocol：采用NIO2的IO模型</p>
-</li>
-<li><p>AjpAprProtocol ：采用APR的IO模型，需要依赖于APR库。</p>
-<p>HTTP协议：</p>
-</li>
-<li><p>Http11NioProtocol ：采用NIO的IO模型，默认使用的协议（如果服务器没有安装 APR）。</p>
-</li>
-<li><p>Http11Nio2Protocol：采用NIO2的IO模型。</p>
-</li>
-<li><p>Http11AprProtocol ：采用APR的IO模型，需要依赖于APR库。</p>
-</li>
-</ul>
-<p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210320155257146.png" alt="image-20210320155257146"></p>
-<h2 id="请求处理流程"><a href="#请求处理流程" class="headerlink" title="请求处理流程"></a>请求处理流程</h2><h3 id="请求流程"><a href="#请求流程" class="headerlink" title="请求流程"></a>请求流程</h3><p>设计了这么多层次的容器，Tomcat是怎么确定每一个请求应该由哪个Wrapper容器里的 Servlet来处理的呢？答案是，Tomcat是用Mapper组件来完成这个任务的。</p>
-<p>Mapper组件的功能就是将用户请求的URL定位到一个Servlet，它的工作原理是： Mapper组件里保存了Web应用的配置信息，其实就是容器组件与访问路径的映射关系， 比如Host容器里配置的域名、Context容器里的Web应用路径，以及Wrapper容器里 Servlet映射的路径，你可以想象这些配置信息就是一个多层次的Map。</p>
-<p>当一个请求到来时，Mapper组件通过解析请求URL里的域名和路径，再到自己保存的 Map里去查找，就能定位到一个Servlet。一个请求URL最后只会定位到一个 Wrapper容器，也就是一个Servlet。</p>
-<p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210320181856246.png" alt="image-20210320181856246"></p>
-<p><img src="/2021/03/18/tomcat/log\source_posts\tomcat\image-20210320183445781.png" alt="image-20210320183445781"></p>
-<p>步骤如下: </p>
-<ul>
-<li>Connector组件Endpoint中的Acceptor监听客户端套接字连接并接收Socket。</li>
-<li>将连接交给线程池Executor处理，开始执行请求响应任务。</li>
-<li>Processor组件读取消息报文，解析请求行、请求体、请求头，封装成Request对象。</li>
-<li>Mapper组件根据请求行的URL值和请求头的Host值匹配由哪个Host容器、Context容器、Wrapper容器处理请求。</li>
-<li>CoyoteAdaptor组件负责将Connector组件和Engine容器关联起来，把生成的 Request对象和响应对象Response传递到Engine容器中，调用 Pipeline。</li>
-<li>Engine容器的管道开始处理，管道中包含若干个Valve、每个Valve负责部分处理逻辑。执行完Valve后会执行基础的 Valve–StandardEngineValve，负责调用Host容器的 Pipeline。</li>
-<li>Host容器的管道开始处理，流程类似，最后执行 Context容器的Pipeline。</li>
-<li>Context容器的管道开始处理，流程类似，最后执行 Wrapper容器的Pipeline。</li>
-<li>Wrapper容器的管道开始处理，流程类似，最后执行 Wrapper容器对应的Servlet对象的处理方法。</li>
-</ul>
-<p>在Tomcat中定义了Pipeline 和 Valve 两个接口，Pipeline 用于构建责任链， 后者代表责 任链上的每个处理器。Pipeline 中维护了一个基础的Valve，它始终位于Pipeline的末端 （最后执行），封装了具体的请求处理和输出响应的过程。当然，我们也可以调用 addValve()方法， 为Pipeline 添加其他的Valve， 后添加的Valve 位于基础的Valve之 前，并按照添加顺序执行。Pipiline通过获得首个Valve来启动整合链条的执行 。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-	<div>
-	  
-	</div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2340,7 +2046,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2390,12 +2096,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">739k</span>
+    <span title="站点总字数">741k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">11:12</span>
+    <span title="站点阅读时长">11:13</span>
 </div>
 
 
@@ -2415,7 +2121,7 @@
     <!-- 博客字数统计 -->
     <span class="site-pv">
       <i class="fa fa-pencil"></i>
-      博客全站共： <span class="post-count">274.8k</span> 字
+      博客全站共： <span class="post-count">275.2k</span> 字
     </span>
 </div>
 <!-- 新增访客统计代码 END-->

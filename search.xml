@@ -11487,6 +11487,19 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 <h2 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h2><p>动态代理的代理类是实现了一个InvocationHandler的接口，我们通过reflect.Proxy的类的newProxyInstance方法就可以得到这个接口的实例，然后再来作为参数传递进去，这里每一个在代理类上处理的东西也会被重定向到调用处理器上。</p>
 <p><img src="/2021/04/06/%E9%9D%A2%E7%BB%8F%E6%80%BB%E7%BB%93/log\source_posts\面经总结\image-20210423105943552.png" alt="image-20210423105943552"></p>
 <p>如果一个对象的a方法调用b方法不会触发动态代理 因为没有调用对象的代理类 </p>
+<h2 id="JVM频繁Full-GC的解决经验"><a href="#JVM频繁Full-GC的解决经验" class="headerlink" title="JVM频繁Full GC的解决经验"></a><a href="https://blog.csdn.net/zhangfengaiwuyan/article/details/89380008">JVM频繁Full GC的解决经验</a></h2><h2 id="为什么会有STW"><a href="#为什么会有STW" class="headerlink" title="为什么会有STW"></a>为什么会有STW</h2><p>在进行标记的时候，如果工作线程不停止的话，那么肯定会有新对象生成。这些对象是没有被标记的，里面可能有存活的对象，也可能有已经没有被引用的垃圾对象。那么在标记完后，进行回收时。要如何回收？</p>
+<h2 id="为什么在-JDK8-中要将-HashMap-的链表转为红黑树"><a href="#为什么在-JDK8-中要将-HashMap-的链表转为红黑树" class="headerlink" title="为什么在 JDK8 中要将 HashMap 的链表转为红黑树"></a>为什么在 JDK8 中要将 HashMap 的链表转为红黑树</h2><p>因为通常情况下，链表长度很难达到8，但是特殊情况下链表长度为8，哈希表容量又很大，造成链表性能很差的时候，只能采用红黑树提高性能，这是一种应对策略。</p>
+<h2 id="HashMap时间复杂度"><a href="#HashMap时间复杂度" class="headerlink" title="HashMap时间复杂度"></a><a href="https://blog.csdn.net/LoveMyTail/article/details/107286727">HashMap时间复杂度</a></h2><h2 id="用-token-来验证信息和用密码登录的区别"><a href="#用-token-来验证信息和用密码登录的区别" class="headerlink" title="用 token 来验证信息和用密码登录的区别"></a><a href="https://blog.csdn.net/ly_twt/article/details/102217361">用 token 来验证信息和用密码登录的区别</a></h2><h2 id="oss和Oauth2-0"><a href="#oss和Oauth2-0" class="headerlink" title="oss和Oauth2.0"></a>oss和Oauth2.0</h2><p>OAuth2.0</p>
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html">http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html</a></li>
+<li><a href="https://www.cnblogs.com/flashsun/p/7424071.html">https://www.cnblogs.com/flashsun/p/7424071.html</a></li>
+<li>代码实现：<a href="https://www.zifangsky.cn/1313.html">https://www.zifangsky.cn/1313.html</a></li>
+</ul>
+<p>OSS</p>
+<ul>
+<li><a href="https://www.zifangsky.cn/1313.html">https://www.zifangsky.cn/1313.html</a></li>
+<li>代码：<a href="https://gitee.com/zifangsky/OAuth2.0Demo/tree/master#%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D">https://gitee.com/zifangsky/OAuth2.0Demo/tree/master#%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D</a></li>
+</ul>
 <h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><ol>
 <li><p>介绍一下项目</p>
 </li>
@@ -11514,6 +11527,12 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 <li></li>
 </ol>
 ]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>面试</tag>
+      </tags>
   </entry>
   <entry>
     <title>设计模式</title>
@@ -11785,7 +11804,7 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
   <entry>
     <title>thrift</title>
     <url>/2021/05/08/thrift/</url>
-    <content><![CDATA[<p>代码：ThriftDemo</p>
+    <content><![CDATA[<h1 id="java"><a href="#java" class="headerlink" title="java"></a>java</h1><p>代码：ThriftDemo</p>
 <p>创建一个maven项目</p>
 <p>导入jar包</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.thrift<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>libthrift<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -11795,13 +11814,14 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 
 <p>thrift-0.9.0.exe 是官网提供的windows下编译工具，运用这个工具生成相关代码</p>
 <p>在cmd中切换目录到thrift文件的根目录 进行编译：thrift-0.9.0.exe -r -gen java DemoHello.thrift</p>
+<h1 id="GO"><a href="#GO" class="headerlink" title="GO"></a>GO</h1><p>代码：ThriftDemo</p>
+<p>参考：<a href="https://segmentfault.com/a/1190000019752111">https://segmentfault.com/a/1190000019752111</a></p>
 ]]></content>
   </entry>
   <entry>
     <title>工作笔记</title>
     <url>/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p>1</p>
-<h1 id="day01"><a href="#day01" class="headerlink" title="day01"></a>day01</h1><h2 id="修改代码并上传"><a href="#修改代码并上传" class="headerlink" title="修改代码并上传"></a>修改代码并上传</h2><p>把代码clone到linux /home/bingjiang.bao目录下 进行修改</p>
+    <content><![CDATA[<h1 id="week1"><a href="#week1" class="headerlink" title="week1"></a>week1</h1><h2 id="day01"><a href="#day01" class="headerlink" title="day01"></a>day01</h2><h3 id="修改代码并上传"><a href="#修改代码并上传" class="headerlink" title="修改代码并上传"></a>修改代码并上传</h3><p>把代码clone到linux /home/bingjiang.bao目录下 进行修改</p>
 <p>修改代码之后 使用git flow 上传</p>
 <p>git flow init</p>
 <p>git flow feature start timeLogFeature</p>
@@ -11812,7 +11832,7 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 <p>提交到develop：git push origin develop</p>
 <p>在gitlab上提交merge申请</p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510162112266.png" alt="image-20210510162112266"></p>
-<h2 id="上传配置"><a href="#上传配置" class="headerlink" title="上传配置"></a>上传配置</h2><p>登录atlantis 进入负责的模块</p>
+<h3 id="上传配置"><a href="#上传配置" class="headerlink" title="上传配置"></a>上传配置</h3><p>登录atlantis 进入负责的模块</p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510161256085.png" alt="image-20210510161256085"></p>
 <p>在linux上clone配置文件仓库</p>
 <p>在仓库目录下 上传项目中的配置</p>
@@ -11823,7 +11843,7 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 <p>之后在配置管理中打tag并编辑配置</p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510161409881.png" alt="image-20210510161409881"></p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510161417897.png" alt="image-20210510161417897"></p>
-<h2 id="上线"><a href="#上线" class="headerlink" title="上线"></a>上线</h2><p>merge请求被通过之后 会触发钩子函数 发送请求到jenkins<strong>做一些事情</strong>比如从github上下载文件 执行build.sh等事情</p>
+<h3 id="上线"><a href="#上线" class="headerlink" title="上线"></a>上线</h3><p>merge请求被通过之后 会触发钩子函数 发送请求到jenkins<strong>做一些事情</strong>比如从github上下载文件 执行build.sh等事情</p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510172549747.png" alt="image-20210510172549747"></p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510172602515.png" alt="image-20210510172602515"></p>
 <p>进行上线</p>
@@ -11837,7 +11857,7 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510172310334.png" alt="image-20210510172310334"></p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210510172329595.png" alt="image-20210510172329595"></p>
 <p>添加配置标签和版本号 上线前动作没意义 上线重启</p>
-<h1 id="day02"><a href="#day02" class="headerlink" title="day02"></a>day02</h1><p>熟悉rta_stats_sync模块</p>
+<h2 id="day02"><a href="#day02" class="headerlink" title="day02"></a>day02</h2><p>熟悉rta_stats_sync模块</p>
 <p>在linux搭建运行环境</p>
 <p>编辑.bash_profile 配置运行环境</p>
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210511150758962.png" alt="image-20210511150758962"></p>
@@ -11855,11 +11875,14 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 <p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210511153521966.png" alt="image-20210511153521966"></p>
 <p>这个shell中通过软链启动项目 执行命令./RTBAdInfo.sh start 真正执行的是RTBAdinfo-1.73.2/bin/RTBAdinfo</p>
 <p><strong>学习rta_Adinfo代码</strong></p>
-<h1 id="day03"><a href="#day03" class="headerlink" title="day03"></a>day03</h1><p>学习rta_collect模块 改成mod模式 并提交</p>
+<h2 id="day03"><a href="#day03" class="headerlink" title="day03"></a>day03</h2><p>学习rta_collect模块 改成mod模式 并提交</p>
 <p>rta_collect模块上线</p>
 <p>go项目在linux环境下  执行build.sh文件 生成可执行文件 然后执行即可</p>
 <p>上线的时候 不要提交.idea vendors(依赖包目录) target bin 目录</p>
-]]></content>
+<h2 id="day04"><a href="#day04" class="headerlink" title="day04"></a>day04</h2><p>可以基于媒体x客户来，自定义的配置出价阈值。如果低于阈值，就触发报警。</p>
+<p>报警的方式：通过飞书的Webhook</p>
+<p>创建Webhook报警<a href="https://help.aliyun.com/document_detail/173081.html">https://help.aliyun.com/document_detail/173081.html</a></p>
+<h1 id="week2"><a href="#week2" class="headerlink" title="week2"></a>week2</h1><h2 id="day01-1"><a href="#day01-1" class="headerlink" title="day01"></a>day01</h2>]]></content>
   </entry>
   <entry>
     <title>golang</title>
@@ -12260,6 +12283,22 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;database/sql&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="comment">//import 下划线（如：import _ github/demo）的作用：当导入一个包时，该包下的文件里所有init()函数都会被执行，然而，有些时候我们并不需要把整个包都导入进来，仅仅是是希望它执行init()函数而已。这个时候就可以使用 import _ 引用该包。</span></span><br><span class="line">	_ <span class="string">&quot;github.com/go-sql-driver/mysql&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	db,_:=sql.Open(<span class="string">&quot;mysql&quot;</span>,<span class="string">&quot;root:Bbj0611..@tcp(192.168.52.131:3306)/exercise&quot;</span>)</span><br><span class="line"></span><br><span class="line">	err := db.Ping()</span><br><span class="line">	<span class="keyword">defer</span> db.Close()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span>&#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;数据库链接失败&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> db.Close()</span><br><span class="line"></span><br><span class="line"> 	<span class="comment">//多行查询</span></span><br><span class="line">	rows,_:=db.Query(<span class="string">&quot;select * from grade&quot;</span>)</span><br><span class="line">	<span class="keyword">var</span> id,level <span class="keyword">string</span></span><br><span class="line">	<span class="keyword">for</span> rows.Next()&#123;</span><br><span class="line">		rows.Scan(&amp;id,&amp;level)</span><br><span class="line">		 fmt.Println(id,level)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+]]></content>
+  </entry>
+  <entry>
+    <title>grpc</title>
+    <url>/2021/05/16/grpc/</url>
+    <content><![CDATA[<p>参考：<a href="https://www.cnblogs.com/oolo/p/11840305.html">https://www.cnblogs.com/oolo/p/11840305.html</a></p>
+<p>代码：grpc</p>
+<p><img src="/2021/05/16/grpc/log\source_posts\grpc\image-20210516104041823.png" alt="image-20210516104041823"></p>
+<p>安装grpc和编译插件</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="built_in">get</span> google.golang.org/grpc</span><br><span class="line"><span class="keyword">go</span> <span class="built_in">get</span> -<span class="keyword">u</span> github.<span class="keyword">com</span>/golang/protobuf/protoc-gen-<span class="keyword">go</span></span><br></pre></td></tr></table></figure>
+
+<p>创建一个protobuf文件</p>
+<figure class="highlight protobuf"><table><tr><td class="code"><pre><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"><span class="keyword">option</span> go_package = <span class="string">&quot;./proto&quot;</span>;</span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">StringMessage</span> </span>&#123;</span><br><span class="line">    <span class="keyword">repeated</span> StringSingle ss = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">StringSingle</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> id = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">string</span> name = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Empty</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">MaxSize</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">rpc</span> Echo(Empty) <span class="keyword">returns</span> (stream StringMessage) </span>&#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行命令进行编译该文件：protoc –go_out=plugins=grpc:. service.proto</p>
+<p>应用：<a href="https://segmentfault.com/a/1190000015135650/">https://segmentfault.com/a/1190000015135650/</a></p>
 ]]></content>
   </entry>
 </search>

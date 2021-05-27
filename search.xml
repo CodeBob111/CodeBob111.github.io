@@ -11873,14 +11873,14 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
     <title>工作笔记</title>
     <url>/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="账号"><a href="#账号" class="headerlink" title="账号"></a>账号</h1><p>OA:     <a href="http://oa.bluefocusgroup.com:8088/">http://oa.bluefocusgroup.com:8088/</a>       303098  Bbj0611..</p>
-<p>邮箱：<a href="https://mail.domob.cn/">https://mail.domob.cn/</a>  <a href="mailto:&#98;&#105;&#x6e;&#103;&#x6a;&#x69;&#97;&#x6e;&#103;&#46;&#98;&#x61;&#111;&#x40;&#x64;&#x6f;&#109;&#111;&#x62;&#x2e;&#x63;&#110;">&#98;&#105;&#x6e;&#103;&#x6a;&#x69;&#97;&#x6e;&#103;&#46;&#98;&#x61;&#111;&#x40;&#x64;&#x6f;&#109;&#111;&#x62;&#x2e;&#x63;&#110;</a> Bbj0611..</p>
+<p>邮箱：<a href="https://mail.domob.cn/">https://mail.domob.cn/</a>  <a href="mailto:&#98;&#x69;&#x6e;&#103;&#106;&#x69;&#x61;&#110;&#103;&#46;&#98;&#97;&#x6f;&#x40;&#x64;&#111;&#109;&#111;&#98;&#x2e;&#x63;&#110;">&#98;&#x69;&#x6e;&#103;&#106;&#x69;&#x61;&#110;&#103;&#46;&#98;&#97;&#x6f;&#x40;&#x64;&#111;&#109;&#111;&#98;&#x2e;&#x63;&#110;</a> Bbj0611..</p>
 <p> wifi : bingjiang.bao   Bfc@114912</p>
 <p>上线环境跳板机：<a href="https://jms.domob-inc.com/">https://jms.domob-inc.com/</a>   bingjiang.bao   Bbj0611..</p>
 <p>办公环境跳板机：bingjiang.bao     Bbj0611..</p>
 <p>跳板机使用说明：Jumpserver跳板机使用说明.docx</p>
-<p>上线atlantis：<a href="http://atlantis.domob-inc.cn/module/release_manager/707/">http://atlantis.domob-inc.cn/module/release_manager/707/</a>   <a href="mailto:&#x62;&#105;&#x6e;&#x67;&#106;&#105;&#97;&#x6e;&#103;&#46;&#98;&#x61;&#x6f;&#x40;&#100;&#x6f;&#x6d;&#111;&#x62;&#x2e;&#99;&#110;">&#x62;&#105;&#x6e;&#x67;&#106;&#105;&#97;&#x6e;&#103;&#46;&#98;&#x61;&#x6f;&#x40;&#100;&#x6f;&#x6d;&#111;&#x62;&#x2e;&#99;&#110;</a>     bingjiang.bao@DM#0510</p>
+<p>上线atlantis：<a href="http://atlantis.domob-inc.cn/module/release_manager/707/">http://atlantis.domob-inc.cn/module/release_manager/707/</a>   <a href="mailto:&#x62;&#x69;&#x6e;&#103;&#106;&#105;&#x61;&#110;&#x67;&#x2e;&#x62;&#x61;&#x6f;&#x40;&#x64;&#111;&#x6d;&#x6f;&#98;&#x2e;&#x63;&#x6e;">&#x62;&#x69;&#x6e;&#103;&#106;&#105;&#x61;&#110;&#x67;&#x2e;&#x62;&#x61;&#x6f;&#x40;&#x64;&#111;&#x6d;&#x6f;&#98;&#x2e;&#x63;&#x6e;</a>     bingjiang.bao@DM#0510</p>
 <p>gitlab:bingjiang.bao  Bbj0611..</p>
-<p>jenkins：<a href="http://jenkins.domob-inc.cn/jenkins/">http://jenkins.domob-inc.cn/jenkins/</a>         <a href="mailto:&#x62;&#105;&#x6e;&#103;&#x6a;&#x69;&#x61;&#110;&#x67;&#x2e;&#98;&#97;&#111;&#x40;&#100;&#x6f;&#x6d;&#111;&#98;&#46;&#x63;&#110;">&#x62;&#105;&#x6e;&#103;&#x6a;&#x69;&#x61;&#110;&#x67;&#x2e;&#98;&#97;&#111;&#x40;&#100;&#x6f;&#x6d;&#111;&#98;&#46;&#x63;&#110;</a>     bingjiang.bao@DM#0510</p>
+<p>jenkins：<a href="http://jenkins.domob-inc.cn/jenkins/">http://jenkins.domob-inc.cn/jenkins/</a>         <a href="mailto:&#x62;&#105;&#x6e;&#103;&#106;&#105;&#97;&#x6e;&#x67;&#46;&#x62;&#97;&#x6f;&#64;&#x64;&#x6f;&#109;&#111;&#x62;&#x2e;&#x63;&#x6e;">&#x62;&#105;&#x6e;&#103;&#106;&#105;&#97;&#x6e;&#x67;&#46;&#x62;&#97;&#x6f;&#64;&#x64;&#x6f;&#109;&#111;&#x62;&#x2e;&#x63;&#x6e;</a>     bingjiang.bao@DM#0510</p>
 <p>服务器：bingjiang.bao    bingjiang.bao@DM#0510</p>
 <p>​    开发机服务器：10.0.0.206</p>
 <p>​    测试服务器：10.0.0.203</p>
@@ -11979,7 +11979,10 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 </li>
 <li>函数结束后 函数中的协程还在继续 除非这个函数是main函数</li>
 </ul>
-<h2 id="day2"><a href="#day2" class="headerlink" title="day2"></a>day2</h2><p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210525112226370.png" alt="image-20210525112226370"></p>
+<p>超过10G的文件或者超过n小时没有写入的文件要移动到线上环境的hivemerge目录下 </p>
+<p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210527101646748.png" alt="image-20210527101646748"></p>
+<h2 id="day2"><a href="#day2" class="headerlink" title="day2"></a>day2</h2><p>rta_open_processor模块</p>
+<p><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210525112226370.png" alt="image-20210525112226370"></p>
 <p>这里希望增加一个预估量级字段，并且能监控起来</p>
 <ul>
 <li>go context:<a href="https://www.cnblogs.com/zhangboyu/p/7456606.html">https://www.cnblogs.com/zhangboyu/p/7456606.html</a></li>
@@ -11992,6 +11995,15 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 <li>prometheus:<a href="https://www.cnblogs.com/momoyan/p/9943268.html">https://www.cnblogs.com/momoyan/p/9943268.html</a></li>
 </ul>
 <p>通过发送预估数量级对象集合到某个接口 这个接口再把预估数量级写入db中</p>
+<h1 id="question"><a href="#question" class="headerlink" title="question"></a>question</h1><ol>
+<li>结构体中的互斥锁加锁的时候锁住了什么：相当于一个普通的互斥锁而已</li>
+<li>多个协程在写文件 当有一个协程锁住这个文件的时候 其他协程会等待解锁因为 操作的是同一个文件 </li>
+<li>go中结构体相当于一个类 该结构体被所有该类中创建的协程共享<ol>
+<li><img src="/2021/05/10/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0/log\source_posts\工作笔记\image-20210527114031763.png" alt="image-20210527114031763"></li>
+</ol>
+</li>
+<li></li>
+</ol>
 ]]></content>
   </entry>
   <entry>
@@ -12393,7 +12405,7 @@ Topic：通配符，把消息交给符合routing pattern（路由模式） 的�
 
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;database/sql&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="comment">//import 下划线（如：import _ github/demo）的作用：当导入一个包时，该包下的文件里所有init()函数都会被执行，然而，有些时候我们并不需要把整个包都导入进来，仅仅是是希望它执行init()函数而已。这个时候就可以使用 import _ 引用该包。</span></span><br><span class="line">	_ <span class="string">&quot;github.com/go-sql-driver/mysql&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	db,_:=sql.Open(<span class="string">&quot;mysql&quot;</span>,<span class="string">&quot;root:Bbj0611..@tcp(192.168.52.131:3306)/exercise&quot;</span>)</span><br><span class="line"></span><br><span class="line">	err := db.Ping()</span><br><span class="line">	<span class="keyword">defer</span> db.Close()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span>&#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;数据库链接失败&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> db.Close()</span><br><span class="line"></span><br><span class="line"> 	<span class="comment">//多行查询</span></span><br><span class="line">	rows,_:=db.Query(<span class="string">&quot;select * from grade&quot;</span>)</span><br><span class="line">	<span class="keyword">var</span> id,level <span class="keyword">string</span></span><br><span class="line">	<span class="keyword">for</span> rows.Next()&#123;</span><br><span class="line">		rows.Scan(&amp;id,&amp;level)</span><br><span class="line">		 fmt.Println(id,level)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-]]></content>
+<h1 id="GIN"><a href="#GIN" class="headerlink" title="GIN"></a>GIN</h1>]]></content>
   </entry>
   <entry>
     <title>grpc</title>
